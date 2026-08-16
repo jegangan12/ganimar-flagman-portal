@@ -197,18 +197,16 @@ img {
   text-align: left;
 }
 
-/* Dan Authentic Frame (Left-Aligned) */
+/* Dan Authentic Frame (Left-Aligned, No Background/Border, Top-Left Corner Only) */
 .frame-inner-left {
   position: relative;
-  padding: 34px 44px;
-  background: rgba(12, 11, 10, 0.55);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 16px 0 0 20px;
+  background: transparent;
   display: inline-block;
   margin-bottom: 24px;
 }
 
-.frame-1, .frame-2 {
+.frame-1 {
   position: absolute;
   left: 0;
   top: 0;
@@ -217,26 +215,16 @@ img {
   pointer-events: none;
 }
 
-.frame-1::before, .frame-2::after {
+.frame-1::before {
   content: '';
   display: block;
   position: absolute;
-  width: 36px;
-  height: 36px;
-}
-
-.frame-1::before {
   top: 0;
   left: 0;
+  width: 36px;
+  height: 36px;
   border-top: 2px solid var(--accent-amber);
   border-left: 2px solid var(--accent-amber);
-}
-
-.frame-2::after {
-  bottom: 0;
-  right: 0;
-  border-bottom: 2px solid var(--accent-amber);
-  border-right: 2px solid var(--accent-amber);
 }
 
 .frame-inner-left .frame-estd {
