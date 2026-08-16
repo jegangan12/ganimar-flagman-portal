@@ -1,5 +1,5 @@
 /**
- * GANIMAR Flagship Portal - Main Application Script
+ * GANIMAR Flagship Portal - Main Application Script (Dan Aesthetic)
  * Standards: Safe textContent injection, Dynamic Year, Canvas Constellation,
  *            Interactive Navigator, Modals, Zero Jitter
  */
@@ -19,9 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
   renderCasesShowcase(data);
   renderProductsLab(data);
   initInteractiveNavigator(data);
-  initModalsAndContactActions();
+  initContactActions();
   initMobileMenu();
-  initScrollEffects();
+  initNavbarScroll();
 });
 
 /**
@@ -37,7 +37,6 @@ function initDynamicYear() {
 
 /**
  * 2. Интерактивное фоновое созвездие на Canvas
- * Частицы мягко дрейфуют и реагируют на курсор мыши
  */
 function initCanvasConstellation() {
   const canvas = document.getElementById('constellation-canvas');
@@ -48,18 +47,18 @@ function initCanvasConstellation() {
   let width = (canvas.width = window.innerWidth);
   let height = (canvas.height = window.innerHeight);
 
-  let mouse = { x: -1000, y: -1000, radius: 140 };
+  let mouse = { x: -1000, y: -1000, radius: 120 };
   const particles = [];
-  const particleCount = Math.min(Math.floor(window.innerWidth / 24), 50);
+  const particleCount = Math.min(Math.floor(window.innerWidth / 28), 40);
 
   class Particle {
     constructor() {
       this.x = Math.random() * width;
       this.y = Math.random() * height;
-      this.vx = (Math.random() - 0.5) * 0.4;
-      this.vy = (Math.random() - 0.5) * 0.4;
-      this.radius = Math.random() * 1.5 + 0.8;
-      this.baseAlpha = Math.random() * 0.4 + 0.2;
+      this.vx = (Math.random() - 0.5) * 0.35;
+      this.vy = (Math.random() - 0.5) * 0.35;
+      this.radius = Math.random() * 1.4 + 0.6;
+      this.baseAlpha = Math.random() * 0.35 + 0.15;
     }
 
     update() {
@@ -71,22 +70,21 @@ function initCanvasConstellation() {
       if (this.y < 0) this.y = height;
       if (this.y > height) this.y = 0;
 
-      // Реакция на мышь
       const dx = mouse.x - this.x;
       const dy = mouse.y - this.y;
       const dist = Math.sqrt(dx * dx + dy * dy);
       if (dist < mouse.radius) {
         const angle = Math.atan2(dy, dx);
         const force = (mouse.radius - dist) / mouse.radius;
-        this.x -= Math.cos(angle) * force * 1.5;
-        this.y -= Math.sin(angle) * force * 1.5;
+        this.x -= Math.cos(angle) * force * 1.2;
+        this.y -= Math.sin(angle) * force * 1.2;
       }
     }
 
     draw() {
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(232, 161, 60, ${this.baseAlpha})`;
+      ctx.fillStyle = `rgba(249, 111, 0, ${this.baseAlpha})`;
       ctx.fill();
     }
   }
@@ -98,20 +96,19 @@ function initCanvasConstellation() {
   function animate() {
     ctx.clearRect(0, 0, width, height);
 
-    // Соединительные линии
     for (let i = 0; i < particles.length; i++) {
       for (let j = i + 1; j < particles.length; j++) {
         const dx = particles[i].x - particles[j].x;
         const dy = particles[i].y - particles[j].y;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
-        if (dist < 110) {
-          const alpha = (1 - dist / 110) * 0.16;
+        if (dist < 100) {
+          const alpha = (1 - dist / 100) * 0.12;
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = `rgba(232, 161, 60, ${alpha})`;
-          ctx.lineWidth = 0.75;
+          ctx.strokeStyle = `rgba(249, 111, 0, ${alpha})`;
+          ctx.lineWidth = 0.6;
           ctx.stroke();
         }
       }
@@ -144,7 +141,7 @@ function initCanvasConstellation() {
 }
 
 /**
- * 3. Рендеринг веток экосистемы зонтичного бренда
+ * 3. Рендеринг веток экосистемы зонтика
  */
 function renderEcosystemBranches(data) {
   const container = document.getElementById('branches-grid');
@@ -153,7 +150,7 @@ function renderEcosystemBranches(data) {
 
   data.branches.forEach((branch) => {
     const card = document.createElement('div');
-    card.className = `glass-card branch-card ${branch.accent === 'violet' ? 'violet' : ''}`;
+    card.className = 'branch-card';
 
     const header = document.createElement('div');
     header.className = 'branch-header';
@@ -209,7 +206,7 @@ function renderSubdomainHub(data) {
 
   data.subdomains.forEach((item) => {
     const card = document.createElement('div');
-    card.className = 'glass-card subdomain-card';
+    card.className = 'subdomain-card';
 
     const badge = document.createElement('div');
     badge.className = 'subdomain-badge';
@@ -244,7 +241,7 @@ function renderSubdomainHub(data) {
 }
 
 /**
- * 5. Рендеринг большой сетки метрик и доказательств
+ * 5. Рендеринг метрик
  */
 function renderStatsGrid(data) {
   const container = document.getElementById('stats-grid-wrapper');
@@ -264,7 +261,6 @@ function renderStatsGrid(data) {
 
     const huge = document.createElement('div');
     huge.className = 'stat-huge';
-    if (stat.number.includes('+') || stat.number.includes('−')) huge.classList.add('emerald');
     huge.textContent = stat.number;
 
     const body = document.createElement('div');
@@ -287,7 +283,7 @@ function renderStatsGrid(data) {
 }
 
 /**
- * 6. Рендеринг флагманских кейсов
+ * 6. Рендеринг кейсов
  */
 function renderCasesShowcase(data) {
   const container = document.getElementById('cases-carousel');
@@ -296,7 +292,7 @@ function renderCasesShowcase(data) {
 
   data.cases.forEach((item) => {
     const card = document.createElement('div');
-    card.className = 'glass-card case-card';
+    card.className = 'case-card';
 
     const niche = document.createElement('div');
     niche.className = 'case-niche';
@@ -333,7 +329,7 @@ function renderCasesShowcase(data) {
 }
 
 /**
- * 7. Рендеринг продуктов AI-лаборатории
+ * 7. Рендеринг продуктов
  */
 function renderProductsLab(data) {
   const container = document.getElementById('products-grid');
@@ -342,7 +338,7 @@ function renderProductsLab(data) {
 
   data.products.forEach((prod) => {
     const card = document.createElement('div');
-    card.className = 'glass-card product-card';
+    card.className = 'product-card';
 
     const header = document.createElement('div');
     header.className = 'product-header';
@@ -382,7 +378,7 @@ function renderProductsLab(data) {
 }
 
 /**
- * 8. Интерактивный навигатор потребностей («С чем вы пришли?»)
+ * 8. Интерактивный навигатор потребностей
  */
 function initInteractiveNavigator(data) {
   const tabsContainer = document.getElementById('navigator-tabs');
@@ -396,23 +392,23 @@ function initInteractiveNavigator(data) {
 
     panelContainer.innerHTML = `
       <div>
-        <div class="section-badge ${item.id === 'student' ? 'violet' : ''}">${item.subtitle}</div>
+        <span class="section-subtitle">${item.subtitle}</span>
         <h3 class="nav-recommend-title">${item.title}</h3>
         <p class="nav-recommend-text">${item.recommendation}</p>
         <div class="nav-links-row">
-          <a href="${item.primaryUrl}" target="_blank" rel="noopener noreferrer" class="btn-primary">
+          <a href="${item.primaryUrl}" target="_blank" rel="noopener noreferrer" class="btn-dan-primary">
             ${item.actionText} →
           </a>
-          <a href="${item.proofUrl}" target="_blank" rel="noopener noreferrer" class="btn-glass">
+          <a href="${item.proofUrl}" target="_blank" rel="noopener noreferrer" class="btn-dan-outline">
             Посмотреть ${item.proofLink}
           </a>
         </div>
       </div>
-      <div style="background: var(--bg-surface); padding: 20px; border-radius: var(--radius-md); border: 1px solid var(--border-glass);">
-        <div style="font-family: 'Unbounded'; font-size: 13px; font-weight: 700; color: var(--accent-amber); margin-bottom: 8px;">
+      <div style="background: var(--bg-alt); padding: 24px; border: 1px solid var(--border-light);">
+        <div style="font-family: 'Barlow Condensed'; font-size: 15px; font-weight: 700; color: var(--accent-amber); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px;">
           Рекомендуемый маршрут
         </div>
-        <div style="font-size: 13.5px; color: var(--ink-secondary); line-height: 1.5;">
+        <div style="font-size: 14px; color: var(--text-muted); line-height: 1.6;">
           ${item.id === 'client' ? '1. Изучите твердые кейсы в МФЮА и застройщиках<br>2. Ознакомьтесь с услугами на ganimarketing.ru<br>3. Напишите Евгению в Telegram для экспресс-аудита' : ''}
           ${item.id === 'student' ? '1. Посмотрите открытые материалы в Школе<br>2. Ознакомьтесь с платформой GVIDERA<br>3. Запишитесь на поток по вайб-кодингу' : ''}
           ${item.id === 'partner' ? '1. Ознакомьтесь с деком portfolio.ganimar.ru<br>2. Посмотрите витрину 51 AI-продукта<br>3. Обсудите формат партнерства в личном чате' : ''}
@@ -437,12 +433,9 @@ function initInteractiveNavigator(data) {
 }
 
 /**
- * 9. Модальные окна и копирование контактов
+ * 9. Копирование контактов и тост
  */
-function initModalsAndContactActions() {
-  const modalOverlay = document.getElementById('contact-modal');
-  const openButtons = document.querySelectorAll('[data-open-modal]');
-  const closeButtons = document.querySelectorAll('[data-close-modal]');
+function initContactActions() {
   const copyButtons = document.querySelectorAll('[data-copy-text]');
   const toast = document.getElementById('toast-box');
 
@@ -454,31 +447,6 @@ function initModalsAndContactActions() {
       toast.classList.remove('show');
     }, 3000);
   }
-
-  openButtons.forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (modalOverlay) modalOverlay.classList.add('open');
-    });
-  });
-
-  closeButtons.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      if (modalOverlay) modalOverlay.classList.remove('open');
-    });
-  });
-
-  if (modalOverlay) {
-    modalOverlay.addEventListener('click', (e) => {
-      if (e.target === modalOverlay) modalOverlay.classList.remove('open');
-    });
-  }
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modalOverlay && modalOverlay.classList.contains('open')) {
-      modalOverlay.classList.remove('open');
-    }
-  });
 
   copyButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -496,18 +464,18 @@ function initModalsAndContactActions() {
  * 10. Мобильное меню
  */
 function initMobileMenu() {
-  const toggleBtn = document.getElementById('mobile-menu-btn');
-  const navLinks = document.getElementById('nav-links');
+  const toggleBtn = document.getElementById('mobile-toggle');
+  const navMenu = document.getElementById('nav-menu');
 
-  if (toggleBtn && navLinks) {
+  if (toggleBtn && navMenu) {
     toggleBtn.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
-      toggleBtn.textContent = navLinks.classList.contains('open') ? '✕' : '☰';
+      navMenu.classList.toggle('open');
+      toggleBtn.textContent = navMenu.classList.contains('open') ? '✕' : '☰';
     });
 
-    navLinks.querySelectorAll('a').forEach((link) => {
+    navMenu.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', () => {
-        navLinks.classList.remove('open');
+        navMenu.classList.remove('open');
         toggleBtn.textContent = '☰';
       });
     });
@@ -515,15 +483,15 @@ function initMobileMenu() {
 }
 
 /**
- * 11. Плавный скролл и эффекты шапки
+ * 11. Плавная шапка при скролле (Dan Nav-Scroll)
  */
-function initScrollEffects() {
-  const header = document.querySelector('.nav-header');
+function initNavbarScroll() {
+  const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 20) {
-      header?.classList.add('scrolled');
+    if (window.scrollY > 50) {
+      navbar?.classList.add('scrolled');
     } else {
-      header?.classList.remove('scrolled');
+      navbar?.classList.remove('scrolled');
     }
   });
 }
