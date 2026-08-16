@@ -17,9 +17,11 @@
   <!-- Fonts: Barlow Condensed & Onest -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Onest:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Onest:wght@300;400;500;600;700&family=Didact+Gothic&display=swap" rel="stylesheet" />
 
-  <!-- Stylesheet -->
+  <!-- Stylesheets (Bootstrap 4 + Dan Core + Custom Adaptation) -->
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/themify-icons.css" />
   <link rel="stylesheet" href="css/styles.css" />
 
   <!-- Schema.org Person -->
@@ -42,292 +44,273 @@
 </head>
 <body class="dan-theme">
 
-  <!-- Background Canvas & Ambient Lighting -->
-  <canvas id="constellation-canvas"></canvas>
-  <div class="ambient-overlay"></div>
-
-  <!-- 1. STICKY NAVBAR (Dan Style) -->
-  <nav class="navbar" id="navbar">
-    <div class="container nav-container">
-      <a href="#home" class="logo-link">
-        <span class="logo-title">GANIMAR</span>
-        <span class="logo-sub">ESTD 2010</span>
+  <!-- 1. NAVBAR (Dan Authentic) -->
+  <nav class="navbar navbar-expand-lg fixed-top" id="main-nav">
+    <div class="container">
+      <!-- Logo -->
+      <a class="navbar-brand logo-link" href="#home">
+        <span class="logo-text">GANIMAR</span>
+        <span class="logo-estd">ESTD 2010</span>
       </a>
 
-      <div class="nav-menu" id="nav-menu">
-        <ul class="nav-list">
-          <li><a href="#home" class="nav-link active">Главная</a></li>
-          <li><a href="#about" class="nav-link">Обо мне</a></li>
-          <li><a href="#ecosystem" class="nav-link">Экосистема</a></li>
-          <li><a href="#subdomains" class="nav-link">Витрины</a></li>
-          <li><a href="#proof" class="nav-link">Показатели</a></li>
-          <li><a href="#cases" class="nav-link">Кейсы</a></li>
-          <li><a href="#products" class="nav-link">AI-Продукты</a></li>
-          <li><a href="#navigator" class="nav-link">Маршрутизатор</a></li>
-          <li><a href="#contact" class="nav-link">Контакты</a></li>
-        </ul>
-      </div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Меню">
+        <span class="icon-bar" style="color: #f96f00; font-size: 22px;">☰</span>
+      </button>
 
-      <div class="nav-cta-box">
-        <a href="https://t.me/ganimarketing" target="_blank" rel="noopener noreferrer" class="btn-nav-telegram">
-          <span>Telegram</span>
-          <span>↗</span>
-        </a>
-        <button class="mobile-toggle" id="mobile-toggle" aria-label="Меню">☰</button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto align-items-center">
+          <li class="nav-item"><a class="nav-link" href="#home">Главная</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">Обо мне</a></li>
+          <li class="nav-item"><a class="nav-link" href="#ecosystem">Экосистема</a></li>
+          <li class="nav-item"><a class="nav-link" href="#subdomains">Витрины</a></li>
+          <li class="nav-item"><a class="nav-link" href="#proof">Показатели</a></li>
+          <li class="nav-item"><a class="nav-link" href="#cases">Кейсы</a></li>
+          <li class="nav-item"><a class="nav-link" href="#products">AI-Продукты</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Контакты</a></li>
+          <li class="nav-item ml-lg-3">
+            <a href="https://t.me/ganimarketing" target="_blank" rel="noopener noreferrer" class="btn-nav-tg">
+              <span>Telegram</span>
+              <span>↗</span>
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
 
-  <!-- 2. HERO SECTION (Dan Fullscreen Cinematic Frame) -->
-  <header class="header-hero" id="home">
-    <div class="hero-bg-image" style="background-image: url('assets/me-dark-portrait.jpg');"></div>
-    <div class="hero-dark-overlay"></div>
+  <!-- 2. HERO HEADER (Dan Authentic Fullscreen Frame) -->
+  <header class="header valign pos-pre bg-img" id="home" data-overlay-dark="5" style="background-image: url('assets/me-dark-portrait.jpg');">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 caption text-center">
+          <div class="frame-inner">
+            <h5>ESTD 2010 · 15 ЛЕТ ОПЫТА</h5>
+            <h1>ЕВГЕНИЙ ГАНИМАР</h1>
+            <h5>ДИРЕКТОР ПО МАРКЕТИНГУ & АРХИТЕКТОР AI-РЕШЕНИЙ</h5>
+            <span class="frame-1"></span>
+            <span class="frame-2"></span>
+          </div>
 
-    <div class="container hero-container">
-      <div class="hero-frame-box">
-        <div class="frame-inner">
-          <h5 class="frame-estd">ESTD 2010 · 15 ЛЕТ ОПЫТА</h5>
-          <h1 class="frame-name">EVGENY GANIMAR</h1>
-          <h5 class="frame-role">МАРКЕТИНГ ДИРЕКТОР & АРХИТЕКТОР AI-РЕШЕНИЙ</h5>
-          <span class="frame-1"></span>
-          <span class="frame-2"></span>
+          <p class="hero-tagline">
+            Превращаю бюджет в предсказуемую выручку — и усиливаю её искусственным интеллектом
+          </p>
+
+          <div class="hero-btns">
+            <a href="#ecosystem" class="btn-dan-solid">
+              <span>Изучить экосистему</span>
+              <span>↓</span>
+            </a>
+            <a href="https://t.me/ganimarketing" target="_blank" rel="noopener noreferrer" class="btn-dan-border">
+              <span>Обсудить задачу</span>
+              <span>↗</span>
+            </a>
+          </div>
+
+          <!-- Arrow bounce -->
+          <div class="arrow bounce">
+            <a href="#about" aria-label="Прокрутить вниз">
+              <i class="ti-angle-double-down">↓</i>
+            </a>
+          </div>
         </div>
-
-        <p class="hero-tagline">
-          Превращаю бюджет в предсказуемую выручку — и усиливаю её искусственным интеллектом
-        </p>
-
-        <div class="hero-quick-actions">
-          <a href="#ecosystem" class="btn-dan-primary">
-            <span>Изучить экосистему</span>
-            <span>↓</span>
-          </a>
-          <a href="https://t.me/ganimarketing" target="_blank" rel="noopener noreferrer" class="btn-dan-outline">
-            <span>Обсудить задачу</span>
-            <span>↗</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- Arrow Bounce Scroll -->
-      <div class="arrow-bounce">
-        <a href="#about" aria-label="Прокрутить вниз">
-          <span class="arrow-icon">↓</span>
-        </a>
       </div>
     </div>
   </header>
 
-  <!-- Vertical Divider Line -->
-  <div class="line-vr-section"></div>
+  <hr class="line-vr-section" />
 
-  <!-- 3. ABOUT SECTION (Триада компетенций) -->
-  <section class="section about-section" id="about">
+  <!-- 3. ABOUT SECTION (Обо мне и Триада компетенций) -->
+  <section class="about section-padding" id="about">
     <div class="container">
-      <div class="title-center">
-        <span class="section-subtitle">ОБО МНЕ И ТРИАДЕ</span>
-        <h2 class="section-title">Евгений Ганимар</h2>
+      <div class="row">
+        <div class="col-md-8 offset-md-2 text-center">
+          <div class="title">
+            <span>ОБО МНЕ И ТРИАДЕ</span>
+            <h2>Евгений Ганимар</h2>
+          </div>
+          <p class="lead text-white mb-3" style="font-size: 19px; font-weight: 400; line-height: 1.6;">
+            Моя ключевая ценность — редкое соединение стратегического маркетинга миллиардного уровня, передовой AI-инженерии через вайб-кодинг и глубокой автоматизации продаж.
+          </p>
+          <p class="mb-5" style="font-size: 15.5px; color: #999999; line-height: 1.8;">
+            За 15 лет в бизнесе я управлял рекламными бюджетами федеральных сетей на 75+ млн ₽, выстраивал сквозную аналитику и запускал автоворонки. Сегодня я создаю под задачи бизнеса кастомные мультиагентные ИИ-системы, виртуальные отделы маркетинга и нейросотрудников за часы, а не месяцы.
+          </p>
+        </div>
       </div>
 
-      <div class="about-content-box">
-        <p class="about-lead">
-          Моя ключевая ценность — редкое соединение стратегического маркетинга миллиардного уровня, передовой AI-инженерии через вайб-кодинг и глубокой автоматизации продаж.
-        </p>
-        <p class="about-text">
-          За 15 лет в бизнесе я управлял рекламными бюджетами федеральных сетей на 75+ млн ₽, выстраивал сквозную аналитику и запускал автоворонки. Сегодня я создаю под задачи бизнеса кастомные мультиагентные ИИ-системы, виртуальные отделы маркетинга и нейросотрудников за часы, а не месяцы.
-        </p>
-      </div>
-
-      <!-- Triad Cards -->
-      <div class="triad-grid">
-        <div class="triad-card">
-          <div class="triad-num">01</div>
-          <h3 class="triad-title">Системный маркетинг</h3>
-          <p class="triad-desc">Стратегия, юнит-экономика, сквозная аналитика и управление мультиканальным трафиком в 15+ источниках.</p>
+      <!-- Triad Row -->
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="triad-box">
+            <div class="triad-num">01</div>
+            <h4>Системный маркетинг</h4>
+            <p>Стратегия, юнит-экономика, сквозная аналитика и управление мультиканальным трафиком в 15+ источниках.</p>
+          </div>
         </div>
-        <div class="triad-card active-amber">
-          <div class="triad-num">02</div>
-          <h3 class="triad-title">AI-инженерия</h3>
-          <p class="triad-desc">51 собранный AI-продукт: мультиагентные системы, нейросотрудники, умные CRM и автономные платформы.</p>
+        <div class="col-md-4 mb-4">
+          <div class="triad-box active-triad">
+            <div class="triad-num">02</div>
+            <h4>AI-инженерия</h4>
+            <p>51 собранный AI-продукт: мультиагентные системы, нейросотрудники, умные CRM и автономные платформы.</p>
+          </div>
         </div>
-        <div class="triad-card">
-          <div class="triad-num">03</div>
-          <h3 class="triad-title">Автоматизация продаж</h3>
-          <p class="triad-desc">Голосовые роботы, чат-боты, квалификация лидов и сквозные автоворонки, сокращающие цикл сделки на 30%.</p>
+        <div class="col-md-4 mb-4">
+          <div class="triad-box">
+            <div class="triad-num">03</div>
+            <h4>Автоматизация продаж</h4>
+            <p>Голосовые роботы, чат-боты, квалификация лидов и сквозные автоворонки, сокращающие цикл сделки на 30%.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Vertical Divider Line -->
-  <div class="line-vr-section"></div>
+  <hr class="line-vr-section" />
 
-  <!-- 4. ECOSYSTEM BRANCHES (Ствол и Ветки зонтика) -->
-  <section class="section ecosystem-section bg-dark-alt" id="ecosystem">
+  <!-- 4. ECOSYSTEM SECTION (Ветки зонтика) -->
+  <section class="services section-padding bg-grey" id="ecosystem">
     <div class="container">
-      <div class="title-center">
-        <span class="section-subtitle">СТВОЛ И ВЕТКИ</span>
-        <h2 class="section-title">Экосистема зонтичного бренда GANIMAR</h2>
-        <p class="section-caption">Единый корень GANIMAR объединяет ключевые направления бизнеса, образования, платформенных решений и медиа.</p>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <div class="title">
+            <span>СТВОЛ И ВЕТКИ</span>
+            <h2>Экосистема зонтичного бренда GANIMAR</h2>
+          </div>
+        </div>
       </div>
 
-      <div class="branches-grid" id="branches-grid">
+      <div class="row" id="branches-container">
         <!-- Rendered dynamically from data.js -->
       </div>
     </div>
   </section>
 
-  <!-- Vertical Divider Line -->
-  <div class="line-vr-section"></div>
+  <hr class="line-vr-section" />
 
-  <!-- 5. SUBDOMAINS HUB (Хаб поддоменов и личных витрин) -->
-  <section class="section subdomains-section" id="subdomains">
+  <!-- 5. SUBDOMAINS HUB (Хаб поддоменов) -->
+  <section class="section-padding" id="subdomains">
     <div class="container">
-      <div class="title-center">
-        <span class="section-subtitle">СЕМЕЙСТВО СЕРВИСОВ</span>
-        <h2 class="section-title">Хаб поддоменов и личных витрин</h2>
-        <p class="section-caption">Специализированные витрины и цифровые пространства на поддоменах ganimar.ru под конкретные сценарии взаимодействия.</p>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <div class="title">
+            <span>СЕМЕЙСТВО СЕРВИСОВ</span>
+            <h2>Хаб поддоменов и личных витрин</h2>
+          </div>
+        </div>
       </div>
 
-      <div class="subdomains-grid" id="subdomains-grid">
+      <div class="row" id="subdomains-container">
         <!-- Rendered dynamically from data.js -->
       </div>
     </div>
   </section>
 
-  <!-- Vertical Divider Line -->
-  <div class="line-vr-section"></div>
+  <hr class="line-vr-section" />
 
-  <!-- 6. PROOF STATS GRID (Доказательная база) -->
-  <section class="section proof-section bg-dark-alt" id="proof">
+  <!-- 6. STATS SECTION (Твердые показатели) -->
+  <section class="stats section-padding bg-grey" id="proof">
     <div class="container">
-      <div class="title-center">
-        <span class="section-subtitle">ДОКАЗАТЕЛЬНАЯ БАЗА</span>
-        <h2 class="section-title">Цифры, а не пустые обещания</h2>
-        <p class="section-caption">Только подтвержденные метрики и фактические результаты работы, зафиксированные в проектной документации.</p>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <div class="title">
+            <span>ДОКАЗАТЕЛЬНАЯ БАЗА</span>
+            <h2>Цифры, а не пустые обещания</h2>
+          </div>
+        </div>
       </div>
 
-      <div class="stats-grid-wrapper" id="stats-grid-wrapper">
+      <div class="row" id="stats-container">
         <!-- Rendered dynamically from data.js -->
       </div>
     </div>
   </section>
 
-  <!-- Vertical Divider Line -->
-  <div class="line-vr-section"></div>
+  <hr class="line-vr-section" />
 
-  <!-- 7. CASES SHOWCASE (Избранные кейсы) -->
-  <section class="section cases-section" id="cases">
+  <!-- 7. CASES SECTION (Кейсы) -->
+  <section class="section-padding" id="cases">
     <div class="container">
-      <div class="title-center">
-        <span class="section-subtitle">РЕАЛЬНЫЙ ОПЫТ</span>
-        <h2 class="section-title">Избранные флагманские кейсы</h2>
-        <p class="section-caption">Примеры реальных проектов с прозрачной юнит-экономикой, ростом выручки и публикациями в отраслевых медиа.</p>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <div class="title">
+            <span>РЕАЛЬНЫЙ ОПЫТ</span>
+            <h2>Избранные кейсы</h2>
+          </div>
+        </div>
       </div>
 
-      <div class="cases-grid" id="cases-carousel">
+      <div class="row" id="cases-container">
         <!-- Rendered dynamically from data.js -->
       </div>
     </div>
   </section>
 
-  <!-- Vertical Divider Line -->
-  <div class="line-vr-section"></div>
+  <hr class="line-vr-section" />
 
-  <!-- 8. PRODUCTS LAB (AI-Лаборатория) -->
-  <section class="section products-section bg-dark-alt" id="products">
+  <!-- 8. PRODUCTS LAB SECTION (Продукты) -->
+  <section class="section-padding bg-grey" id="products">
     <div class="container">
-      <div class="title-center">
-        <span class="section-subtitle">ЛАБОРАТОРИЯ ПРОДУКТОВ</span>
-        <h2 class="section-title">Я не только консультирую — я создаю</h2>
-        <p class="section-caption">Флагманские решения из каталога 51 AI-продукта: мультиагентные системы, ИИ-ОКК и автономные платформы.</p>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <div class="title">
+            <span>ЛАБОРАТОРИЯ ПРОДУКТОВ</span>
+            <h2>AI-продукты под ключ</h2>
+          </div>
+        </div>
       </div>
 
-      <div class="products-grid" id="products-grid">
+      <div class="row" id="products-container">
         <!-- Rendered dynamically from data.js -->
       </div>
     </div>
   </section>
 
-  <!-- Vertical Divider Line -->
-  <div class="line-vr-section"></div>
+  <hr class="line-vr-section" />
 
-  <!-- 9. INTERACTIVE NAVIGATOR (Маршрутизатор) -->
-  <section class="section navigator-section" id="navigator">
+  <!-- 9. CONTACT SECTION -->
+  <section class="section-padding" id="contact">
     <div class="container">
-      <div class="title-center">
-        <span class="section-subtitle">ИНТЕРАКТИВНЫЙ НАВИГАТОР</span>
-        <h2 class="section-title">С чем вы пришли? Подберите решение</h2>
-        <p class="section-caption">Выберите свой сценарий, чтобы мгновенно получить персональный маршрут по экосистеме GANIMAR.</p>
-      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="contact-box">
+            <div class="title mb-4">
+              <span>ТОЧКА ВХОДА</span>
+              <h2>Есть задача или проект? Обсудим</h2>
+            </div>
+            <p class="mb-4" style="font-size: 16px; color: #aaaaaa; max-width: 600px; margin: 0 auto 30px;">
+              Беру проекты по системному маркетингу, аудиту воронок, внедрению нейросотрудников и разработке кастомных AI-продуктов под ключ.
+            </p>
 
-      <div class="navigator-card-wrapper">
-        <div class="navigator-tabs" id="navigator-tabs">
-          <!-- Rendered dynamically from data.js -->
-        </div>
-        <div class="navigator-panel" id="navigator-panel">
-          <!-- Rendered dynamically from data.js -->
+            <div class="hero-btns mb-4">
+              <a href="https://t.me/ganimarketing" target="_blank" rel="noopener noreferrer" class="btn-dan-solid">
+                <span>Telegram @ganimarketing</span>
+                <span>↗</span>
+              </a>
+              <a href="https://ganimar-vizitka.vercel.app" target="_blank" rel="noopener noreferrer" class="btn-dan-border">
+                <span>me.ganimar.ru (Визитка)</span>
+                <span>↗</span>
+              </a>
+            </div>
+
+            <div style="font-size: 14px; color: #888888;">
+              <a href="https://vk.ru/jegan" target="_blank" rel="noopener noreferrer" style="color: #aaaaaa; margin: 0 8px;">ВКонтакте</a> ·
+              <a href="https://set.ki/DdJYSiW" target="_blank" rel="noopener noreferrer" style="color: #aaaaaa; margin: 0 8px;">Сетка</a> ·
+              <a href="https://m.tenchat.ru/u/LTVjReO4" target="_blank" rel="noopener noreferrer" style="color: #aaaaaa; margin: 0 8px;">TenChat</a> ·
+              <a href="https://t.me/clients_inForbes" target="_blank" rel="noopener noreferrer" style="color: #aaaaaa; margin: 0 8px;">Канал «Системный рост бизнеса»</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Vertical Divider Line -->
-  <div class="line-vr-section"></div>
-
-  <!-- 10. CONTACT SECTION (Точка входа) -->
-  <section class="section contact-section" id="contact">
+  <!-- 10. FOOTER -->
+  <footer class="footer-dan text-center">
     <div class="container">
-      <div class="contact-box-inner">
-        <span class="section-subtitle">ТОЧКА ВХОДА</span>
-        <h2 class="section-title">Есть задача или проект? Обсудим</h2>
-        <p class="contact-desc">Беру проекты по системному маркетингу, аудиту воронок, внедрению нейросотрудников и разработке AI-продуктов под ключ.</p>
-
-        <div class="contact-actions-row">
-          <a href="https://t.me/ganimarketing" target="_blank" rel="noopener noreferrer" class="btn-dan-primary">
-            <span>Telegram @ganimarketing</span>
-            <span>↗</span>
-          </a>
-          <button class="btn-dan-outline" data-copy-text="+79164837713">
-            <span>+7 (916) 483-77-13 (Скопировать)</span>
-          </button>
-          <a href="https://ganimar-vizitka.vercel.app" target="_blank" rel="noopener noreferrer" class="btn-dan-glass">
-            <span>me.ganimar.ru (Визитка)</span>
-            <span>↗</span>
-          </a>
-        </div>
-
-        <div class="social-links-row">
-          <a href="https://vk.ru/jegan" target="_blank" rel="noopener noreferrer" class="social-link">ВКонтакте</a>
-          <span class="social-dot">·</span>
-          <a href="https://set.ki/DdJYSiW" target="_blank" rel="noopener noreferrer" class="social-link">Сетка</a>
-          <span class="social-dot">·</span>
-          <a href="https://m.tenchat.ru/u/LTVjReO4" target="_blank" rel="noopener noreferrer" class="social-link">TenChat</a>
-          <span class="social-dot">·</span>
-          <a href="https://t.me/clients_inForbes" target="_blank" rel="noopener noreferrer" class="social-link">Канал «Системный рост бизнеса»</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 11. FOOTER (Скриптовый год) -->
-  <footer class="footer-dan">
-    <div class="container footer-container">
-      <div class="footer-copy">
-        © <span id="year"></span> GANIMAR. Все права защищены
-      </div>
-      <div class="footer-links">
-        <a href="#home" class="footer-link">Наверх ↑</a>
-        <a href="docs/SPEC.md" target="_blank" class="footer-link">Спецификация</a>
-        <a href="https://t.me/ganimarketing" target="_blank" class="footer-link">Telegram</a>
-      </div>
+      <p class="mb-0">© <span id="year"></span> GANIMAR. Все права защищены</p>
     </div>
   </footer>
 
-  <!-- Toast Notification Box -->
-  <div class="toast-box" id="toast-box"></div>
-
-  <!-- Application Data & Logic -->
+  <!-- Scripts -->
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
 </body>
