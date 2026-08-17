@@ -14,7 +14,7 @@ window.GANIMAR_DATA = {
       url: 'https://ganimarketing.ru',
       features: ['Сквозная аналитика', 'Управление трафиком', 'Нейросотрудники', 'Автоворонки продаж'],
       ctaText: 'Перейти на ganimarketing.ru',
-      preview: 'assets/previews/case-dev.jpg'
+      preview: 'assets/previews/branch-marketing.jpg'
     },
     {
       id: 'school',
@@ -24,7 +24,7 @@ window.GANIMAR_DATA = {
       url: 'https://ganimarschool.ru',
       features: ['Вайб-кодинг', 'Мультиагентные системы', 'Промпт-инжиниринг', 'Практика на реальных кейсах'],
       ctaText: 'Перейти на ganimarschool.ru',
-      preview: 'assets/previews/blog-1.jpg'
+      preview: 'assets/previews/branch-school.jpg'
     },
     {
       id: 'platform',
@@ -34,7 +34,7 @@ window.GANIMAR_DATA = {
       url: 'https://gvidera.ru',
       features: ['Запущена в проде', 'AI-наставник 24/7', 'Геймификация', 'Интерактивные тренажеры'],
       ctaText: 'Открыть gvidera.ru',
-      preview: 'assets/previews/edvista.jpg'
+      preview: 'assets/previews/branch-platform.jpg'
     },
     {
       id: 'media',
@@ -44,7 +44,7 @@ window.GANIMAR_DATA = {
       url: 'https://aimusican.ru',
       features: ['Яндекс Музыка', 'AI-саундтреки', 'Медиа-продакшен', 'Стриминговые релизы'],
       ctaText: 'Слушать на aimusican.ru',
-      preview: 'assets/previews/aimagenarium.jpg'
+      preview: 'assets/previews/branch-media.jpg'
     }
   ],
 
