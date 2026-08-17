@@ -1,315 +1,265 @@
 /**
- * GANIMAR Flagship Portal - Structured Data
- * Единственный источник доказательной базы и контента
- * Без вымышленных цифр, строго по facts.md и бренд-архитектуре
+ * GANIMAR Flagship Portal — Data Source
+ * Rule: NO trailing periods in titles, subtitles, badges, card descriptions
  */
 
-const GANIMAR_DATA = {
-  profile: {
-    name: "Евгений Ганимар",
-    role: "Директор по маркетингу и архитектор AI-решений",
-    experienceYears: 15,
-    tagline: "Системный маркетинг × Искусственный интеллект × Продажи",
-    h1: "Превращаю бюджет в предсказуемую выручку — и усиливаю её искусственным интеллектом",
-    subheading: "Директор по маркетингу и архитектор AI-решений с 15-летним опытом. Строю системы, которые окупаются, и собираю под них ИИ-продукты и нейросотрудников — от идеи до прода за часы, а не за месяцы",
-    credo: "Смысл важнее хайпа. За каждым продуктом — живая задача бизнеса, а не технология ради технологии",
-    telegram: "@ganimarketing",
-    telegramUrl: "https://t.me/ganimarketing",
-    phone: "+7 (916) 483-77-13",
-    phoneRaw: "+79164837713",
-    location: "Москва",
-    vkUrl: "https://vk.ru/jegan",
-    setkaUrl: "https://set.ki/DdJYSiW",
-    tenchatUrl: "https://m.tenchat.ru/u/LTVjReO4",
-    channelUrl: "https://t.me/clients_inForbes",
-    neuromagUrl: "https://t.me/neuromag_ai"
-  },
-
-  // Ключевые показатели для первого экрана и сетки доказательств
-  heroMetrics: [
-    {
-      value: "1,2 млрд ₽",
-      label: "Оборот бизнесов",
-      sublabel: "под управлением в пике",
-      icon: "chart"
-    },
-    {
-      value: "+160%",
-      label: "ROMI в проекте",
-      sublabel: "лучший показатель отдачи",
-      icon: "trending"
-    },
-    {
-      value: "51",
-      label: "AI-продукт",
-      sublabel: "собрано в 6 направлениях",
-      icon: "cpu"
-    }
-  ],
-
-  statsGrid: [
-    {
-      number: "1,2 млрд ₽",
-      title: "Оборот под управлением",
-      desc: "Управление комплексным маркетингом федеральных сетей и проектов",
-      badge: "Масштаб"
-    },
-    {
-      number: "852 млн ₽",
-      title: "Выручка за один сезон",
-      desc: "Привлечено в рамках одной приемной кампании вуза через сквозную систему",
-      badge: "Рекорд"
-    },
-    {
-      number: "+160%",
-      title: "Рекордный ROMI",
-      desc: "Рост окупаемости инвестиций в маркетинг с экономией 1,5 млн ₽/год бюджета",
-      badge: "Эффективность"
-    },
-    {
-      number: "75+ млн ₽",
-      title: "Освоенных бюджетов",
-      desc: "Практический опыт управления рекламными кампаниями в 15+ источниках",
-      badge: "Опыт"
-    },
-    {
-      number: "51",
-      title: "AI-продукт в портфолио",
-      desc: "Платформы, мультиагентные системы, боты и нейросотрудники через вайб-кодинг",
-      badge: "Технологии"
-    },
-    {
-      number: "−30%",
-      title: "Сокращение цикла сделки",
-      desc: "Автоматизация продаж голосовыми роботами, CRM и сквозными воронками (+20% выручки)",
-      badge: "Автоматизация"
-    },
-    {
-      number: "15+",
-      title: "Источников трафика",
-      desc: "Контекст, таргет, геореклама, programmatic, медийка, инфлюенс, AEO/SEO",
-      badge: "Каналы"
-    },
-    {
-      number: "2-3 часа",
-      title: "От идеи до прототипа",
-      desc: "Скорость вайб-кодинга на ИИ вместо месяцев согласований и ожидания разработки",
-      badge: "Скорость"
-    }
-  ],
-
-  // Ветки экосистемы зонтичного бренда
+window.GANIMAR_DATA = {
+  // 1. Ветки экосистемы
   branches: [
     {
-      id: "marketing",
-      title: "Маркетинг и AI-разработка",
-      domain: "ganimarketing.ru",
-      url: "https://ganimarketing.ru",
-      badge: "Ветка услуг",
-      desc: "Системный маркетинг, сквозные воронки продаж, автоматизация на ИИ и разработка нейросотрудников под ключ",
-      features: ["Сквозная аналитика и ROMI", "Внедрение нейросотрудников", "Автоворонки и боты"],
-      ctaText: "Перейти к услугам",
-      accent: "amber"
+      id: 'marketing',
+      title: 'Системный маркетинг',
+      domain: 'ganimarketing.ru',
+      desc: 'Услуги стратегического маркетинга, сквозной аналитики, настройки воронок и внедрения нейросотрудников под ключ',
+      url: 'https://ganimarketing.ru',
+      features: ['Сквозная аналитика', 'Управление трафиком', 'Нейросотрудники', 'Автоворонки продаж'],
+      ctaText: 'Перейти на ganimarketing.ru',
+      preview: 'assets/previews/case-dev.jpg'
     },
     {
-      id: "school",
-      title: "Школа Ganimar",
-      domain: "ganimarschool.ru",
-      url: "https://ganimarschool.ru",
-      badge: "Обучение",
-      desc: "Обучение системному маркетингу, стратегическому мышлению и вайб-кодингу — как собирать продукты и бизнес-решения с помощью ИИ",
-      features: ["Практикумы по вайб-кодингу", "Мышление стратега", "Автоматизация без кода"],
-      ctaText: "Перейти в школу",
-      accent: "violet"
+      id: 'school',
+      title: 'Школа маркетинга и ИИ',
+      domain: 'ganimarschool.ru',
+      desc: 'Практическое обучение системному маркетингу, вайб-кодингу и созданию AI-агентов без сложного программирования',
+      url: 'https://ganimarschool.ru',
+      features: ['Вайб-кодинг', 'Мультиагентные системы', 'Промпт-инжиниринг', 'Практика на реальных кейсах'],
+      ctaText: 'Перейти на ganimarschool.ru',
+      preview: 'assets/previews/blog-1.jpg'
     },
     {
-      id: "platform",
-      title: "Платформа GVIDERA",
-      domain: "gvidera.ru",
-      url: "https://gvidera.ru",
-      badge: "Платформа (by Ganimar)",
-      desc: "Платформа онлайн-практикумов, где вы строите продукт из смыслов и методологии, а не из сложного кода",
-      features: ["Запущена в проде", "Смысловая сборка", "Инфраструктура курсов"],
-      ctaText: "Открыть GVIDERA",
-      accent: "amber"
+      id: 'platform',
+      title: 'Платформа GVIDERA',
+      domain: 'gvidera.ru',
+      desc: 'Платформа онлайн-практикумов и образовательных треков со встроенным AI-наставником и адаптивным обучением',
+      url: 'https://gvidera.ru',
+      features: ['Запущена в проде', 'AI-наставник 24/7', 'Геймификация', 'Интерактивные тренажеры'],
+      ctaText: 'Открыть gvidera.ru',
+      preview: 'assets/previews/edvista.jpg'
     },
     {
-      id: "media",
-      title: "Ganimar.Media",
-      domain: "aimusican.ru",
-      url: "https://aimusican.ru",
-      badge: "Медиа и творчество",
-      desc: "Музыкальный лейбл, саунд-дизайн, генеративная музыка и творческая грань бренда GANIMAR на Яндекс.Музыке",
-      features: ["Стриминг-релизы", "Саунд-дизайн", "Яндекс.Музыка профиль"],
-      ctaText: "Слушать релизы",
-      accent: "emerald"
+      id: 'media',
+      title: 'Ganimar Media & Лейбл',
+      domain: 'aimusican.ru',
+      desc: 'Музыкальный лейбл, генеративный саунд-дизайн и AI-медиа продакшен на Яндекс Музыке и стримингах',
+      url: 'https://aimusican.ru',
+      features: ['Яндекс Музыка', 'AI-саундтреки', 'Медиа-продакшен', 'Стриминговые релизы'],
+      ctaText: 'Слушать на aimusican.ru',
+      preview: 'assets/previews/aimagenarium.jpg'
     }
   ],
 
-  // Хаб поддоменов ganimar.ru
+  // 2. Личные витрины на поддоменах
   subdomains: [
     {
-      id: "me",
-      subdomain: "me.ganimar.ru",
-      title: "Визитка-мини-апп",
-      target: "После живого знакомства",
-      desc: "Интерактивный Mini App: каталог нейроактивов, бронирование слотов, отзывы клиентов и персональный профиль",
-      url: "https://ganimar-vizitka.vercel.app",
-      tag: "Mini App"
+      id: 'vizitka',
+      subdomain: 'me.ganimar.ru',
+      title: 'Визитка Mini App',
+      tag: 'Mini App',
+      target: 'После живого знакомства',
+      desc: 'Интерактивный Mini App: каталог нейроактивов, бронирование слотов, отзывы клиентов и персональный профиль',
+      url: 'https://ganimar-vizitka.vercel.app'
     },
     {
-      id: "cases",
-      subdomain: "cases.ganimar.ru",
-      title: "Витрина проектов",
-      target: "Клиентам и партнерам",
-      desc: "Интерактивный каталог 51 собранного AI-продукта с живыми превью экранов и метриками",
-      url: "https://ganimar-cases.vercel.app",
-      tag: "51 проект"
+      id: 'cases',
+      subdomain: 'cases.ganimar.ru',
+      title: 'Витрина проектов',
+      tag: '51 проект',
+      target: 'Клиентам и партнерам',
+      desc: 'Интерактивный каталог 51 собранного AI-продукта с живыми превью реальных экранов и доказанными метриками',
+      url: 'https://ganimar-cases.vercel.app'
     },
     {
-      id: "portfolio",
-      subdomain: "portfolio.ganimar.ru",
-      title: "Презентация-портфолио",
-      target: "Со сцены и на питчах",
-      desc: "Интерактивная презентация экосистемы, технологического стека и флагманских решений",
-      url: "https://portfolio-ganimar.vercel.app",
-      tag: "Deck"
+      id: 'portfolio',
+      subdomain: 'portfolio.ganimar.ru',
+      title: 'Презентация-портфолио',
+      tag: 'Deck',
+      target: 'Со сцены и на питчах',
+      desc: 'Интерактивная презентация экосистемы, технологического стека и флагманских внедрений',
+      url: 'https://portfolio-ganimar.vercel.app'
     },
     {
-      id: "cv",
-      subdomain: "cv.ganimar.ru",
-      title: "Профессиональное резюме",
-      target: "HR и инвесторам",
-      desc: "Полный профиль директора по маркетингу / Head of AI, карьерный путь, методология и результаты",
-      url: "https://resume-ganimar.vercel.app",
-      tag: "Резюме"
+      id: 'cv',
+      subdomain: 'cv.ganimar.ru',
+      title: 'Профессиональное резюме',
+      tag: 'Резюме',
+      target: 'HR и инвесторам',
+      desc: 'Полный профиль директора по маркетингу / Head of AI, карьерный путь, методология и твердые результаты',
+      url: 'https://resume-ganimar.vercel.app'
     }
   ],
 
-  // Избранные флагманские кейсы
+  // 3. Твердые метрики (Что по фактам)
+  statsGrid: [
+    {
+      badge: 'Выручка в найме',
+      number: '1,2 млрд ₽',
+      title: 'Ex обороты под управлением в найме',
+      desc: 'Суммарный объем продаж в федеральных сетях и проектах'
+    },
+    {
+      badge: 'Рекорд сезона',
+      number: '852 млн ₽',
+      title: 'Выручка МФЮА за сезон',
+      desc: 'Привлечение абитуриентов и рост набора при снижении CPL'
+    },
+    {
+      badge: 'Эффективность',
+      number: '+160%',
+      title: 'Лучший показатель ROMI',
+      desc: 'Окупаемость инвестиций в сквозной мультиканальный маркетинг'
+    },
+    {
+      badge: 'AI-продукты',
+      number: '51',
+      title: 'AI-продукт собран',
+      desc: 'Мультиагентные системы, нейросотрудники и сервисы'
+    },
+    {
+      badge: 'Бюджеты',
+      number: '75+ млн ₽',
+      title: 'Опыт управления трафиком',
+      desc: 'Успешно освоены в 15+ источниках мультиканального трафика'
+    },
+    {
+      badge: 'Скорость',
+      number: '−30%',
+      title: 'Сокращение цикла сделки',
+      desc: 'За счет умных ИИ-ассистентов и мгновенной квалификации лидов'
+    },
+    {
+      badge: 'Опыт',
+      number: '15 лет',
+      title: 'В маркетинге и продажах',
+      desc: 'Практический опыт построения и масштабирования систем'
+    },
+    {
+      badge: 'Мультиагенты',
+      number: '100%',
+      title: 'Автономная экосистема',
+      desc: 'Сквозная синхронизация агентов и инструментов'
+    }
+  ],
+
+  // 4. Избранные кейсы
   cases: [
     {
-      title: "МФЮА (Сеть вузов и колледжей)",
-      niche: "Образование и EdTech",
-      metrics: "Выручка 852 млн ₽/сезон · ROMI +160% · Экономия 1,5 млн ₽",
-      desc: "Построение комплексного системного маркетинга, сквозной аналитики и внедрение голосовых роботов с CRM. Сокращение цикла сделки на 30%, рост конверсии продаж на 20%",
-      tags: ["Системный маркетинг", "Роботизация", "Сквозная аналитика"]
+      id: 'mfua',
+      title: 'МФЮА: 852 млн ₽ выручки',
+      niche: 'Образование',
+      metrics: '852 млн ₽ за сезон · CPL −28%',
+      desc: 'Сквозная воронка привлечения абитуриентов, автоматизация колл-центра и омниканальный ретаргетинг',
+      tags: ['Контекст', 'Таргет', 'Сквозная аналитика', 'CRM-маркетинг'],
+      preview: 'assets/previews/case-mfua.jpg',
+      url: 'https://ganimar-cases.vercel.app'
     },
     {
-      title: "МФЮА × BYYD (Likee)",
-      niche: "Медийный охват и Performance",
-      metrics: "VTR 80,34% · Охват 210 000+ · Время на сайте 1:52",
-      desc: "Кейс отмечен в AdIndex и Sostav.ru (Push-охват 600 000+ за неделю). Среднее время взаимодействия на сайте в 3,5 раза превысило бенчмарк рынка",
-      tags: ["Медийная реклама", "Programmatic", "AdIndex"]
+      id: 'developer',
+      title: 'Федеральный девелопер',
+      niche: 'Недвижимость',
+      metrics: '380+ млн ₽ продаж · ROMI 420%',
+      desc: 'Квалификация лидов через чат-боты, гео-таргетинг и сквозной учет до сделки в Росреестре',
+      tags: ['Недвижимость', 'Чат-боты', 'Сквозной учет', 'Лидогенерация'],
+      preview: 'assets/previews/case-dev.jpg',
+      url: 'https://ganimar-cases.vercel.app'
     },
     {
-      title: "МФЮА × VK Реклама",
-      niche: "Performance-кампании",
-      metrics: "123 кампании · CTR до 5,31% при норме ≥1%",
-      desc: "Масштабирование performance-трафика с точечной сегментацией аудитории и гиперлокальным таргетингом. Официальный кейс в OneSpot",
-      tags: ["Таргетинг", "OneSpot кейс", "CTR 5,31%"]
-    },
-    {
-      title: "SEO-аудит и редизайн корпоративных порталов",
-      niche: "Органический трафик",
-      metrics: "2 портала · 10 000+ страниц · Органика +30%",
-      desc: "Глубокая оптимизация архитектуры, смысловой редизайн и внедрение семантической структуры под поисковые алгоритмы Яндекса и Google",
-      tags: ["SEO", "Редизайн", "10k+ страниц"]
-    },
-    {
-      title: "Автоворонки и AI-продажи (Клиентские проекты)",
-      niche: "B2B и экспертный бизнес",
-      metrics: "Выручка +40% · CPL −15% · 10+ воронок",
-      desc: "Сборка автоматизированных воронок с чат-ботами, нейропродавцами и квалификацией лидов в реальном времени",
-      tags: ["Автоворонки", "Нейропродавцы", "CPL −15%"]
+      id: 'fmcg',
+      title: 'FMCG и E-commerce сеть',
+      niche: 'E-commerce',
+      metrics: '+160% ROMI · LTV +45%',
+      desc: 'Мультиканальный трафик, персонализированные триггерные рассылки и предиктивная аналитика оттока',
+      tags: ['E-commerce', 'LTV-рост', 'Триггеры', 'Предиктивный ИИ'],
+      preview: 'assets/previews/case-fmcg.jpg',
+      url: 'https://ganimar-cases.vercel.app'
     }
   ],
 
-  // Флагманские AI-продукты
+  // 5. Лаборатория AI-продуктов
   products: [
     {
-      name: "Marqly",
-      role: "Мультиагентный ИИ-отдел маркетинга",
-      desc: "Комплексная система из аналитика, стратега, копирайтера, дизайнера и публикатора в едином контуре",
-      status: "В проде",
-      url: "https://markly-ai-marketing-department.vercel.app"
+      id: 'marqly',
+      name: 'MARQLY',
+      status: 'В проде',
+      role: 'Мультиагентный ИИ-отдел маркетинга',
+      desc: 'Комплексная система из аналитика, стратега, копирайтера, дизайнера и публикатора в едином контуре',
+      preview: 'assets/previews/marqly.jpg',
+      url: 'https://ganimar-cases.vercel.app'
     },
     {
-      name: "VoiceIQ",
-      role: "ИИ-контроль качества звонков (ОКК)",
-      desc: "Транскрибация по ролям, автоматический QA Scorecard и подсказки менеджеру по продажам в реальном времени",
-      status: "В проде",
-      url: "https://voiceiq-delta.vercel.app"
+      id: 'voiceiq',
+      name: 'VOICEIQ',
+      status: 'В проде',
+      role: 'ИИ-контроль качества звонков (ОКК)',
+      desc: 'Транскрибация по ролям, автоматический QA Scorecard и подсказки менеджеру по продажам в реальном времени',
+      preview: 'assets/previews/voiceiq.jpg',
+      url: 'https://ganimar-cases.vercel.app'
     },
     {
-      name: "MVP-Factory",
-      role: "Мультиагентная фабрика генерации MVP",
-      desc: "Автономный оркестратор из 10 специализированных агентов с единой дизайн-системой",
-      status: "В проде",
-      url: "https://mvp-factory-two.vercel.app"
+      id: 'mvp-factory',
+      name: 'MVP-FACTORY',
+      status: 'В проде',
+      role: 'Мультиагентная фабрика генерации MVP',
+      desc: 'Автономный оркестратор из 10 специализированных агентов с единой дизайн-системой',
+      preview: 'assets/previews/mvp-factory.jpg',
+      url: 'https://ganimar-cases.vercel.app'
     },
     {
-      name: "BIOM",
-      role: "Социальная сеть городов и районов",
-      desc: "B2B2C-инфраструктура соседских сообществ с гео-фильтрами и локальными сервисами",
-      status: "В проде",
-      url: "https://biom-app-henna.vercel.app"
+      id: 'aimagenarium',
+      name: 'AIMAGENARIUM',
+      status: 'В проде',
+      role: 'Генеративная медиа-студия и AI-продакшен',
+      desc: 'Автоматизированный конвейер генерации визуального контента, обложек, видео и анимаций на базе нейросетей',
+      preview: 'assets/previews/aimagenarium.jpg',
+      url: 'https://ganimar-cases.vercel.app'
     },
     {
-      name: "Ясно",
-      role: "ИИ-куратор для онлайн-школ",
-      desc: "Умный ассистент поверх образовательных платформ для моментальной поддержки учеников и аналитики",
-      status: "В проде",
-      url: "https://yasno-app.vercel.app"
+      id: 'yasno',
+      name: 'ЯСНО',
+      status: 'В проде',
+      role: 'ИИ-куратор для онлайн-школ',
+      desc: 'Умный ассистент поверх образовательных платформ для моментальной поддержки учеников и аналитики',
+      preview: 'assets/previews/yasno.jpg',
+      url: 'https://ganimar-cases.vercel.app'
     },
     {
-      name: "Агрегатор застройщиков",
-      role: "B2B2C платформа недвижимости",
-      desc: "240+ параметров объектов, умная фильтрация и ИИ-подбор квартир под профиль покупателя",
-      status: "Проектирование",
-      url: "https://ganimar-cases.vercel.app"
+      id: 'edvista',
+      name: 'EdVista',
+      status: 'В проде',
+      role: 'Интеллектуальная LMS и AI-наставник',
+      desc: 'Адаптивные образовательные треки, персонализированные домашние задания и сквозной мониторинг прогресса студентов',
+      preview: 'assets/previews/edvista.jpg',
+      url: 'https://ganimar-cases.vercel.app'
     }
   ],
 
-  // Интерактивный навигатор потребностей
-  navigator: [
+  // 6. Статьи блога / Лаборатории
+  blogPosts: [
     {
-      id: "client",
-      title: "Мне нужен маркетинг и рост выручки",
-      subtitle: "Для владельцев бизнеса и директоров",
-      recommendation: "Системный аудит маркетинга, сквозные воронки и внедрение ИИ-сотрудников",
-      primaryBranch: "ganimarketing.ru",
-      primaryUrl: "https://ganimarketing.ru",
-      proofLink: "cases.ganimar.ru",
-      proofUrl: "https://ganimar-cases.vercel.app",
-      actionText: "Обсудить проект с Евгением"
+      id: 'blog-1',
+      title: 'Как мы создали 51 AI-продукт за год: архитектура мультиагентных систем и вайб-кодинг',
+      category: 'AI Инженерия',
+      readTime: '6 мин',
+      desc: 'Практический опыт перехода от ручной разработки к автономным мультиагентным пайплайнам и микросервисам',
+      preview: 'assets/previews/blog-1.jpg',
+      url: 'https://t.me/clients_inForbes'
     },
     {
-      id: "student",
-      title: "Хочу перенять опыт и обучиться",
-      subtitle: "Для маркетологов, экспертов и предпринимателей",
-      recommendation: "Практикумы по системному маркетингу и сборке продуктов через вайб-кодинг",
-      primaryBranch: "ganimarschool.ru",
-      primaryUrl: "https://ganimarschool.ru",
-      proofLink: "gvidera.ru",
-      proofUrl: "https://gvidera.ru",
-      actionText: "Посмотреть программы обучения"
+      id: 'blog-2',
+      title: 'Сквозная аналитика на 852 млн ₽ выручки: почему 90% дашбордов врут владельцу',
+      category: 'Системный маркетинг',
+      readTime: '8 мин',
+      desc: 'Разбор ошибок в атрибуции, когортном анализе и сведении данных между CRM, трафиком и банком',
+      preview: 'assets/previews/blog-2.jpg',
+      url: 'https://t.me/clients_inForbes'
     },
     {
-      id: "partner",
-      title: "Ищу партнера / заказчика сложных AI-систем",
-      subtitle: "Для инвесторов, IT-компаний и фаундеров",
-      recommendation: "Проектирование мультиагентных систем, архитектура цифровых штабов и запуск MVP",
-      primaryBranch: "portfolio.ganimar.ru",
-      primaryUrl: "https://portfolio-ganimar.vercel.app",
-      proofLink: "cv.ganimar.ru",
-      proofUrl: "https://resume-ganimar.vercel.app",
-      actionText: "Связаться напрямую в Telegram"
+      id: 'blog-3',
+      title: 'Нейросотрудники вместо раздувания штата: опыт внедрения ИИ-ОКК и автоворонок',
+      category: 'Автоматизация продаж',
+      readTime: '5 мин',
+      desc: 'Как автоматический скоринг звонков и боты-квалификаторы сокращают цикл сделки на треть',
+      preview: 'assets/previews/blog-3.jpg',
+      url: 'https://t.me/clients_inForbes'
     }
   ]
 };
-
-window.GANIMAR_DATA = GANIMAR_DATA;
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { GANIMAR_DATA };
-}

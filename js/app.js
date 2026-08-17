@@ -1,5 +1,6 @@
 /**
  * GANIMAR Flagship Portal — Script
+ * Features: Clickable whole cards, Image previews, Blog rendering, Scroll effects
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -12,20 +13,13 @@ document.addEventListener('DOMContentLoaded', () => {
     yearEl.textContent = new Date().getFullYear();
   }
 
-  // Рендеринг веток
+  // Рендеринг всех секций
   renderBranches(data);
-
-  // Рендеринг поддоменов
   renderSubdomains(data);
-
-  // Рендеринг метрик
   renderStats(data);
-
-  // Рендеринг кейсов
   renderCases(data);
-
-  // Рендеринг продуктов
   renderProducts(data);
+  renderBlog(data);
 
   // Скролл шапки
   initNavScroll();
@@ -39,8 +33,10 @@ function renderBranches(data) {
   data.branches.forEach((b) => {
     const card = document.createElement('div');
     card.className = 'branch-card';
+    card.setAttribute('onclick', `window.open('${b.url}', '_blank')`);
     card.innerHTML = `
       <div>
+        <img src="${b.preview}" alt="${b.title}" class="card-img-preview" />
         <div class="branch-top">
           <h3 class="branch-title">${b.title}</h3>
           <span class="branch-pill">${b.domain}</span>
@@ -51,10 +47,10 @@ function renderBranches(data) {
         <div class="branch-tags">
           ${b.features.map(f => `<span class="branch-tag">${f}</span>`).join('')}
         </div>
-        <a href="${b.url}" target="_blank" rel="noopener noreferrer" class="branch-btn">
+        <div class="branch-btn">
           <span>${b.ctaText}</span>
           <span>→</span>
-        </a>
+        </div>
       </div>
     `;
     container.appendChild(card);
@@ -69,6 +65,7 @@ function renderSubdomains(data) {
   data.subdomains.forEach((s) => {
     const card = document.createElement('div');
     card.className = 'subdomain-card';
+    card.setAttribute('onclick', `window.open('${s.url}', '_blank')`);
     card.innerHTML = `
       <div>
         <div class="sub-badge">${s.subdomain}</div>
@@ -76,10 +73,10 @@ function renderSubdomains(data) {
         <div class="sub-target">${s.target}</div>
         <p class="sub-desc">${s.desc}</p>
       </div>
-      <a href="${s.url}" target="_blank" rel="noopener noreferrer" class="sub-btn">
+      <div class="sub-btn">
         <span>Открыть ${s.tag}</span>
         <span>↗</span>
-      </a>
+      </div>
     `;
     container.appendChild(card);
   });
@@ -111,8 +108,10 @@ function renderCases(data) {
   data.cases.forEach((c) => {
     const card = document.createElement('div');
     card.className = 'case-card';
+    card.setAttribute('onclick', `window.open('${c.url}', '_blank')`);
     card.innerHTML = `
       <div>
+        <img src="${c.preview}" alt="${c.title}" class="card-img-top" />
         <div class="case-niche">${c.niche}</div>
         <h3 class="case-title">${c.title}</h3>
         <div class="case-metric">${c.metrics}</div>
@@ -134,19 +133,49 @@ function renderProducts(data) {
   data.products.forEach((p) => {
     const card = document.createElement('div');
     card.className = 'product-card';
+    card.setAttribute('onclick', `window.open('${p.url}', '_blank')`);
     card.innerHTML = `
       <div>
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <img src="${p.preview}" alt="${p.name}" class="card-img-top" />
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
           <h3 class="product-title" style="margin: 0;">${p.name}</h3>
           <span style="font-family: var(--font-display); font-size: 11px; color: var(--accent-amber); border: 1px solid var(--border-amber); padding: 2px 6px; text-transform: uppercase;">${p.status}</span>
         </div>
         <div class="sub-target">${p.role}</div>
         <p class="product-desc">${p.desc}</p>
       </div>
-      <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="sub-btn">
+      <div class="sub-btn">
         <span>Подробнее о ${p.name}</span>
         <span>→</span>
-      </a>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function renderBlog(data) {
+  const container = document.getElementById('blog-grid');
+  if (!container || !data.blogPosts) return;
+  container.innerHTML = '';
+
+  data.blogPosts.forEach((post) => {
+    const card = document.createElement('div');
+    card.className = 'blog-card';
+    card.setAttribute('onclick', `window.open('${post.url}', '_blank')`);
+    card.innerHTML = `
+      <div>
+        <img src="${post.preview}" alt="${post.title}" class="card-img-top" />
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <span class="blog-category">${post.category}</span>
+          <span style="font-size: 12px; color: #777;">${post.readTime}</span>
+        </div>
+        <h3 class="blog-title">${post.title}</h3>
+        <p class="blog-desc">${post.desc}</p>
+      </div>
+      <div class="sub-btn">
+        <span>Читать статью</span>
+        <span>↗</span>
+      </div>
     `;
     container.appendChild(card);
   });
