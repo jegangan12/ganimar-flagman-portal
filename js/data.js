@@ -1,6 +1,7 @@
 /**
  * GANIMAR Flagship Portal — Data Source
  * Rule: NO trailing periods in titles, subtitles, badges, card descriptions
+ * Статьи блога здесь не хранятся: они статические страницы в /blog/ (нужно для индексации)
  */
 
 window.GANIMAR_DATA = {
@@ -229,37 +230,6 @@ window.GANIMAR_DATA = {
       desc: 'Адаптивные образовательные треки, персонализированные домашние задания и сквозной мониторинг прогресса студентов',
       preview: 'assets/previews/edvista.jpg',
       url: 'https://ganimar-cases.vercel.app'
-    }
-  ],
-
-  // 6. Статьи блога / Лаборатории
-  blogPosts: [
-    {
-      id: 'blog-1',
-      title: 'Как мы создали 51 AI-продукт за год: архитектура мультиагентных систем и вайб-кодинг',
-      category: 'AI Инженерия',
-      readTime: '6 мин',
-      desc: 'Практический опыт перехода от ручной разработки к автономным мультиагентным пайплайнам и микросервисам',
-      preview: 'assets/previews/blog-1.jpg',
-      url: 'https://t.me/clients_inForbes'
-    },
-    {
-      id: 'blog-2',
-      title: 'Сквозная аналитика на 852 млн ₽ выручки: почему 90% дашбордов врут владельцу',
-      category: 'Системный маркетинг',
-      readTime: '8 мин',
-      desc: 'Разбор ошибок в атрибуции, когортном анализе и сведении данных между CRM, трафиком и банком',
-      preview: 'assets/previews/blog-2.jpg',
-      url: 'https://t.me/clients_inForbes'
-    },
-    {
-      id: 'blog-3',
-      title: 'Нейросотрудники вместо раздувания штата: опыт внедрения ИИ-ОКК и автоворонок',
-      category: 'Автоматизация продаж',
-      readTime: '5 мин',
-      desc: 'Как автоматический скоринг звонков и боты-квалификаторы сокращают цикл сделки на треть',
-      preview: 'assets/previews/blog-3.jpg',
-      url: 'https://t.me/clients_inForbes'
     }
   ]
 };

@@ -1,0 +1,17 @@
+# robots.txt — https://ganimar.ru
+# Задача файла: пустить роботов на весь контент и показать карту сайта.
+# Ничего не закрываем: закрытый от индексации домен не копит возраст.
+
+User-agent: *
+Allow: /
+Disallow: /tools/
+Disallow: /docs/
+Disallow: /seo-kit/
+
+User-agent: Yandex
+Allow: /
+Disallow: /tools/
+Disallow: /docs/
+Disallow: /seo-kit/
+
+Sitemap: https://ganimar.ru/sitemap.xml

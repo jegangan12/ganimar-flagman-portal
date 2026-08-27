@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Блог GANIMAR</title>
+    <link>https://ganimar.ru/blog</link>
+    <description>Практические разборы по системному маркетингу, сквозной аналитике, мультиагентным AI-системам и автоматизации продаж</description>
+    <language>ru</language>
+    <lastBuildDate>Thu, 27 Aug 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://ganimar.ru/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>51 AI-продукт за год: архитектура мультиагентных систем и вайб-кодинг</title>
+      <link>https://ganimar.ru/blog/51-ai-produkt-multiagentnye-sistemy</link>
+      <guid isPermaLink="true">https://ganimar.ru/blog/51-ai-produkt-multiagentnye-sistemy</guid>
+      <description>Разбор мультиагентного конвейера: роли агентов, оркестратор, агент-критик и маршрут от идеи до работающего прототипа за 2-3 часа. Практический опыт на дистанции в 51 продукт.</description>
+      <pubDate>Thu, 27 Aug 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Нейросотрудники вместо раздувания штата: цикл сделки короче на 30%</title>
+      <link>https://ganimar.ru/blog/neyrosotrudniki-vmesto-razdutogo-shtata</link>
+      <guid isPermaLink="true">https://ganimar.ru/blog/neyrosotrudniki-vmesto-razdutogo-shtata</guid>
+      <description>Какие роли в отделе продаж закрывают ИИ-квалификатор, контроль качества звонков и дожимающие цепочки, в каком порядке их внедрять и по каким метрикам считать эффект.</description>
+      <pubDate>Thu, 27 Aug 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>SEO до запуска сайта: как разогнать домен, пока идёт разработка</title>
+      <link>https://ganimar.ru/blog/seo-do-zapuska-sayta</link>
+      <guid isPermaLink="true">https://ganimar.ru/blog/seo-do-zapuska-sayta</guid>
+      <description>Домен куплен, сайт ещё не начали, а поисковый возраст уже можно копить. Почему домен не стареет сам, какой минимум поднять за вечер и как не обнулить фору в день релиза.</description>
+      <pubDate>Thu, 27 Aug 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Сквозная аналитика: почему 90% дашбордов врут владельцу бизнеса</title>
+      <link>https://ganimar.ru/blog/skvoznaya-analitika-pochemu-dashbordy-vrut</link>
+      <guid isPermaLink="true">https://ganimar.ru/blog/skvoznaya-analitika-pochemu-dashbordy-vrut</guid>
+      <description>Пять системных ошибок в атрибуции, сверке с кассой и когортном анализе, из-за которых отчёт по маркетингу не сходится с деньгами. Порядок починки от сверки до дашборда.</description>
+      <pubDate>Thu, 27 Aug 2026 00:00:00 +0000</pubDate>
+    </item>
+  </channel>
+</rss>

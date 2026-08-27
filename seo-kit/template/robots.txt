@@ -1,0 +1,10 @@
+# ЗАМЕНИТЬ {{DOMAIN}} на свой домен.
+# Ничего лишнего не закрываем: домен, закрытый от индексации, возраст не копит.
+
+User-agent: *
+Allow: /
+
+User-agent: Yandex
+Allow: /
+
+Sitemap: https://{{DOMAIN}}/sitemap.xml
