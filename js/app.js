@@ -1,6 +1,7 @@
 /**
  * GANIMAR Flagship Portal — Script
- * Features: Clickable whole cards, Image previews, Blog rendering, Scroll effects
+ * Features: Clickable whole cards, Image previews, Scroll effects
+ * Блог рендерится статически в HTML (/blog/) — ради индексации без JS
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -19,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
   renderStats(data);
   renderCases(data);
   renderProducts(data);
-  renderBlog(data);
 
   // Скролл шапки
   initNavScroll();
@@ -147,34 +147,6 @@ function renderProducts(data) {
       <div class="sub-btn">
         <span>Подробнее о ${p.name}</span>
         <span>→</span>
-      </div>
-    `;
-    container.appendChild(card);
-  });
-}
-
-function renderBlog(data) {
-  const container = document.getElementById('blog-grid');
-  if (!container || !data.blogPosts) return;
-  container.innerHTML = '';
-
-  data.blogPosts.forEach((post) => {
-    const card = document.createElement('div');
-    card.className = 'blog-card';
-    card.setAttribute('onclick', `window.open('${post.url}', '_blank')`);
-    card.innerHTML = `
-      <div>
-        <img src="${post.preview}" alt="${post.title}" class="card-img-top" />
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-          <span class="blog-category">${post.category}</span>
-          <span style="font-size: 12px; color: #777;">${post.readTime}</span>
-        </div>
-        <h3 class="blog-title">${post.title}</h3>
-        <p class="blog-desc">${post.desc}</p>
-      </div>
-      <div class="sub-btn">
-        <span>Читать статью</span>
-        <span>↗</span>
       </div>
     `;
     container.appendChild(card);

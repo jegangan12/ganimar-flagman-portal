@@ -1,0 +1,319 @@
+/* ==========================================================================
+   GANIMAR BLOG — READABLE LONGREAD LAYER
+   Подключается поверх styles.css, использует те же токены
+   ========================================================================== */
+
+.blog-page {
+  padding-top: 120px;
+  padding-bottom: 80px;
+}
+
+/* Хлебные крошки */
+.breadcrumbs {
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 26px;
+}
+
+.breadcrumbs a:hover {
+  color: var(--accent-gold);
+}
+
+.breadcrumbs span {
+  margin: 0 8px;
+  opacity: 0.5;
+}
+
+/* Шапка блога */
+.blog-hero {
+  max-width: 860px;
+  margin-bottom: 56px;
+}
+
+.blog-hero h1 {
+  font-size: clamp(32px, 5vw, 58px);
+  margin-bottom: 22px;
+}
+
+.blog-hero .lead {
+  font-size: clamp(16px, 2vw, 19px);
+  color: var(--text-muted);
+  line-height: 1.75;
+}
+
+/* Список статей */
+.post-list {
+  display: grid;
+  gap: 18px;
+  max-width: 900px;
+}
+
+.post-item {
+  display: block;
+  padding: 26px 28px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 14px;
+  transition: var(--transition);
+}
+
+.post-item:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-amber);
+  transform: translateY(-2px);
+}
+
+.post-item h2 {
+  font-size: clamp(20px, 2.6vw, 27px);
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+
+.post-item p {
+  color: var(--text-muted);
+  font-size: 15px;
+}
+
+.post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  font-size: 12px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 14px;
+}
+
+.post-meta .tag {
+  color: var(--accent-gold);
+  border: 1px solid var(--border-amber);
+  border-radius: 999px;
+  padding: 3px 12px;
+}
+
+/* Тело статьи */
+.article-body {
+  max-width: 760px;
+  font-size: 17px;
+  line-height: 1.85;
+  color: #cfcfcf;
+}
+
+.article-body h2 {
+  font-size: clamp(24px, 3.2vw, 34px);
+  margin: 48px 0 18px;
+  letter-spacing: 1.5px;
+}
+
+.article-body h3 {
+  font-size: clamp(18px, 2.2vw, 22px);
+  margin: 32px 0 14px;
+  letter-spacing: 1px;
+  color: var(--accent-gold);
+}
+
+.article-body p {
+  margin-bottom: 20px;
+}
+
+.article-body ul,
+.article-body ol {
+  margin: 0 0 24px 22px;
+}
+
+.article-body li {
+  margin-bottom: 10px;
+}
+
+.article-body strong {
+  color: var(--text-white);
+  font-weight: 600;
+}
+
+.article-body a {
+  color: var(--accent-gold);
+  border-bottom: 1px solid var(--border-amber);
+}
+
+.article-body a:hover {
+  color: var(--accent-amber);
+}
+
+.article-body blockquote {
+  margin: 28px 0;
+  padding: 18px 24px;
+  border-left: 3px solid var(--accent-amber);
+  background: var(--bg-card);
+  color: var(--text-white);
+  font-size: 18px;
+}
+
+.article-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 26px 0;
+  font-size: 15px;
+}
+
+.article-body th,
+.article-body td {
+  border: 1px solid var(--border-card);
+  padding: 12px 14px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.article-body th {
+  color: var(--text-white);
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 1.2px;
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+/* Врезка-вывод */
+.callout {
+  margin: 34px 0;
+  padding: 24px 26px;
+  border: 1px solid var(--border-amber);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(249, 111, 0, 0.08), rgba(249, 111, 0, 0.02));
+}
+
+.callout h3 {
+  margin-top: 0;
+}
+
+/* CTA в конце статьи */
+.article-cta {
+  max-width: 760px;
+  margin: 56px 0 0;
+  padding: 30px 28px;
+  border: 1px solid var(--border-card);
+  border-radius: 16px;
+  background: var(--bg-card);
+}
+
+.article-cta h3 {
+  color: var(--text-white);
+  font-family: var(--font-display);
+  font-size: 24px;
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+}
+
+.article-cta p {
+  margin-bottom: 20px;
+  color: var(--text-muted);
+}
+
+.btn-amber-line {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  padding: 13px 26px;
+  border-radius: 999px;
+  border: 1px solid var(--accent-amber);
+  color: var(--accent-gold);
+  font-size: 14px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+.btn-amber-line:hover {
+  background: var(--accent-amber);
+  color: #0c0b0a;
+}
+
+/* Блок «читать ещё» */
+.related {
+  max-width: 760px;
+  margin-top: 48px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border-card);
+}
+
+.related h3 {
+  font-family: var(--font-display);
+  color: var(--text-white);
+  letter-spacing: 1.5px;
+  margin-bottom: 16px;
+}
+
+.related ul {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+
+.related a {
+  color: var(--text-muted);
+}
+
+.related a:hover {
+  color: var(--accent-gold);
+}
+
+/* Простая шапка для внутренних страниц */
+.inner-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(12, 11, 10, 0.92);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border-card);
+  padding: 16px 0;
+}
+
+.inner-nav .nav-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.inner-nav-links {
+  display: flex;
+  gap: 22px;
+  list-style: none;
+  font-size: 13px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.inner-nav-links a:hover {
+  color: var(--accent-gold);
+}
+
+.inner-footer {
+  border-top: 1px solid var(--border-card);
+  padding: 30px 0;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.inner-footer .container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: space-between;
+}
+
+@media (max-width: 640px) {
+  .inner-nav-links li:not(:first-child) {
+    display: none;
+  }
+  .blog-page {
+    padding-top: 96px;
+  }
+}

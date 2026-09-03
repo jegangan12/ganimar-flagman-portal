@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- ЗАМЕНИТЬ: {{DOMAIN}} — домен без слэша (example.ru), {{SLUG}} — адрес статьи,
+       {{TITLE}} — заголовок для вкладки и выдачи (до ~65 знаков),
+       {{DESC}} — описание для сниппета (до ~160 знаков),
+       {{H1}} — заголовок на странице, {{LEAD}} — вводный абзац,
+       {{CATEGORY}}, {{READ}}, {{DATE}} (ГГГГ-ММ-ДД), {{DATE_HUMAN}}, {{AUTHOR}}, {{BRAND}} -->
+
+  <title>{{TITLE}} | {{BRAND}}</title>
+  <meta name="description" content="{{DESC}}" />
+  <meta name="author" content="{{AUTHOR}}" />
+  <link rel="canonical" href="https://{{DOMAIN}}/blog/{{SLUG}}" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:site_name" content="{{BRAND}}" />
+  <meta property="og:title" content="{{TITLE}}" />
+  <meta property="og:description" content="{{DESC}}" />
+  <meta property="og:url" content="https://{{DOMAIN}}/blog/{{SLUG}}" />
+  <meta property="article:published_time" content="{{DATE}}" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="alternate" type="application/rss+xml" title="Блог {{BRAND}}" href="/feed.xml" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "{{H1}}",
+    "description": "{{DESC}}",
+    "inLanguage": "ru-RU",
+    "datePublished": "{{DATE}}",
+    "dateModified": "{{DATE}}",
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://{{DOMAIN}}/blog/{{SLUG}}" },
+    "author": { "@type": "Person", "name": "{{AUTHOR}}" },
+    "publisher": { "@type": "Organization", "name": "{{BRAND}}", "url": "https://{{DOMAIN}}" }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://{{DOMAIN}}/" },
+      { "@type": "ListItem", "position": 2, "name": "Блог", "item": "https://{{DOMAIN}}/blog" },
+      { "@type": "ListItem", "position": 3, "name": "{{H1}}", "item": "https://{{DOMAIN}}/blog/{{SLUG}}" }
+    ]
+  }
+  </script>
+
+  <style>
+    :root { --bg:#0c0b0a; --card:#141312; --line:rgba(255,255,255,.12); --accent:#f96f00; --gold:#e8a13c; --text:#cfcfcf; --dim:#8a8a8a; }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    body { background:var(--bg); color:var(--text); font:400 17px/1.85 -apple-system,'Segoe UI',Roboto,sans-serif; -webkit-font-smoothing:antialiased; }
+    .wrap { max-width:760px; margin:0 auto; padding:40px 20px 80px; }
+    nav.top { border-bottom:1px solid var(--line); padding:18px 0; margin-bottom:36px; font-size:14px; letter-spacing:1.2px; text-transform:uppercase; }
+    nav.top a { color:var(--dim); text-decoration:none; margin-right:20px; }
+    nav.top a:hover, a:hover { color:var(--gold); }
+    .crumbs { font-size:13px; color:var(--dim); margin-bottom:20px; }
+    .crumbs a { color:var(--dim); text-decoration:none; }
+    .meta { font-size:12px; letter-spacing:1.4px; text-transform:uppercase; color:var(--dim); margin-bottom:14px; }
+    .meta .tag { color:var(--gold); border:1px solid rgba(249,111,0,.5); border-radius:999px; padding:3px 12px; margin-right:12px; }
+    h1 { font-size:clamp(28px,5vw,44px); line-height:1.2; color:#fff; margin-bottom:18px; }
+    h2 { font-size:clamp(22px,3.4vw,30px); color:#fff; margin:44px 0 16px; line-height:1.25; }
+    h3 { font-size:20px; color:var(--gold); margin:28px 0 12px; }
+    .lead { font-size:19px; color:#b8b8b8; margin-bottom:36px; }
+    p { margin-bottom:20px; }
+    ul, ol { margin:0 0 24px 22px; }
+    li { margin-bottom:10px; }
+    strong { color:#fff; }
+    a { color:var(--gold); }
+    blockquote { margin:28px 0; padding:16px 22px; border-left:3px solid var(--accent); background:var(--card); color:#fff; }
+    table { width:100%; border-collapse:collapse; margin:24px 0; font-size:15px; }
+    th, td { border:1px solid var(--line); padding:11px 13px; text-align:left; vertical-align:top; }
+    th { color:#fff; font-size:12px; text-transform:uppercase; letter-spacing:1.2px; }
+    .scroll { overflow-x:auto; }
+    .cta { margin-top:52px; padding:26px; border:1px solid var(--line); border-radius:14px; background:var(--card); }
+    .cta a { display:inline-block; margin-top:14px; padding:12px 24px; border:1px solid var(--accent); border-radius:999px; color:var(--gold); text-decoration:none; font-size:14px; letter-spacing:1.2px; text-transform:uppercase; }
+    .cta a:hover { background:var(--accent); color:#0c0b0a; }
+    footer { border-top:1px solid var(--line); margin-top:56px; padding-top:24px; font-size:13px; color:var(--dim); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="top">
+      <a href="/">Главная</a><a href="/blog">Блог</a><a href="/#contact">Контакты</a>
+    </nav>
+
+    <div class="crumbs"><a href="/">Главная</a> / <a href="/blog">Блог</a> / {{CATEGORY}}</div>
+
+    <div class="meta">
+      <span class="tag">{{CATEGORY}}</span>
+      <time datetime="{{DATE}}">{{DATE_HUMAN}}</time> · {{READ}}
+    </div>
+
+    <h1>{{H1}}</h1>
+    <p class="lead">{{LEAD}}</p>
+
+    <!-- ТЕЛО СТАТЬИ: h2 на каждый смысловой блок, списки, таблицы в .scroll -->
+    <article>
+      <p>Первый абзац отвечает на запрос читателя сразу, без разгона.</p>
+
+      <h2>Подзаголовок под конкретный вопрос аудитории</h2>
+      <p>Текст.</p>
+
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Что</th><th>Зачем</th></tr></thead>
+          <tbody><tr><td>Строка</td><td>Значение</td></tr></tbody>
+        </table>
+      </div>
+    </article>
+
+    <div class="cta">
+      <h3>Заголовок призыва</h3>
+      <p>Одно предложение о том, что вы предлагаете сделать дальше</p>
+      <a href="{{CTA_URL}}">Написать</a>
+    </div>
+
+    <footer>
+      &copy; {{BRAND}} · <a href="/blog">Все статьи</a> · <a href="/feed.xml">RSS</a>
+    </footer>
+  </div>
+</body>
+</html>
