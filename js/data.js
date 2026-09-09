@@ -105,7 +105,7 @@ window.GANIMAR_DATA = {
     },
     {
       badge: 'Эффективность',
-      number: '+160%',
+      number: '×23',
       title: 'Лучший показатель ROMI',
       desc: 'Окупаемость инвестиций в сквозной мультиканальный маркетинг'
     },
@@ -167,7 +167,7 @@ window.GANIMAR_DATA = {
       id: 'fmcg',
       title: 'FMCG и E-commerce сеть',
       niche: 'E-commerce',
-      metrics: '+160% ROMI · LTV +45%',
+      metrics: 'Триггерные рассылки и аналитика',
       desc: 'Мультиканальный трафик, персонализированные триггерные рассылки и предиктивная аналитика оттока',
       tags: ['E-commerce', 'LTV-рост', 'Триггеры', 'Предиктивный ИИ'],
       preview: 'assets/previews/case-fmcg.jpg',
