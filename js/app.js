@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Скролл шапки
   initNavScroll();
+  initMobileNav();
 });
 
 function renderBranches(data) {
@@ -161,5 +162,33 @@ function initNavScroll() {
     } else {
       nav?.classList.remove('scrolled');
     }
+  });
+}
+
+function initMobileNav() {
+  const nav = document.getElementById('site-nav');
+  const toggle = document.querySelector('.menu-toggle');
+  const primaryNav = document.getElementById('primary-nav');
+  if (!nav || !toggle || !primaryNav) return;
+
+  const closeMenu = () => {
+    nav.classList.remove('menu-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Открыть меню');
+  };
+
+  toggle.addEventListener('click', () => {
+    const isOpen = nav.classList.toggle('menu-open');
+    toggle.setAttribute('aria-expanded', String(isOpen));
+    toggle.setAttribute('aria-label', isOpen ? 'Закрыть меню' : 'Открыть меню');
+  });
+  primaryNav.addEventListener('click', (event) => {
+    if (event.target.closest('a')) closeMenu();
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeMenu();
+  });
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 1320) closeMenu();
   });
 }

@@ -58,7 +58,7 @@
         <span class="brand-estd">ESTD 2010</span>
       </a>
 
-      <nav>
+      <nav class="primary-nav" id="primary-nav" aria-label="Основная навигация">
         <ul class="nav-links">
           <li><a href="#home" class="nav-item-link">Главная</a></li>
           <li><a href="#about" class="nav-item-link">Обо мне</a></li>
@@ -69,15 +69,22 @@
           <li><a href="#products" class="nav-item-link">AI-Продукты</a></li>
           <li><a href="/blog" class="nav-item-link">Блог</a></li>
           <li><a href="#contact" class="nav-item-link">Контакты</a></li>
+          <li class="nav-mobile-telegram">
+            <a href="https://t.me/ganimarketing" target="_blank" rel="noopener noreferrer" class="btn-tg-mobile">Написать в Telegram <span aria-hidden="true">↗</span></a>
+          </li>
         </ul>
       </nav>
 
-      <div>
+      <div class="nav-actions">
         <a href="https://t.me/ganimarketing" target="_blank" rel="noopener noreferrer" class="btn-tg-nav">
           <span>Telegram</span>
           <span>↗</span>
         </a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Открыть меню">
+          <span></span><span></span><span></span>
+        </button>
       </div>
+
     </div>
   </header>
 
