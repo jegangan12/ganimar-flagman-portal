@@ -218,7 +218,16 @@ window.GANIMAR_DATA = {
       role: 'ИИ-контроль качества звонков',
       desc: 'Транскрибация разговора по ролям, автоматический скоринг качества и подсказки менеджеру во время сделки',
       preview: 'assets/previews/voiceiq.jpg',
-      url: 'https://voiceiq-delta.vercel.app'
+      url: 'https://cases.ganimar.ru'
+    },
+    {
+      id: 'neyrika',
+      name: 'НЕЙРОПУТЬ',
+      status: 'В проде',
+      role: 'Клиентский сайт с SEO-блогом и кабинетом',
+      desc: 'Лендинг коррекционной программы с записью на тестирование, автонаполняемый блог под поиск и закрытый кабинет специалиста, где запись приёма превращается в структурированную карточку',
+      preview: 'assets/previews/neyrika.jpg',
+      url: 'https://neuroput.ru'
     },
     {
       id: 'edvista',
