@@ -17,7 +17,10 @@ KEY="${KEY_FILE%.txt}"
 if [ "$#" -gt 0 ]; then
   URLS=("$@")
 else
-  mapfile -t URLS < <(grep -o '<loc>[^<]*' "$ROOT/sitemap.xml" | sed 's/<loc>//')
+  URLS=()
+  while IFS= read -r line; do
+    [ -n "$line" ] && URLS+=("$line")
+  done < <(grep -o '<loc>[^<]*' "$ROOT/sitemap.xml" | sed 's/<loc>//')
 fi
 
 LIST=$(printf '"%s",' "${URLS[@]}" | sed 's/,$//')
