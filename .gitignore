@@ -5,3 +5,4 @@ node_modules
 dan-*.png
 dan-*.html
 dan-*.css
+.env*
