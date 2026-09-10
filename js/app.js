@@ -1,7 +1,7 @@
 /**
- * GANIMAR Flagship Portal — Script
+ * GANIMAR Flagship Portal - Script
  * Features: Clickable whole cards, Image previews, Scroll effects
- * Блог рендерится статически в HTML (/blog/) — ради индексации без JS
+ * Блог рендерится статически в HTML (/blog/) - ради индексации без JS
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -32,9 +32,7 @@ function renderBranches(data) {
   container.innerHTML = '';
 
   data.branches.forEach((b) => {
-    const card = document.createElement('div');
-    card.className = 'branch-card';
-    card.setAttribute('onclick', `window.open('${b.url}', '_blank')`);
+    const card = createCard('branch-card', b.url);
     card.innerHTML = `
       <div>
         <img src="${b.preview}" alt="${b.title}" class="card-img-preview" />
@@ -64,9 +62,7 @@ function renderSubdomains(data) {
   container.innerHTML = '';
 
   data.subdomains.forEach((s) => {
-    const card = document.createElement('div');
-    card.className = 'subdomain-card';
-    card.setAttribute('onclick', `window.open('${s.url}', '_blank')`);
+    const card = createCard('subdomain-card', s.url);
     card.innerHTML = `
       <div>
         <div class="sub-badge">${s.subdomain}</div>
@@ -107,9 +103,7 @@ function renderCases(data) {
   container.innerHTML = '';
 
   data.cases.forEach((c) => {
-    const card = document.createElement('div');
-    card.className = 'case-card';
-    card.setAttribute('onclick', `window.open('${c.url}', '_blank')`);
+    const card = createCard('case-card', c.url);
     card.innerHTML = `
       <div>
         <img src="${c.preview}" alt="${c.title}" class="card-img-top" />
@@ -132,9 +126,7 @@ function renderProducts(data) {
   container.innerHTML = '';
 
   data.products.forEach((p) => {
-    const card = document.createElement('div');
-    card.className = 'product-card';
-    card.setAttribute('onclick', `window.open('${p.url}', '_blank')`);
+    const card = createCard('product-card', p.url);
     card.innerHTML = `
       <div>
         <img src="${p.preview}" alt="${p.name}" class="card-img-top" />
@@ -154,7 +146,21 @@ function renderProducts(data) {
   });
 }
 
+function createCard(className, url) {
+  const card = document.createElement(url ? 'a' : 'div');
+  card.className = className;
+  if (url) {
+    card.href = url;
+    card.target = '_blank';
+    card.rel = 'noopener noreferrer';
+  } else {
+    card.classList.add('branch-card--soon');
+  }
+  return card;
+}
+
 function initNavScroll() {
+
   const nav = document.getElementById('site-nav');
   window.addEventListener('scroll', () => {
     if (window.scrollY > 40) {

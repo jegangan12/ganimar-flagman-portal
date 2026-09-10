@@ -1,5 +1,5 @@
 /**
- * GANIMAR Flagship Portal — Data Source
+ * GANIMAR Flagship Portal - Data Source
  * Rule: NO trailing periods in titles, subtitles, badges, card descriptions
  * Статьи блога здесь не хранятся: они статические страницы в /blog/ (нужно для индексации)
  */
@@ -20,11 +20,11 @@ window.GANIMAR_DATA = {
     {
       id: 'school',
       title: 'Школа маркетинга и ИИ',
-      domain: 'ganimarschool.ru',
-      desc: 'Практическое обучение системному маркетингу, вайб-кодингу и созданию AI-агентов без сложного программирования',
-      url: 'https://ganimarschool.ru',
-      features: ['Вайб-кодинг', 'Мультиагентные системы', 'Промпт-инжиниринг', 'Практика на реальных кейсах'],
-      ctaText: 'Перейти на ganimarschool.ru',
+      domain: 'Скоро',
+      desc: 'Школа готовится к запуску',
+      url: null,
+      features: ['Системный маркетинг', 'AI-инструменты', 'Практика'],
+      ctaText: 'Скоро',
       preview: 'assets/previews/branch-school.jpg'
     },
     {
@@ -58,7 +58,7 @@ window.GANIMAR_DATA = {
       tag: 'Mini App',
       target: 'После живого знакомства',
       desc: 'Интерактивный Mini App: каталог нейроактивов, бронирование слотов, отзывы клиентов и персональный профиль',
-      url: 'https://ganimar-vizitka.vercel.app'
+      url: 'https://me.ganimar.ru'
     },
     {
       id: 'cases',
@@ -67,7 +67,7 @@ window.GANIMAR_DATA = {
       tag: '51 проект',
       target: 'Клиентам и партнерам',
       desc: 'Интерактивный каталог 51 собранного AI-продукта с живыми превью реальных экранов и доказанными метриками',
-      url: 'https://ganimar-cases.vercel.app'
+      url: 'https://cases.ganimar.ru'
     },
     {
       id: 'portfolio',
@@ -76,7 +76,7 @@ window.GANIMAR_DATA = {
       tag: 'Deck',
       target: 'Со сцены и на питчах',
       desc: 'Интерактивная презентация экосистемы, технологического стека и флагманских внедрений',
-      url: 'https://portfolio-ganimar.vercel.app'
+      url: 'https://portfolio.ganimar.ru'
     },
     {
       id: 'cv',
@@ -85,7 +85,7 @@ window.GANIMAR_DATA = {
       tag: 'Резюме',
       target: 'HR и инвесторам',
       desc: 'Полный профиль директора по маркетингу / Head of AI, карьерный путь, методология и твердые результаты',
-      url: 'https://resume-ganimar.vercel.app'
+      url: 'https://cv.ganimar.ru'
     }
   ],
 
@@ -94,20 +94,20 @@ window.GANIMAR_DATA = {
     {
       badge: 'Выручка в найме',
       number: '1,2 млрд ₽',
-      title: 'Ex обороты под управлением в найме',
-      desc: 'Суммарный объем продаж в федеральных сетях и проектах'
+      title: 'Пик оборота направления за сезон',
+      desc: 'Оффлайн-образование: сезонный оборот до 1,2 млрд ₽'
     },
     {
       badge: 'Рекорд сезона',
       number: '852 млн ₽',
-      title: 'Выручка МФЮА за сезон',
-      desc: 'Привлечение абитуриентов и рост набора при снижении CPL'
+      title: 'Выручка за сезон приёмной кампании',
+      desc: '852 млн ₽ выручки по данным Roistat'
     },
     {
       badge: 'Эффективность',
       number: '×23',
-      title: 'Лучший показатель ROMI',
-      desc: 'Окупаемость инвестиций в сквозной мультиканальный маркетинг'
+      title: 'Окупаемость интернет-маркетинга по Roistat',
+      desc: '852 млн ₽ выручки при 37 млн ₽ бюджета интернет-каналов'
     },
     {
       badge: 'AI-продукты',
@@ -129,15 +129,15 @@ window.GANIMAR_DATA = {
     },
     {
       badge: 'Опыт',
-      number: '15 лет',
-      title: 'В маркетинге и продажах',
-      desc: 'Практический опыт построения и масштабирования систем'
+      number: 'С 2016',
+      title: 'В онлайн-маркетинге',
+      desc: 'Практика системного маркетинга и автоматизации продаж'
     },
     {
       badge: 'Мультиагенты',
-      number: '100%',
-      title: 'Автономная экосистема',
-      desc: 'Сквозная синхронизация агентов и инструментов'
+      number: '24',
+      title: 'Проекта с прямой ссылкой',
+      desc: 'Из 51 программного проекта в витрине'
     }
   ],
 
@@ -151,7 +151,7 @@ window.GANIMAR_DATA = {
       desc: 'Сквозная воронка привлечения абитуриентов, автоматизация колл-центра и омниканальный ретаргетинг',
       tags: ['Контекст', 'Таргет', 'Сквозная аналитика', 'CRM-маркетинг'],
       preview: 'assets/previews/case-mfua.jpg',
-      url: 'https://ganimar-cases.vercel.app'
+      url: 'https://cases.ganimar.ru'
     },
     {
       id: 'developer',
@@ -161,7 +161,7 @@ window.GANIMAR_DATA = {
       desc: 'Квалификация лидов через чат-боты, гео-таргетинг и сквозной учет до сделки в Росреестре',
       tags: ['Недвижимость', 'Чат-боты', 'Сквозной учет', 'Лидогенерация'],
       preview: 'assets/previews/case-dev.jpg',
-      url: 'https://ganimar-cases.vercel.app'
+      url: 'https://cases.ganimar.ru'
     },
     {
       id: 'fmcg',
@@ -171,7 +171,7 @@ window.GANIMAR_DATA = {
       desc: 'Мультиканальный трафик, персонализированные триггерные рассылки и предиктивная аналитика оттока',
       tags: ['E-commerce', 'LTV-рост', 'Триггеры', 'Предиктивный ИИ'],
       preview: 'assets/previews/case-fmcg.jpg',
-      url: 'https://ganimar-cases.vercel.app'
+      url: 'https://cases.ganimar.ru'
     }
   ],
 
@@ -184,7 +184,7 @@ window.GANIMAR_DATA = {
       role: 'Мультиагентный ИИ-отдел маркетинга',
       desc: 'Комплексная система из аналитика, стратега, копирайтера, дизайнера и публикатора в едином контуре',
       preview: 'assets/previews/marqly.jpg',
-      url: 'https://ganimar-cases.vercel.app'
+      url: 'https://cases.ganimar.ru'
     },
     {
       id: 'voiceiq',
@@ -193,7 +193,7 @@ window.GANIMAR_DATA = {
       role: 'ИИ-контроль качества звонков (ОКК)',
       desc: 'Транскрибация по ролям, автоматический QA Scorecard и подсказки менеджеру по продажам в реальном времени',
       preview: 'assets/previews/voiceiq.jpg',
-      url: 'https://ganimar-cases.vercel.app'
+      url: 'https://cases.ganimar.ru'
     },
     {
       id: 'mvp-factory',
@@ -202,7 +202,7 @@ window.GANIMAR_DATA = {
       role: 'Мультиагентная фабрика генерации MVP',
       desc: 'Автономный оркестратор из 10 специализированных агентов с единой дизайн-системой',
       preview: 'assets/previews/mvp-factory.jpg',
-      url: 'https://ganimar-cases.vercel.app'
+      url: 'https://cases.ganimar.ru'
     },
     {
       id: 'aimagenarium',
@@ -211,7 +211,7 @@ window.GANIMAR_DATA = {
       role: 'Генеративная медиа-студия и AI-продакшен',
       desc: 'Автоматизированный конвейер генерации визуального контента, обложек, видео и анимаций на базе нейросетей',
       preview: 'assets/previews/aimagenarium.jpg',
-      url: 'https://ganimar-cases.vercel.app'
+      url: 'https://cases.ganimar.ru'
     },
     {
       id: 'yasno',
@@ -220,7 +220,7 @@ window.GANIMAR_DATA = {
       role: 'ИИ-куратор для онлайн-школ',
       desc: 'Умный ассистент поверх образовательных платформ для моментальной поддержки учеников и аналитики',
       preview: 'assets/previews/yasno.jpg',
-      url: 'https://ganimar-cases.vercel.app'
+      url: 'https://cases.ganimar.ru'
     },
     {
       id: 'edvista',
@@ -229,7 +229,7 @@ window.GANIMAR_DATA = {
       role: 'Интеллектуальная LMS и AI-наставник',
       desc: 'Адаптивные образовательные треки, персонализированные домашние задания и сквозной мониторинг прогресса студентов',
       preview: 'assets/previews/edvista.jpg',
-      url: 'https://ganimar-cases.vercel.app'
+      url: 'https://cases.ganimar.ru'
     }
   ]
 };

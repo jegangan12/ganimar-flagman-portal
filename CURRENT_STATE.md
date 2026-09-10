@@ -27,4 +27,12 @@
 - Приёмка в Chrome: 390, 768, 1116 и 1812 px; на production в 390 px меню открывается корректно
 - Production deployment: https://ganimar-flagman-antigravity-20260909-kt28n0xt4.vercel.app
 
+## Проверено 2026-09-10
+
+- Комплексный аудит: UX, responsive, accessibility, SEO, факты, ссылки и клиентская безопасность
+- Production-приёмка в Chrome: 390, 768, 1116 и 1812 px, нулевое горизонтальное переполнение
+- Все шесть публичных HTML-страниц, sitemap, robots, RSS и favicon отдают 200
+- Production deployment: https://ganimar-flagman-antigravity-20260909-nsupq7zdd.vercel.app
+- Поиск `site:ganimar.ru` пока не показывает результатов. IndexNow подготовлен, но не отправлен: нужен отдельный прямой human gate на передачу публичного ключа и карты URL
+
 ## Следующий шаг
