@@ -980,8 +980,8 @@ img {
 }
 
 /* Responsive navigation and hero */
-.nav-wrap { gap: 24px; }
-.nav-links { gap: 13px; }
+.nav-wrap { gap: 28px; }
+.nav-links { gap: 18px; flex-wrap: nowrap; }
 .nav-links li { flex: 0 0 auto; }
 .nav-item-link { white-space: nowrap; }
 .nav-actions { display: flex; align-items: center; flex: 0 0 auto; }
@@ -992,7 +992,7 @@ img {
 .site-nav.menu-open .menu-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 .nav-mobile-telegram { display: none; }
 
-@media screen and (max-width: 1320px) {
+@media screen and (max-width: 1500px) {
   .nav-links { display: flex; }
   .site-nav { overflow: visible; }
   .primary-nav { position: absolute; top: calc(100% + 12px); right: 28px; left: 28px; padding: 10px; border: 1px solid var(--border-card); border-radius: 2px; background: rgba(12, 11, 10, .98); box-shadow: 0 16px 45px rgba(0, 0, 0, .35); opacity: 0; visibility: hidden; transform: translateY(-8px); transition: opacity .2s ease, transform .2s ease, visibility .2s ease; }
@@ -1066,4 +1066,153 @@ button:focus-visible {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
   }
+}
+
+
+/* ==========================================================================
+   ДВА НАПРАВЛЕНИЯ, СТРОКА «ЕЩЁ В ЭКОСИСТЕМЕ» И СОЦСЕТИ ИКОНКАМИ
+   ========================================================================== */
+
+.branches-grid--duo {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.eco-extra {
+  margin-top: 36px;
+  padding-top: 26px;
+  border-top: 1px solid var(--border-card);
+}
+
+.eco-extra-label {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 16px;
+}
+
+.eco-extra-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.eco-extra-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 18px;
+  border: 1px solid var(--border-card);
+  background: var(--bg-card);
+  text-decoration: none;
+  transition: var(--transition);
+  min-width: 220px;
+}
+
+.eco-extra-item:hover {
+  border-color: var(--border-amber);
+  background: var(--bg-card-hover);
+}
+
+.eco-extra-item--soon {
+  opacity: .62;
+}
+
+.eco-extra-title {
+  font-family: var(--font-display);
+  font-size: 17px;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  color: var(--text-white);
+}
+
+.eco-extra-note {
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.socials-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+  gap: 12px;
+  margin-top: 34px;
+}
+
+.social-chip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--border-card);
+  background: var(--bg-card);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.social-chip:hover {
+  border-color: var(--border-amber);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+}
+
+.social-ico {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  border: 1px solid var(--border-card);
+  border-radius: 50%;
+  color: var(--accent-amber);
+}
+
+.social-ico svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.social-mono {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  color: var(--accent-amber);
+}
+
+.social-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.social-name {
+  font-family: var(--font-display);
+  font-size: 15px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-white);
+}
+
+.social-handle {
+  font-size: 12.5px;
+  color: var(--text-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.socials-note {
+  margin-top: 18px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+
+@media screen and (max-width: 900px) {
+  .branches-grid--duo { grid-template-columns: 1fr; }
+  .eco-extra-item { min-width: 100%; }
 }
