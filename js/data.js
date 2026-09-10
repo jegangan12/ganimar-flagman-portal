@@ -200,7 +200,7 @@ window.GANIMAR_DATA = {
       role: 'Платформа для кондитеров и Cake Show',
       desc: 'Расчёт себестоимости и прибыли, база клиентов и предоплат, календарь заказов и Telegram-бот, который напоминает о сборке и закупке',
       preview: 'assets/previews/kondipro.jpg',
-      url: 'https://cake-show-app.vercel.app'
+      url: 'https://kondi-pro.ru'
     },
     {
       id: 'marqly',
@@ -209,7 +209,7 @@ window.GANIMAR_DATA = {
       role: 'Мультиагентный ИИ-отдел маркетинга',
       desc: 'Сводка по маркетингу, экономика кампаний, генераторы текстов, картинок и сценариев для роликов в одном кабинете',
       preview: 'assets/previews/marqly.jpg',
-      url: 'https://markly-ai-marketing-department.vercel.app'
+      url: 'https://marklyai.ru'
     },
     {
       id: 'voiceiq',
