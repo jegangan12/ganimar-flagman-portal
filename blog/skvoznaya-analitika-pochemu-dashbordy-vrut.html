@@ -25,7 +25,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Onest:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/styles.css" />
   <link rel="stylesheet" href="/css/blog.css" />
 
@@ -68,7 +68,9 @@
     ]
   }
   </script>
-  <link rel="icon" type="image/png" href="/assets/me-cutout.png" />
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
 </head>
 <body>
   <a class="skip-link" href="#main-content">К содержанию</a>
@@ -105,8 +107,12 @@
       <p class="lead">Собственник не верит цифрам в дашборде - и чаще всего он прав. Разбираю пять ошибок сведения данных и порядок, в котором их нужно чинить, чтобы отчёт наконец сошёлся с расчётным счётом.</p>
     </div>
 
+
+    <figure class="article-cover">
+      <img src="/assets/previews/blog-2.jpg" alt="Сквозная аналитика на 852 млн ₽ выручки: почему 90% дашбордов врут владельцу" width="1200" height="675" decoding="async" />
+    </figure>
     <article class="article-body">
-      <p>За один сезон приёмной кампании через сведённую аналитику прошло 852 млн ₽ выручки, а всего под управлением был оборот до 1,2 млрд ₽ и 75+ млн ₽ рекламных бюджетов в 15 с лишним каналах. И почти на каждом старте повторялась одна и та же картина: у собственника есть красивый дашборд, а решения он принимает по ощущениям - потому что цифрам не верит.</p>
+      <p>За один сезон приёмной кампании через сведённую аналитику прошло 852 млн ₽ выручки, а всего под управлением был оборот до 1,2 млрд ₽ и 75+ млн ₽ рекламных бюджетов. И почти на каждом старте повторялась одна и та же картина: у собственника есть красивый дашборд, а решения он принимает по ощущениям - потому что цифрам не верит.</p>
 
       <p>Он прав, что не верит. В большинстве случаев дашборд действительно врёт. Не потому, что кто-то жульничает, а потому, что сведён на пяти системных ошибках.</p>
 
@@ -218,9 +224,6 @@
       <div><a href="https://t.me/ganimarketing" target="_blank" rel="noopener noreferrer">@ganimarketing</a></div>
     </div>
   </footer>
-
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+  <script src="/js/year.js"></script>
 </body>
 </html>

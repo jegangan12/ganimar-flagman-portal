@@ -1,0 +1,12 @@
+# Служебное - на прод не едет
+docs/
+content/
+seo-kit/
+tools/
+screenshots/
+CURRENT_STATE.md
+README.md
+.env*
+.git/
+.gitignore
+.vercelignore

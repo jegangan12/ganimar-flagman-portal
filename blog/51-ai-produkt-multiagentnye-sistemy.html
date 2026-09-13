@@ -25,7 +25,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Onest:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/styles.css" />
   <link rel="stylesheet" href="/css/blog.css" />
 
@@ -68,7 +68,9 @@
     ]
   }
   </script>
-  <link rel="icon" type="image/png" href="/assets/me-cutout.png" />
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
 </head>
 <body>
   <a class="skip-link" href="#main-content">К содержанию</a>
@@ -105,8 +107,12 @@
       <p class="lead">Скорость сборки продуктов определяется не скоростью написания кода, а тем, как устроена приёмка. Показываю рабочую схему мультиагентного пайплайна и выводы, которые дались дороже всего.</p>
     </div>
 
+
+    <figure class="article-cover">
+      <img src="/assets/previews/blog-1.jpg" alt="Как мы собрали 51 AI-продукт за год: архитектура мультиагентных систем и вайб-кодинг" width="1200" height="675" decoding="async" />
+    </figure>
     <article class="article-body">
-      <p>За год в шести направлениях собрано 51 продукт: от мультиагентного отдела маркетинга Marqly и контроля качества звонков VoiceIQ до социальной инфраструктуры BIOM и финансового помощника «Ясно». Вопрос, который задают чаще всего: как один человек с небольшой командой выпускает продукты в таком темпе.</p>
+      <p>За год в шести направлениях собран 51 продукт: от мультиагентного отдела маркетинга Marqly и контроля качества звонков VoiceIQ до социальной инфраструктуры BIOM и ИИ-куратора для онлайн-школ «Ясно». Вопрос, который задают чаще всего: как один человек с небольшой командой выпускает продукты в таком темпе.</p>
 
       <p>Ответ не в скорости печати. Он в том, что <strong>разработка перестала быть последовательной цепочкой и стала параллельным конвейером агентов</strong>, у каждого из которых узкая зона ответственности и проверяемый результат.</p>
 
@@ -118,7 +124,7 @@
 
       <h2>Архитектура мультиагентного пайплайна</h2>
 
-      <p>Рабочая схема, к которой мы пришли на MVP-Factory - фабрике из десяти агентов с оркестратором:</p>
+      <p>Рабочая схема, к которой мы пришли на MVP-Factory - фабрике из девяти агентов и оркестратора:</p>
 
       <ol>
         <li><strong>Оркестратор.</strong> Единственный компонент, который держит цель целиком. Разбивает задачу, раздаёт подзадачи, принимает результаты и решает, что переделать.</li>
@@ -162,7 +168,7 @@
         </table>
       </div>
 
-      <p>Важная оговорка: за три часа получается <strong>прототип, а не продукт</strong>. Разница между ними - нагрузка, безопасность,поддержка и всё то, что делает систему пригодной для боевой эксплуатации. Но прототип за три часа меняет экономику проверки гипотез: становится не страшно выбросить.</p>
+      <p>Важная оговорка: за три часа получается <strong>прототип, а не продукт</strong>. Разница между ними - нагрузка, безопасность, поддержка и всё то, что делает систему пригодной для боевой эксплуатации. Но прототип за три часа меняет экономику проверки гипотез: становится не страшно выбросить.</p>
 
       <h2>Что мы поняли на дистанции в 51 продукт</h2>
 
@@ -205,9 +211,6 @@
       <div><a href="https://t.me/ganimarketing" target="_blank" rel="noopener noreferrer">@ganimarketing</a></div>
     </div>
   </footer>
-
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+  <script src="/js/year.js"></script>
 </body>
 </html>

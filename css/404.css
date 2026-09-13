@@ -1,0 +1,5 @@
+.nf { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 24px; }
+.nf-box { max-width: 640px; text-align: center; }
+.nf-title { font-family: var(--font-display); font-size: clamp(40px, 8vw, 72px); line-height: 1; color: var(--text-white); text-transform: uppercase; margin: 14px 0 18px; }
+.nf-text { font-size: 17px; color: var(--text-muted); margin-bottom: 30px; }
+.nf-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }

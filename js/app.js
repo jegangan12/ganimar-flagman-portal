@@ -4,6 +4,13 @@
  * Блог рендерится статически в HTML (/blog/) - ради индексации без JS
  */
 
+// Экранирование для innerHTML: данные локальные, но привычка обязана быть
+function esc(v) {
+  return String(v == null ? '' : v)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const data = window.GANIMAR_DATA;
   if (!data) return;
@@ -37,19 +44,19 @@ function renderBranches(data) {
     const card = createCard('branch-card', b.url);
     card.innerHTML = `
       <div>
-        <img src="${b.preview}" alt="${b.title}" class="card-img-preview" />
+        <img src="${esc(b.preview)}" alt="${esc(b.title)}" class="card-img-preview" width="1200" height="675" loading="lazy" decoding="async" />
         <div class="branch-top">
-          <h3 class="branch-title">${b.title}</h3>
-          <span class="branch-pill">${b.domain}</span>
+          <h3 class="branch-title">${esc(b.title)}</h3>
+          <span class="branch-pill">${esc(b.domain)}</span>
         </div>
-        <p class="branch-desc">${b.desc}</p>
+        <p class="branch-desc">${esc(b.desc)}</p>
       </div>
       <div>
         <div class="branch-tags">
-          ${b.features.map(f => `<span class="branch-tag">${f}</span>`).join('')}
+          ${b.features.map(f => `<span class="branch-tag">${esc(f)}</span>`).join('')}
         </div>
         <div class="branch-btn">
-          <span>${b.ctaText}</span>
+          <span>${esc(b.ctaText)}</span>
           <span>→</span>
         </div>
       </div>
@@ -67,13 +74,13 @@ function renderSubdomains(data) {
     const card = createCard('subdomain-card', s.url);
     card.innerHTML = `
       <div>
-        <div class="sub-badge">${s.subdomain}</div>
-        <h3 class="sub-title">${s.title}</h3>
-        <div class="sub-target">${s.target}</div>
-        <p class="sub-desc">${s.desc}</p>
+        <div class="sub-badge">${esc(s.subdomain)}</div>
+        <h3 class="sub-title">${esc(s.title)}</h3>
+        <div class="sub-target">${esc(s.target)}</div>
+        <p class="sub-desc">${esc(s.desc)}</p>
       </div>
       <div class="sub-btn">
-        <span>Открыть ${s.tag}</span>
+        <span>${esc(s.cta || 'Открыть')}</span>
         <span>↗</span>
       </div>
     `;
@@ -90,10 +97,10 @@ function renderStats(data) {
     const card = document.createElement('div');
     card.className = 'stat-card';
     card.innerHTML = `
-      <div class="stat-badge">${st.badge}</div>
-      <div class="stat-val highlight">${st.number}</div>
-      <div class="stat-title">${st.title}</div>
-      <div class="stat-desc">${st.desc}</div>
+      <div class="stat-badge">${esc(st.badge)}</div>
+      <div class="stat-val highlight">${esc(st.number)}</div>
+      <div class="stat-title">${esc(st.title)}</div>
+      <div class="stat-desc">${esc(st.desc)}</div>
     `;
     container.appendChild(card);
   });
@@ -108,14 +115,14 @@ function renderCases(data) {
     const card = createCard('case-card', c.url);
     card.innerHTML = `
       <div>
-        <img src="${c.preview}" alt="${c.title}" class="card-img-top" />
-        <div class="case-niche">${c.niche}</div>
-        <h3 class="case-title">${c.title}</h3>
-        <div class="case-metric">${c.metrics}</div>
-        <p class="case-desc">${c.desc}</p>
+        <img src="${esc(c.preview)}" alt="${esc(c.title)}" class="card-img-top" width="1200" height="675" loading="lazy" decoding="async" />
+        <div class="case-niche">${esc(c.niche)}</div>
+        <h3 class="case-title">${esc(c.title)}</h3>
+        <div class="case-metric">${esc(c.metrics)}</div>
+        <p class="case-desc">${esc(c.desc)}</p>
       </div>
       <div class="branch-tags">
-        ${c.tags.map(t => `<span class="branch-tag">${t}</span>`).join('')}
+        ${c.tags.map(t => `<span class="branch-tag">${esc(t)}</span>`).join('')}
       </div>
     `;
     container.appendChild(card);
@@ -131,16 +138,16 @@ function renderProducts(data) {
     const card = createCard('product-card', p.url);
     card.innerHTML = `
       <div>
-        <img src="${p.preview}" alt="${p.name}" class="card-img-top" />
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-          <h3 class="product-title" style="margin: 0;">${p.name}</h3>
-          <span style="font-family: var(--font-display); font-size: 11px; color: var(--accent-amber); border: 1px solid var(--border-amber); padding: 2px 6px; text-transform: uppercase;">${p.status}</span>
+        <img src="${esc(p.preview)}" alt="${esc(p.name)}" class="card-img-top" width="1200" height="675" loading="lazy" decoding="async" />
+        <div class="product-head">
+          <h3 class="product-title">${esc(p.name)}</h3>
+          <span class="product-status">${esc(p.status)}</span>
         </div>
-        <div class="sub-target">${p.role}</div>
-        <p class="product-desc">${p.desc}</p>
+        <div class="sub-target">${esc(p.role)}</div>
+        <p class="product-desc">${esc(p.desc)}</p>
       </div>
       <div class="sub-btn">
-        <span>Подробнее о ${p.name}</span>
+        <span>Открыть продукт</span>
         <span>→</span>
       </div>
     `;
@@ -170,9 +177,9 @@ function renderEcoExtra(data) {
     <span class="eco-extra-label">Ещё в экосистеме</span>
     <div class="eco-extra-list">
       ${data.ecosystemExtra.map(item => {
-        const inner = `<span class="eco-extra-title">${item.title}</span><span class="eco-extra-note">${item.note}</span>`;
+        const inner = `<span class="eco-extra-title">${esc(item.title)}</span><span class="eco-extra-note">${esc(item.note)}</span>`;
         return item.url
-          ? `<a class="eco-extra-item" href="${item.url}" target="_blank" rel="noopener noreferrer">${inner}</a>`
+          ? `<a class="eco-extra-item" href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">${inner}</a>`
           : `<span class="eco-extra-item eco-extra-item--soon">${inner}</span>`;
       }).join('')}
     </div>
@@ -183,9 +190,9 @@ function renderSocials(data) {
   const container = document.getElementById('socials-row');
   if (!container || !data.socials) return;
   container.innerHTML = data.socials.map(s => `
-    <a class="social-chip" href="${s.url}" ${s.url.startsWith('http') ? 'target="_blank" rel="noopener noreferrer"' : ''} aria-label="${s.title}">
+    <a class="social-chip" href="${esc(s.url)}" ${s.url.startsWith('http') ? 'target="_blank" rel="noopener noreferrer"' : ''} aria-label="${esc(s.title)}">
       <span class="social-ico">${socialGlyph(s)}</span>
-      <span class="social-text"><span class="social-name">${s.title}</span><span class="social-handle">${s.handle}</span></span>
+      <span class="social-text"><span class="social-name">${esc(s.title)}</span><span class="social-handle">${esc(s.handle)}</span></span>
     </a>
   `).join('');
 }

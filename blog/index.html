@@ -15,14 +15,16 @@
   <meta property="og:title" content="Блог GANIMAR: системный маркетинг, аналитика и AI-продукты" />
   <meta property="og:description" content="Разборы на реальных данных: атрибуция и сведение выручки, архитектура мультиагентных систем, автоматизация продаж, поисковый трафик." />
   <meta property="og:url" content="https://ganimar.ru/blog" />
-  <meta property="og:image" content="https://ganimar.ru/assets/me-dark-portrait.jpg" />
+  <meta property="og:image" content="https://ganimar.ru/assets/og-cover.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="alternate" type="application/rss+xml" title="Блог GANIMAR" href="/feed.xml" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Onest:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/styles.css" />
   <link rel="stylesheet" href="/css/blog.css" />
 
@@ -74,7 +76,9 @@
     ]
   }
   </script>
-  <link rel="icon" type="image/png" href="/assets/me-cutout.png" />
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
 </head>
 <body>
   <a class="skip-link" href="#main-content">К содержанию</a>
@@ -102,8 +106,8 @@
     </div>
 
     <div class="blog-hero">
-      <h1>Блог и лаборатория решений</h1>
-      <p class="lead">Разборы на реальных данных: как сводить маркетинг с деньгами, как собирать AI-продукты быстрее, чем пишется техзадание, и как забирать органический трафик там, где конкуренты ещё не начали. Новые материалы выходят раз в неделю</p>
+      <h1>Разборы и рабочие инструкции</h1>
+      <p class="lead">Разборы на реальных данных: как сводить маркетинг с деньгами, как собирать ИИ-продукты быстрее, чем пишется техзадание, и как забирать органический трафик там, где конкуренты ещё не начали.</p>
     </div>
 
     <div class="post-list">
@@ -119,7 +123,7 @@
 
         <a class="post-item" href="/blog/51-ai-produkt-multiagentnye-sistemy">
           <div class="post-meta">
-            <span class="tag">AI-разработка</span>
+            <span class="tag">ИИ-разработка</span>
             <time datetime="2026-08-27">27 августа 2026</time>
             <span>8 мин чтения</span>
           </div>
@@ -164,9 +168,6 @@
       <div><a href="https://t.me/ganimarketing" target="_blank" rel="noopener noreferrer">@ganimarketing</a></div>
     </div>
   </footer>
-
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+  <script src="/js/year.js"></script>
 </body>
 </html>
