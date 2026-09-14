@@ -21,11 +21,11 @@ window.GANIMAR_DATA = {
     {
       id: 'development',
       title: 'ИИ-разработка',
-      domain: 'cases.ganimar.ru',
+      domain: 'продукты ниже',
       desc: 'Собираю работающие продукты: агентные системы и нейросотрудники, CRM и LMS, порталы и сайты с автонаполняемыми блогами под SEO, GEO и AEO. В витрине 51 проект, 24 открываются по прямой ссылке',
-      url: 'https://cases.ganimar.ru',
+      url: '#products',
       features: ['Агенты и нейросотрудники', 'CRM и LMS', 'Порталы и сайты', 'Автоблоги SEO / GEO / AEO'],
-      ctaText: 'Смотреть 51 проект',
+      ctaText: 'Смотреть продукты',
       preview: 'assets/previews/branch-dev.jpg'
     }
   ],
@@ -99,7 +99,7 @@ window.GANIMAR_DATA = {
       badge: 'Эффективность',
       number: '×23',
       title: 'Окупаемость интернет-маркетинга по Roistat',
-      desc: '852 млн ₽ выручки при 37 млн ₽ бюджета интернет-каналов'
+      desc: 'Сезон 2025/26: 852 млн ₽ выручки при 37 млн ₽ бюджета интернет-каналов'
     },
     {
       badge: 'ИИ-продукты',
@@ -143,7 +143,7 @@ window.GANIMAR_DATA = {
       desc: 'Сквозная воронка абитуриента: контекст, таргет, агрегаторы и карты, учёт до зачисления при бюджете интернет-каналов 37 млн ₽',
       tags: ['Контекст', 'Таргет', 'Сквозная аналитика', 'CRM-маркетинг'],
       preview: 'assets/previews/case-mfua.jpg',
-      url: 'https://cases.ganimar.ru'
+      links: [{ label: 'Читать разбор аналитики', url: '/blog/skvoznaya-analitika-pochemu-dashbordy-vrut' }]
     },
     {
       id: 'byyd',
@@ -153,7 +153,7 @@ window.GANIMAR_DATA = {
       desc: 'In-app видео с переходом на посадочную: время на сайте 1:52 - в 3,5 раза выше рынка, визиты после клика 72,12%. Кейс разобран в AdIndex и Sostav',
       tags: ['In-app видео', 'Likee', 'Медийный охват', 'Качество трафика'],
       preview: 'assets/previews/case-byyd.jpg',
-      url: 'https://cases.ganimar.ru'
+      links: [{ label: 'Кейс на AdIndex', url: 'https://adindex.ru/case/2025/04/23/333022.phtml', external: true }, { label: 'Публикация на Sostav', url: 'https://www.sostav.ru/publication/kak-privlech-abiturientov-ko-dnu-otkrytykh-dverej-cherez-push-uvedomleniya-v-in-app-reklame-82172.html', external: true }]
     },
     {
       id: '5sil',
@@ -163,7 +163,7 @@ window.GANIMAR_DATA = {
       desc: 'Переработка подписной страницы, автоворонка и прогрев до вебинара: конверсия подписной выросла с 60 до 79%',
       tags: ['Запуск', 'Автоворонка', 'Подписная страница', 'Прогрев'],
       preview: 'assets/previews/case-5sil.jpg',
-      url: 'https://cases.ganimar.ru'
+      links: [{ label: 'Спросить про кейс в Telegram', url: 'https://t.me/ganimarketing', external: true }]
     },
     {
       id: 'health',
@@ -173,7 +173,7 @@ window.GANIMAR_DATA = {
       desc: 'Связка таргета, чат-бота и автовебинарной воронки: бюджет 296 000 ₽ дал выручку около 1,33 млн ₽',
       tags: ['Таргет', 'Чат-бот', 'Автовебинар', 'Юнит-экономика'],
       preview: 'assets/previews/case-health.jpg',
-      url: 'https://cases.ganimar.ru'
+      links: [{ label: 'Спросить про кейс в Telegram', url: 'https://t.me/ganimarketing', external: true }]
     }
   ],
 
@@ -186,7 +186,8 @@ window.GANIMAR_DATA = {
       role: 'ИИ-куратор для онлайн-школ',
       desc: 'Отвечает студентам строго по материалам курса, ведёт журнал непонятых тем и показывает методисту, где люди спотыкаются. Пилот - школа Pauline Cake Club',
       preview: 'assets/previews/yasno.jpg',
-      url: 'https://yasno-app.vercel.app'
+      url: 'https://yasno-app.vercel.app',
+      cta: 'Открыть продукт'
     },
     {
       id: 'jarvis',
@@ -195,7 +196,8 @@ window.GANIMAR_DATA = {
       role: 'Оркестратор ИИ-агентов',
       desc: 'Оркестратор отделов: агенты берут задачи, отчитываются и эскалируют владельцу. Живой поток событий, бюджеты моделей и пульт управления',
       preview: 'assets/previews/jarvis.jpg',
-      url: 'https://cases.ganimar.ru'
+      url: 'https://cases.ganimar.ru',
+      cta: 'Смотреть в витрине'
     },
     {
       id: 'kondipro',
@@ -204,7 +206,8 @@ window.GANIMAR_DATA = {
       role: 'Платформа для кондитеров и Cake Show',
       desc: 'Расчёт себестоимости и прибыли, база клиентов и предоплат, календарь заказов и Telegram-бот, который напоминает о сборке и закупке',
       preview: 'assets/previews/kondipro.jpg',
-      url: 'https://kondi-pro.ru'
+      url: 'https://kondi-pro.ru',
+      cta: 'Открыть продукт'
     },
     {
       id: 'marqly',
@@ -213,7 +216,8 @@ window.GANIMAR_DATA = {
       role: 'Мультиагентный ИИ-отдел маркетинга',
       desc: 'Сводка по маркетингу, экономика кампаний, генераторы текстов, картинок и сценариев для роликов в одном кабинете',
       preview: 'assets/previews/marqly.jpg',
-      url: 'https://marklyai.ru'
+      url: 'https://marklyai.ru',
+      cta: 'Открыть продукт'
     },
     {
       id: 'voiceiq',
@@ -222,7 +226,8 @@ window.GANIMAR_DATA = {
       role: 'ИИ-контроль качества звонков',
       desc: 'Транскрибация разговора по ролям, автоматический скоринг качества и подсказки менеджеру во время сделки',
       preview: 'assets/previews/voiceiq.jpg',
-      url: 'https://cases.ganimar.ru'
+      url: 'https://cases.ganimar.ru',
+      cta: 'Смотреть в витрине'
     },
     {
       id: 'neyrika',
@@ -231,7 +236,8 @@ window.GANIMAR_DATA = {
       role: 'Клиентский сайт с SEO-блогом и кабинетом',
       desc: 'Лендинг коррекционной программы с записью на тестирование, автонаполняемый блог под поиск и закрытый кабинет специалиста, где запись приёма превращается в структурированную карточку',
       preview: 'assets/previews/neyrika.jpg',
-      url: 'https://neuroput.ru'
+      url: 'https://neuroput.ru',
+      cta: 'Открыть продукт'
     },
     {
       id: 'edvista',
@@ -240,7 +246,8 @@ window.GANIMAR_DATA = {
       role: 'Каталог образования и ИИ-наставник',
       desc: 'Вузы, колледжи, онлайн-школы и курсы в одном каталоге с фильтрами, сравнением программ и подбором маршрута обучения',
       preview: 'assets/previews/edvista.jpg',
-      url: 'https://cases.ganimar.ru'
+      url: 'https://cases.ganimar.ru',
+      cta: 'Смотреть в витрине'
     }
   ],
 

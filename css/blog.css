@@ -1,11 +1,24 @@
 /* ==========================================================================
-   GANIMAR BLOG — READABLE LONGREAD LAYER
+   GANIMAR BLOG - READABLE LONGREAD LAYER
    Подключается поверх styles.css, использует те же токены
    ========================================================================== */
+
+:root {
+  --blog-col: 760px;
+}
 
 .blog-page {
   padding-top: 120px;
   padding-bottom: 80px;
+}
+
+/* Единая колонка чтения: крошки, мета, H1, лид, обложка, текст, CTA, «читать дальше»
+   и список статей живут в одной центрированной колонке */
+.blog-page > * {
+  width: 100%;
+  max-width: var(--blog-col);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Хлебные крошки */
@@ -28,13 +41,13 @@
 
 /* Шапка блога */
 .blog-hero {
-  max-width: 860px;
-  margin-bottom: 56px;
+  margin-bottom: 40px;
 }
 
 .blog-hero h1 {
-  font-size: clamp(32px, 5vw, 58px);
-  margin-bottom: 22px;
+  font-size: clamp(32px, 4.6vw, 52px);
+  margin-bottom: 20px;
+  overflow-wrap: anywhere;
 }
 
 .blog-hero .lead {
@@ -47,7 +60,6 @@
 .post-list {
   display: grid;
   gap: 18px;
-  max-width: 900px;
 }
 
 .post-item {
@@ -95,9 +107,23 @@
   padding: 3px 12px;
 }
 
+/* Обложка статьи: не шире колонки, те же скругления, что у карточек */
+.article-cover {
+  margin: 0 auto 40px;
+}
+
+.article-cover img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid var(--border-card);
+}
+
 /* Тело статьи */
 .article-body {
-  max-width: 760px;
   font-size: 17px;
   line-height: 1.85;
   color: #cfcfcf;
@@ -118,6 +144,26 @@
 
 .article-body p {
   margin-bottom: 20px;
+}
+
+.article-body h2:first-child,
+.article-body h3:first-child {
+  margin-top: 0;
+}
+
+.article-body code {
+  font-size: 0.92em;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  color: var(--text-white);
+  overflow-wrap: anywhere;
+}
+
+.article-body th code,
+.article-body td code {
+  white-space: nowrap;
 }
 
 .article-body ul,
@@ -147,6 +193,7 @@
   margin: 28px 0;
   padding: 18px 24px;
   border-left: 3px solid var(--accent-amber);
+  border-radius: 0 12px 12px 0;
   background: var(--bg-card);
   color: var(--text-white);
   font-size: 18px;
@@ -176,6 +223,22 @@
 
 .table-scroll {
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 26px 0;
+  /* Тени-подсказки: видно, что таблицу можно прокрутить вбок */
+  background:
+    linear-gradient(90deg, var(--bg-dark) 40%, rgba(12, 11, 10, 0)) left,
+    linear-gradient(90deg, rgba(12, 11, 10, 0), var(--bg-dark) 60%) right,
+    linear-gradient(90deg, rgba(249, 111, 0, 0.28), rgba(249, 111, 0, 0)) left,
+    linear-gradient(90deg, rgba(249, 111, 0, 0), rgba(249, 111, 0, 0.28)) right;
+  background-repeat: no-repeat;
+  background-size: 48px 100%, 48px 100%, 16px 100%, 16px 100%;
+  background-attachment: local, local, scroll, scroll;
+}
+
+.table-scroll table {
+  margin: 0;
+  min-width: 520px;
 }
 
 /* Врезка-вывод */
@@ -193,8 +256,7 @@
 
 /* CTA в конце статьи */
 .article-cta {
-  max-width: 760px;
-  margin: 56px 0 0;
+  margin-top: 56px;
   padding: 30px 28px;
   border: 1px solid var(--border-card);
   border-radius: 16px;
@@ -216,8 +278,10 @@
 
 .btn-amber-line {
   display: inline-flex;
+  max-width: 100%;
   gap: 10px;
   align-items: center;
+  text-align: center;
   padding: 13px 26px;
   border-radius: 999px;
   border: 1px solid var(--accent-amber);
@@ -234,7 +298,6 @@
 
 /* Блок «читать ещё» */
 .related {
-  max-width: 760px;
   margin-top: 48px;
   padding-top: 28px;
   border-top: 1px solid var(--border-card);
@@ -255,6 +318,16 @@
 
 .related a {
   color: var(--text-muted);
+  display: inline-block;
+  padding-left: 22px;
+  position: relative;
+}
+
+.related a::before {
+  content: "\2192";
+  position: absolute;
+  left: 0;
+  color: var(--accent-gold);
 }
 
 .related a:hover {
@@ -307,16 +380,54 @@
   flex-wrap: wrap;
   gap: 14px;
   justify-content: space-between;
+  /* Правый край подвала свободен от плавающей кнопки «наверх» (48px + 22px отступ) */
+  padding-right: 84px;
+}
+
+@media (max-width: 768px) {
+  .blog-hero {
+    margin-bottom: 28px;
+  }
+  .article-cover {
+    margin-bottom: 28px;
+  }
+  .article-cover img {
+    border-radius: 10px;
+  }
+  .article-body {
+    font-size: 16px;
+    line-height: 1.8;
+  }
+  .article-body h2 {
+    margin: 36px 0 14px;
+  }
+  .article-body blockquote {
+    padding: 14px 18px;
+    font-size: 17px;
+  }
+  .callout,
+  .article-cta {
+    padding: 22px 20px;
+  }
+  .post-item {
+    padding: 22px 20px;
+  }
 }
 
 @media (max-width: 640px) {
-  .inner-nav-links li:not(:first-child) {
+  /* На телефоне остаются «Главная» и «Блог»: со статьи нужен путь к списку */
+  .inner-nav-links li:nth-child(n+3) {
     display: none;
+  }
+  .inner-nav-links {
+    gap: 16px;
   }
   .blog-page {
     padding-top: 96px;
   }
+  .btn-amber-line {
+    padding: 12px 18px;
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
 }
-
-.article-cover { margin: 0 0 32px; }
-.article-cover img { display: block; width: 100%; height: auto; border: 1px solid var(--border-card, rgba(255,255,255,.12)); }

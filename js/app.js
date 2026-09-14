@@ -44,7 +44,7 @@ function renderBranches(data) {
     const card = createCard('branch-card', b.url);
     card.innerHTML = `
       <div>
-        <img src="${esc(b.preview)}" alt="${esc(b.title)}" class="card-img-preview" width="1200" height="675" loading="lazy" decoding="async" />
+        <img src="${esc(b.preview)}" alt="Превью сайта ${esc(b.domain)}" class="card-img-preview" width="1200" height="675" loading="lazy" decoding="async" />
         <div class="branch-top">
           <h3 class="branch-title">${esc(b.title)}</h3>
           <span class="branch-pill">${esc(b.domain)}</span>
@@ -112,17 +112,26 @@ function renderCases(data) {
   container.innerHTML = '';
 
   data.cases.forEach((c) => {
-    const card = createCard('case-card', c.url);
+    // Кейс - не ссылка целиком: у каждого свои честные переходы (разбор, публикация, вопрос)
+    const card = document.createElement('article');
+    card.className = 'case-card';
+    const links = (c.links || []).map(l => {
+      const ext = l.external ? ' target="_blank" rel="noopener noreferrer"' : '';
+      return `<a class="case-link" href="${esc(l.url)}"${ext}><span>${esc(l.label)}</span><span aria-hidden="true">${l.external ? '↗' : '→'}</span></a>`;
+    }).join('');
     card.innerHTML = `
       <div>
-        <img src="${esc(c.preview)}" alt="${esc(c.title)}" class="card-img-top" width="1200" height="675" loading="lazy" decoding="async" />
+        <img src="${esc(c.preview)}" alt="Обложка кейса: ${esc(c.title)}" class="card-img-top" width="1200" height="675" loading="lazy" decoding="async" />
         <div class="case-niche">${esc(c.niche)}</div>
         <h3 class="case-title">${esc(c.title)}</h3>
         <div class="case-metric">${esc(c.metrics)}</div>
         <p class="case-desc">${esc(c.desc)}</p>
       </div>
-      <div class="branch-tags">
-        ${c.tags.map(t => `<span class="branch-tag">${esc(t)}</span>`).join('')}
+      <div>
+        <div class="branch-tags">
+          ${c.tags.map(t => `<span class="branch-tag">${esc(t)}</span>`).join('')}
+        </div>
+        <div class="case-links">${links}</div>
       </div>
     `;
     container.appendChild(card);
@@ -138,7 +147,7 @@ function renderProducts(data) {
     const card = createCard('product-card', p.url);
     card.innerHTML = `
       <div>
-        <img src="${esc(p.preview)}" alt="${esc(p.name)}" class="card-img-top" width="1200" height="675" loading="lazy" decoding="async" />
+        <img src="${esc(p.preview)}" alt="Экран продукта ${esc(p.name)}" class="card-img-top" width="1200" height="675" loading="lazy" decoding="async" />
         <div class="product-head">
           <h3 class="product-title">${esc(p.name)}</h3>
           <span class="product-status">${esc(p.status)}</span>
@@ -147,7 +156,7 @@ function renderProducts(data) {
         <p class="product-desc">${esc(p.desc)}</p>
       </div>
       <div class="sub-btn">
-        <span>Открыть продукт</span>
+        <span>${esc(p.cta || 'Открыть продукт')}</span>
         <span>→</span>
       </div>
     `;
@@ -202,8 +211,10 @@ function createCard(className, url) {
   card.className = className;
   if (url) {
     card.href = url;
-    card.target = '_blank';
-    card.rel = 'noopener noreferrer';
+    if (!url.startsWith('#')) {
+      card.target = '_blank';
+      card.rel = 'noopener noreferrer';
+    }
   } else {
     card.classList.add('branch-card--soon');
   }
@@ -228,22 +239,30 @@ function initMobileNav() {
   const primaryNav = document.getElementById('primary-nav');
   if (!nav || !toggle || !primaryNav) return;
 
-  const closeMenu = () => {
+  const closeMenu = (returnFocus) => {
+    if (!nav.classList.contains('menu-open')) return;
     nav.classList.remove('menu-open');
     toggle.setAttribute('aria-expanded', 'false');
     toggle.setAttribute('aria-label', 'Открыть меню');
+    if (returnFocus) toggle.focus();
   };
 
   toggle.addEventListener('click', () => {
     const isOpen = nav.classList.toggle('menu-open');
     toggle.setAttribute('aria-expanded', String(isOpen));
     toggle.setAttribute('aria-label', isOpen ? 'Закрыть меню' : 'Открыть меню');
+    // Меню стоит в DOM раньше кнопки: без переноса фокуса Tab уходил в hero, минуя пункты.
+    // Фокус после кадра: пока visibility не пересчитана, ссылка ещё не фокусируется
+    if (isOpen) requestAnimationFrame(() => requestAnimationFrame(() => primaryNav.querySelector('a')?.focus()));
   });
   primaryNav.addEventListener('click', (event) => {
     if (event.target.closest('a')) closeMenu();
   });
+  document.addEventListener('click', (event) => {
+    if (!nav.contains(event.target)) closeMenu();
+  });
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') closeMenu();
+    if (event.key === 'Escape') closeMenu(true);
   });
   window.addEventListener('resize', () => {
     if (window.innerWidth > 1500) closeMenu();
