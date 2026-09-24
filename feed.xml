@@ -8,6 +8,13 @@
     <lastBuildDate>Thu, 27 Aug 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://ganimar.ru/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>ИИ-агенты простыми словами: разбор на моём живом проекте</title>
+      <link>https://ganimar.ru/blog/ii-agenty-prostymi-slovami-razbor-na-zhivom-proekte</link>
+      <guid isPermaLink="true">https://ganimar.ru/blog/ii-agenty-prostymi-slovami-razbor-na-zhivom-proekte</guid>
+      <description>Простыми словами о том, что такое ИИ-агенты и чем они отличаются от чат-бота. Разбор на моих рабочих системах: статусы, гейты, командная работа.</description>
+      <pubDate>Thu, 24 Sep 2026 09:00:00 +0000</pubDate>
+    </item>
+    <item>
       <title>ChatGPT Images 2.5: как я проверяю модель перед внедрением</title>
       <link>https://ganimar.ru/blog/chatgpt-images-2-5-proverka-na-svoih-proektah</link>
       <guid isPermaLink="true">https://ganimar.ru/blog/chatgpt-images-2-5-proverka-na-svoih-proektah</guid>
