@@ -8,6 +8,13 @@
     <lastBuildDate>Thu, 27 Aug 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://ganimar.ru/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Как понять, что ИИ-агент работает самостоятельно: проверка на цифрах</title>
+      <link>https://ganimar.ru/blog/ii-agenty-samostoyatelno-cifry-a-ne-oshuscheniya</link>
+      <guid isPermaLink="true">https://ganimar.ru/blog/ii-agenty-samostoyatelno-cifry-a-ne-oshuscheniya</guid>
+      <description>Разбираю на своём конвейере, где ИИ-агент работает самостоятельно, а где решение остаётся за человеком - без общих рассуждений, на цифрах.</description>
+      <pubDate>Fri, 25 Sep 2026 09:00:00 +0000</pubDate>
+    </item>
+    <item>
       <title>ИИ-агенты простыми словами: разбор на моём живом проекте</title>
       <link>https://ganimar.ru/blog/ii-agenty-prostymi-slovami-razbor-na-zhivom-proekte</link>
       <guid isPermaLink="true">https://ganimar.ru/blog/ii-agenty-prostymi-slovami-razbor-na-zhivom-proekte</guid>
