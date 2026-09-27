@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Карта репозитория GANIMAR</title>
+<meta name="description" content="Изометрическая карта архитектуры флагманского портала ganimar.ru: инфраструктура, зависимости, потоки данных и ссылки на файлы." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Onest:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+/* ==========================================================================
+   КАРТА РЕПОЗИТОРИЯ GANIMAR — ночная архитектурная модель
+   Палитра унаследована от css/styles.css:14-27 репозитория и сдвинута
+   в сторону «макета на подсвеченном столе»: обсидиановая земля, янтарный
+   свет, чертёжная сетка. Тема одна и намеренная — ночной макет.
+   ========================================================================== */
+:root {
+  --ground:      #08090b;
+  --ground-deep: #050506;
+  --plate:       #101214;
+  --plate-2:     #16191c;
+  --plate-3:     #1d2125;
+  --hair:        rgba(232, 161, 60, 0.16);
+  --hair-cool:   rgba(150, 175, 200, 0.14);
+  --amber:       #f96f00;
+  --gold:        #e8a13c;
+  --gold-soft:   #f2c887;
+  --violet:      #8b7cff;
+  --violet-soft: #b3a9ff;
+  --cyan:        #4fd6d2;
+  --emerald:     #4ade80;
+  --crimson:     #ff6a5c;
+  --ink:         #f4f1ec;
+  --ink-2:       #b9b3a9;
+  --ink-3:       #7e7a73;
+  --ink-4:       #56534e;
+  --f-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --f-body:    'Onest', -apple-system, 'Segoe UI', sans-serif;
+  --f-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink-2);
+  font-family: var(--f-body);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+/* --- каркас ------------------------------------------------------------ */
+.shell {
+  display: grid;
+  grid-template-columns: 244px minmax(0, 1fr) 360px;
+  grid-template-rows: auto minmax(0, 1fr);
+  height: 100vh;
+  height: 100dvh;
+}
+/* без этого min-content самого широкого потомка раздувает колонку грида */
+.shell > * { min-width: 0; }
+
+.topbar {
+  grid-column: 1 / -1;
+  min-width: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 0 18px;
+  height: 58px;
+  background: linear-gradient(180deg, var(--plate-2), var(--plate));
+  border-bottom: 1px solid var(--hair);
+}
+.mark {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  font-family: var(--f-display);
+  text-transform: uppercase;
+}
+.mark b {
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--ink);
+}
+.mark span {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--gold);
+}
+.topbar .sub {
+  min-width: 0;
+  flex: 1 1 auto;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--ink-4);
+  letter-spacing: .3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.topbar .spacer { flex: 1; }
+.repo-facts {
+  display: flex;
+  gap: 20px;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.repo-facts i { font-style: normal; color: var(--ink-4); display: block; font-size: 9.5px; letter-spacing: 1.2px; text-transform: uppercase; }
+.repo-facts b { font-weight: 500; color: var(--gold-soft); font-size: 13px; }
+
+/* --- боковые панели ----------------------------------------------------- */
+.rail {
+  background: var(--plate);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.rail-l { border-right: 1px solid var(--hair); }
+.rail-r { border-left: 1px solid var(--hair); }
+.rail::-webkit-scrollbar { width: 8px; }
+.rail::-webkit-scrollbar-thumb { background: #2a2e33; border-radius: 4px; }
+.rail::-webkit-scrollbar-track { background: transparent; }
+
+.blk { padding: 16px 16px 4px; }
+.blk + .blk { border-top: 1px solid rgba(255,255,255,.05); }
+.blk h3 {
+  margin: 0 0 12px;
+  font-family: var(--f-display);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* --- легенда ------------------------------------------------------------ */
+.layers { display: flex; flex-direction: column; gap: 2px; margin: 0 -6px; }
+.lay {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 7px 8px;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--ink-2);
+  font-family: var(--f-body);
+  font-size: 12.5px;
+  text-align: left;
+  cursor: pointer;
+  transition: background .16s;
+}
+.lay:hover { background: rgba(255,255,255,.045); }
+.lay:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
+.lay .sw { width: 13px; height: 13px; flex: 0 0 13px; border-radius: 2px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.5); }
+.lay .ct { margin-left: auto; font-family: var(--f-mono); font-size: 10.5px; color: var(--ink-4); font-variant-numeric: tabular-nums; }
+.lay[aria-pressed="false"] { color: var(--ink-4); }
+.lay[aria-pressed="false"] .sw { opacity: .22; }
+
+/* --- легенда форм ------------------------------------------------------- */
+.shapes { display: flex; flex-direction: column; gap: 9px; padding-bottom: 12px; }
+.shape { display: flex; gap: 10px; align-items: flex-start; font-size: 11.5px; line-height: 1.45; color: var(--ink-3); }
+.shape svg { flex: 0 0 34px; margin-top: 1px; }
+.shape b { display: block; color: var(--ink-2); font-weight: 500; font-size: 12px; }
+
+/* --- линии связей ------------------------------------------------------- */
+.wires { display: flex; flex-direction: column; gap: 8px; padding-bottom: 14px; }
+.wire { display: flex; align-items: center; gap: 10px; font-size: 11.5px; color: var(--ink-3); }
+.wire svg { flex: 0 0 34px; }
+
+/* --- трассировки -------------------------------------------------------- */
+.traces { display: flex; flex-direction: column; gap: 6px; padding-bottom: 14px; }
+.trace {
+  display: block;
+  width: 100%;
+  padding: 9px 11px;
+  border: 1px solid var(--hair);
+  border-radius: 3px;
+  background: rgba(232,161,60,.04);
+  color: var(--ink-2);
+  font-family: var(--f-body);
+  font-size: 12.5px;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color .16s, background .16s;
+}
+.trace:hover { border-color: rgba(232,161,60,.5); background: rgba(232,161,60,.09); }
+.trace:focus-visible { outline: 2px solid var(--gold); outline-offset: 1px; }
+.trace[aria-pressed="true"] { border-color: var(--gold); background: rgba(232,161,60,.14); color: var(--ink); }
+.trace i { display: block; font-style: normal; font-family: var(--f-mono); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-4); margin-bottom: 2px; }
+.trace[aria-pressed="true"] i { color: var(--gold); }
+
+/* --- сцена -------------------------------------------------------------- */
+.stage {
+  position: relative;
+  background:
+    radial-gradient(120% 90% at 50% 18%, #14171b 0%, var(--ground) 58%, var(--ground-deep) 100%);
+  overflow: hidden;
+  cursor: grab;
+}
+.stage.dragging { cursor: grabbing; }
+.stage svg { display: block; width: 100%; height: 100%; touch-action: none; }
+
+.stage-tools {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  display: flex;
+  gap: 6px;
+  z-index: 4;
+}
+.tool {
+  min-width: 32px;
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--hair);
+  border-radius: 3px;
+  background: rgba(16,18,20,.86);
+  backdrop-filter: blur(6px);
+  color: var(--ink-2);
+  font-family: var(--f-mono);
+  font-size: 12px;
+  cursor: pointer;
+  transition: border-color .16s, color .16s;
+}
+.tool:hover { border-color: var(--gold); color: var(--gold-soft); }
+.tool:focus-visible { outline: 2px solid var(--gold); outline-offset: 1px; }
+.tool[aria-pressed="true"] { border-color: var(--gold); color: var(--gold); }
+
+.hint {
+  text-align: right;
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: .6px;
+  color: var(--ink-4);
+  pointer-events: none;
+  z-index: 4;
+}
+
+.tip {
+  position: absolute;
+  z-index: 6;
+  pointer-events: none;
+  padding: 7px 10px;
+  max-width: 260px;
+  border: 1px solid var(--hair);
+  border-left: 2px solid var(--gold);
+  border-radius: 2px;
+  background: rgba(9,10,12,.95);
+  box-shadow: 0 12px 32px rgba(0,0,0,.7);
+  opacity: 0;
+  transform: translateY(3px);
+  transition: opacity .12s, transform .12s;
+}
+.tip.on { opacity: 1; transform: translateY(0); }
+.tip b { display: block; font-family: var(--f-display); font-size: 14px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink); }
+.tip code { display: block; font-family: var(--f-mono); font-size: 10.5px; color: var(--gold-soft); margin-top: 2px; }
+.tip p { margin: 5px 0 0; font-size: 11.5px; line-height: 1.45; color: var(--ink-3); }
+
+/* --- панель-объяснитель -------------------------------------------------- */
+.exp { padding: 18px 18px 40px; }
+.exp .eyebrow {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.exp h2 {
+  margin: 6px 0 4px;
+  font-family: var(--f-display);
+  font-size: 27px;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.exp .role { font-size: 13px; color: var(--ink-3); margin: 0 0 16px; }
+.exp h4 {
+  margin: 20px 0 8px;
+  font-family: var(--f-display);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+.exp p { margin: 0 0 10px; font-size: 13px; line-height: 1.62; }
+.exp ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.exp li { font-size: 12.5px; line-height: 1.5; padding-left: 13px; position: relative; }
+.exp li::before { content: ''; position: absolute; left: 0; top: .62em; width: 5px; height: 5px; background: var(--ink-4); }
+
+.cite {
+  display: block;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--gold-soft);
+  background: rgba(232,161,60,.07);
+  border-left: 2px solid rgba(232,161,60,.45);
+  padding: 4px 8px;
+  margin-bottom: 4px;
+  word-break: break-all;
+}
+.cite span { color: var(--ink-4); }
+
+.kv { display: grid; grid-template-columns: auto 1fr; gap: 5px 14px; font-size: 12px; }
+.kv dt { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .8px; text-transform: uppercase; color: var(--ink-4); white-space: nowrap; }
+.kv dd { margin: 0; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+
+.flag {
+  border: 1px solid rgba(255,106,92,.3);
+  border-left: 3px solid var(--crimson);
+  background: rgba(255,106,92,.06);
+  padding: 9px 11px;
+  margin-bottom: 8px;
+  border-radius: 2px;
+}
+.flag b { display: block; font-size: 12.5px; color: #ffb3aa; font-weight: 500; margin-bottom: 3px; }
+.flag p { margin: 0; font-size: 11.5px; line-height: 1.5; color: var(--ink-3); }
+.flag code { font-family: var(--f-mono); font-size: 11px; color: var(--gold-soft); }
+
+.link-row { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border: 1px solid var(--hair-cool);
+  border-radius: 2px;
+  background: rgba(255,255,255,.025);
+  color: var(--ink-2);
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  cursor: pointer;
+  transition: border-color .15s, color .15s;
+}
+.chip:hover { border-color: var(--gold); color: var(--gold-soft); }
+.chip:focus-visible { outline: 2px solid var(--gold); outline-offset: 1px; }
+.chip s { text-decoration: none; opacity: .55; }
+
+/* --- пошаговая трассировка в панели ------------------------------------- */
+.steps { display: flex; flex-direction: column; gap: 0; margin: 0; padding: 0; list-style: none; counter-reset: s; }
+.steps li {
+  position: relative;
+  padding: 10px 0 10px 30px;
+  border-left: 1px solid rgba(255,255,255,.09);
+  margin-left: 8px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ink-4);
+  transition: color .2s;
+}
+.steps li::before {
+  counter-increment: s;
+  content: counter(s);
+  position: absolute;
+  left: -9px;
+  top: 10px;
+  width: 18px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--plate-3);
+  border: 1px solid rgba(255,255,255,.12);
+  font-family: var(--f-mono);
+  font-size: 9.5px;
+  color: var(--ink-4);
+}
+.steps li.done { color: var(--ink-3); }
+.steps li.done::before { background: #2a2118; border-color: rgba(232,161,60,.4); color: var(--gold); }
+.steps li.now { color: var(--ink); }
+.steps li.now::before { background: var(--gold); border-color: var(--gold); color: #17130c; font-weight: 700; }
+.steps li b { display: block; color: inherit; font-weight: 500; }
+.steps li code { display: block; font-family: var(--f-mono); font-size: 10.5px; color: var(--ink-4); margin-top: 3px; word-break: break-all; }
+.steps li.now code { color: var(--gold-soft); }
+
+/* --- адаптив ------------------------------------------------------------ */
+@media (max-width: 1180px) {
+  body { overflow: auto; }
+  .shell { grid-template-columns: 1fr; grid-template-rows: auto 62vh auto auto; height: auto; }
+  .stage { min-height: 62vh; }
+  .rail { max-height: none; overflow: visible; }
+  .rail-l { border-right: 0; border-bottom: 1px solid var(--hair); order: 3; }
+  .rail-r { border-left: 0; border-top: 1px solid var(--hair); order: 4; }
+  .repo-facts { display: none; }
+}
+@media (max-width: 760px) {
+  .topbar { height: auto; min-height: 52px; padding: 9px 14px; gap: 10px; }
+  .mark b { font-size: 18px; letter-spacing: 2px; }
+  .mark span { display: none; }
+  .topbar .sub { font-size: 10px; }
+  .hint { position: static; display: block; text-align: left; padding: 0 14px 12px; }
+  .stage-tools { position: static; padding: 12px 14px 0; }
+  .stage { min-height: 56vh; display: flex; flex-direction: column; }
+  .stage svg { flex: 1 1 auto; min-height: 52vh; }
+  .exp { padding: 16px 14px 32px; }
+  .exp h2 { font-size: 23px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <header class="topbar">
+    <div class="mark"><b>Ganimar</b><span>Site model</span></div>
+    <div class="sub" id="head-sub">jegangan12/ganimar-flagman-portal · master @ 20d569d</div>
+    <div class="spacer"></div>
+    <div class="repo-facts">
+      <div><i>Исходники</i><b>2 297 строк</b></div>
+      <div><i>Модулей JS</i><b>2</b></div>
+      <div><i>Внешних доменов</i><b>9</b></div>
+      <div><i>Вес репозитория</i><b>34 МБ</b></div>
+    </div>
+  </header>
+
+  <aside class="rail rail-l">
+    <div class="blk">
+      <h3>Слои</h3>
+      <div class="layers" id="layers"></div>
+    </div>
+
+    <div class="blk">
+      <h3>Что означает форма</h3>
+      <div class="shapes">
+        <div class="shape">
+          <svg viewBox="0 0 34 26" aria-hidden="true"><polygon points="17,2 31,9 17,16 3,9" fill="#3a4048"/><polygon points="31,9 31,17 17,24 17,16" fill="#22262b"/><polygon points="3,9 3,17 17,24 17,16" fill="#171a1e"/></svg>
+          <div><b>Высота = объём кода</b>Башня выше — файла больше. <code style="font-family:var(--f-mono);font-size:10.5px">index.html</code> и <code style="font-family:var(--f-mono);font-size:10.5px">styles.css</code> — самые массивные постройки</div>
+        </div>
+        <div class="shape">
+          <svg viewBox="0 0 34 26" aria-hidden="true"><polygon points="17,6 31,13 17,20 3,13" fill="none" stroke="#8b7cff" stroke-width="1.2" stroke-dasharray="3 2"/><line x1="17" y1="20" x2="17" y2="24" stroke="#8b7cff" stroke-width="1" stroke-dasharray="2 2"/></svg>
+          <div><b>Парящая площадка</b>Внешний домен или сервис за пределами репозитория</div>
+        </div>
+        <div class="shape">
+          <svg viewBox="0 0 34 26" aria-hidden="true"><polygon points="17,8 29,14 17,20 5,14" fill="#1a1c1e"/><polygon points="29,14 29,17 17,23 17,20" fill="#121315"/><polygon points="5,14 5,17 17,23 17,20" fill="#0d0e0f"/><line x1="9" y1="9" x2="25" y2="19" stroke="#ff6a5c" stroke-width="1.1"/></svg>
+          <div><b>Тёмный корпус</b>Мёртвый код или файлы, на которые никто не ссылается</div>
+        </div>
+        <div class="shape">
+          <svg viewBox="0 0 34 26" aria-hidden="true"><circle cx="17" cy="13" r="8" fill="none" stroke="#ff6a5c" stroke-width="1.2"/><path d="M17 8.5v6" stroke="#ff6a5c" stroke-width="1.6" stroke-linecap="round"/><circle cx="17" cy="17.4" r="1" fill="#ff6a5c"/></svg>
+          <div><b>Красный флаг</b>Расхождение с документацией, риск или технический долг</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="blk">
+      <h3>Типы связей</h3>
+      <div class="wires">
+        <div class="wire"><svg viewBox="0 0 34 10" aria-hidden="true"><path d="M2 8 Q17 -2 32 8" fill="none" stroke="#f96f00" stroke-width="1.8"/></svg><span>Управление — запрос, загрузка, вызов</span></div>
+        <div class="wire"><svg viewBox="0 0 34 10" aria-hidden="true"><path d="M2 8 Q17 -2 32 8" fill="none" stroke="#8b7cff" stroke-width="1.8"/></svg><span>Данные — payload между модулями</span></div>
+        <div class="wire"><svg viewBox="0 0 34 10" aria-hidden="true"><path d="M2 8 Q17 -2 32 8" fill="none" stroke="#4fd6d2" stroke-width="1.8"/></svg><span>Ассеты — картинки, шрифты, стили</span></div>
+        <div class="wire"><svg viewBox="0 0 34 10" aria-hidden="true"><path d="M2 8 Q17 -2 32 8" fill="none" stroke="#7e7a73" stroke-width="1.4" stroke-dasharray="3 3"/></svg><span>Обещание из документации, не подтверждённое кодом</span></div>
+      </div>
+    </div>
+
+    <div class="blk">
+      <h3>Трассировки</h3>
+      <div class="traces" id="traces"></div>
+    </div>
+  </aside>
+
+  <div class="stage" id="stage">
+    <svg id="map" role="img" aria-label="Изометрическая карта репозитория ganimar-flagman-portal">
+      <defs>
+        <marker id="ah-control" viewBox="0 0 8 8" refX="6.5" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0 0 L8 4 L0 8 Z" fill="#f96f00"/>
+        </marker>
+        <marker id="ah-data" viewBox="0 0 8 8" refX="6.5" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0 0 L8 4 L0 8 Z" fill="#8b7cff"/>
+        </marker>
+        <marker id="ah-asset" viewBox="0 0 8 8" refX="6.5" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0 0 L8 4 L0 8 Z" fill="#4fd6d2"/>
+        </marker>
+        <marker id="ah-drift" viewBox="0 0 8 8" refX="6.5" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M0 0 L8 4 L0 8 Z" fill="#7e7a73"/>
+        </marker>
+        <radialGradient id="pool" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#f96f00" stop-opacity=".22"/>
+          <stop offset="100%" stop-color="#f96f00" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <g id="camera">
+        <g id="l-grid"></g>
+        <g id="l-plots"></g>
+        <g id="l-build"></g>
+        <g id="l-wires"></g>
+        <g id="l-parts"></g>
+        <g id="l-labels"></g>
+      </g>
+    </svg>
+
+    <div class="stage-tools">
+      <button class="tool" id="zoom-in"  title="Приблизить"  aria-label="Приблизить">+</button>
+      <button class="tool" id="zoom-out" title="Отдалить"    aria-label="Отдалить">−</button>
+      <button class="tool" id="zoom-fit" title="Вписать всё">Вписать</button>
+      <button class="tool" id="toggle-flow" aria-pressed="true" title="Анимация потоков">Потоки</button>
+    </div>
+    <div class="hint">перетаскивание — панорама · колесо — масштаб · клик по зданию — досье<br><span id="lod-note"></span></div>
+    <div class="tip" id="tip" role="status" aria-live="polite"></div>
+  </div>
+
+  <aside class="rail rail-r">
+    <div class="exp" id="exp"></div>
+  </aside>
+
+</div>
+
+<script>
+/* ==========================================================================
+   МОДЕЛЬ. Всё, что ниже, снято с ветки master (20d569d) построчным чтением
+   файлов. Каждая постройка ссылается на реальные файлы и строки.
+   ========================================================================== */
+
+const LAYERS = [
+  { id:'edge',  name:'Доставка',            color:'#f96f00' },
+  { id:'doc',   name:'Документ',            color:'#e8a13c' },
+  { id:'style', name:'Презентация',         color:'#4fd6d2' },
+  { id:'run',   name:'Рантайм',             color:'#8b7cff' },
+  { id:'mount', name:'Точки монтирования',  color:'#4ade80' },
+  { id:'asset', name:'Ассеты',              color:'#7f97ad' },
+  { id:'ext',   name:'Внешняя экосистема',  color:'#b3a9ff' },
+  { id:'spec',  name:'Документация',        color:'#8a8378' },
+  { id:'dead',  name:'Мёртвый груз',        color:'#ff6a5c' }
+];
+
+const NODES = [
+  /* ---------- доставка ---------- */
+  {
+    id:'visitor', rank:1, label:'Посетитель', sub:'browser', layer:'edge', shape:'pad',
+    gx:-1.6, gy:-1.6, w:1.6, d:1.6, h:18,
+    role:'Точка входа всей системы',
+    facts:[['Запрос','GET /'],['Устройства','1440 / 1280 / 768 / 390 px']],
+    body:['Единственный источник трафика. Сайт полностью статический: ни сессий, ни авторизации, ни серверного состояния — весь путь укладывается в один HTML-документ и два скрипта.'],
+    cites:[]
+  },
+  {
+    id:'vercel', rank:1, label:'Vercel Edge', sub:'vercel.json', layer:'edge', shape:'gate',
+    gx:2, gy:2, w:2.4, d:2.4, h:56,
+    role:'Раздача статики, заголовки безопасности и политика кэша',
+    facts:[['Схема','version 2'],['cleanUrls','true'],['trailingSlash','false'],['Правил заголовков','4']],
+    body:[
+      'Единственный «серверный» узел карты и он же — вся инфраструктура. Ворота решают три вещи: убирают .html из адресов, навешивают четыре заголовка безопасности на любой ответ и раздают три разных срока жизни кэша.',
+      'Ярусы кэша расходятся жёстко: ассеты живут год как immutable, а CSS и JS — сутки с обязательной ревалидацией. Это значит, что правка стилей доедет до пользователя за сутки, а замена картинки с тем же именем — никогда.'
+    ],
+    cites:[
+      {f:'vercel.json', l:'2-4',   n:'version 2, cleanUrls, trailingSlash'},
+      {f:'vercel.json', l:'6-30',  n:'nosniff, X-Frame-Options: DENY, XSS-Protection, Referrer-Policy'},
+      {f:'vercel.json', l:'32-40', n:'assets/* — max-age 31536000, immutable'},
+      {f:'vercel.json', l:'41-54', n:'css/* и js/* — max-age 86400, must-revalidate'}
+    ],
+    flags:[{t:'Нет Content-Security-Policy', d:'Заголовки закрывают sniffing, фрейминг и реферер, но CSP отсутствует. При инъекции разметки через innerHTML в js/app.js это единственный рубеж, которого нет.'}]
+  },
+
+  /* ---------- документ ---------- */
+  {
+    id:'index', rank:1, label:'index.html', sub:'427 строк', layer:'doc', shape:'tower',
+    gx:5, gy:5, w:2.6, d:2.6, h:134,
+    role:'Единственная страница: каркас, семантика и одиннадцать секций',
+    facts:[['Строк','427'],['Секций','11'],['Пустых контейнеров','6'],['Схем','Schema.org Person']],
+    body:[
+      'Монолит-ствол карты. Здесь одновременно живут SEO-слой, статическая разметка девяти секций и шесть пустых div-ов, которые заполняются только из JavaScript.',
+      'Контент разделён неравномерно: hero, «Обо мне» и контакты зашиты прямо в разметку, а экосистема, витрины, показатели, кейсы, продукты и блог существуют лишь как пустые оболочки до момента, пока не отработает app.js.'
+    ],
+    cites:[
+      {f:'index.html', l:'27-43',  n:'Schema.org Person + sameAs на 5 профилей'},
+      {f:'index.html', l:'46-75',  n:'фиксированная шапка #site-nav'},
+      {f:'index.html', l:'77-125', n:'hero-секция, метрики зашиты в разметку'},
+      {f:'index.html', l:'391',    n:'<span id="year"> — год подставляет скрипт'},
+      {f:'index.html', l:'424-425',n:'подключение data.js и app.js, синхронно, перед </body>'}
+    ],
+    flags:[{t:'Девять секций, ноль маршрутов', d:'Вся навигация — якоря #home … #contact. Отдельных URL у разделов нет, поэтому cleanUrls в vercel.json:3 фактически работает вхолостую.'}]
+  },
+  {
+    id:'fonts', label:'Google Fonts', sub:'fonts.googleapis.com', layer:'ext', shape:'pad',
+    gx:1.5, gy:7, w:1.7, d:1.7, h:26, z:64,
+    role:'Внешний хост шрифтов, блокирующий первую отрисовку',
+    facts:[['Семейств','2'],['Начертаний','13'],['display','swap']],
+    body:['Barlow Condensed (7 начертаний) и Onest (5) подтягиваются одним запросом. Это единственная сетевая зависимость, которую страница ждёт до первой отрисовки.'],
+    cites:[{f:'index.html', l:'20-23', n:'preconnect + link на CSS шрифтов'}],
+    flags:[{t:'Внешний блокирующий ресурс против обещанного FCP', d:'README заявляет «нулевую зависимость от тяжёлых внешних библиотек» и FCP < 0,4 с, но отрисовка упирается в сторонний домен. Самохостинг двух семейств снял бы это ограничение.'}]
+  },
+
+  /* ---------- презентация ---------- */
+  {
+    id:'styles', rank:1, label:'styles.css', sub:'css/styles.css · 970 строк', layer:'style', shape:'slab',
+    gx:2, gy:10, w:3.3, d:1.7, h:78,
+    role:'Вся визуальная система портала в одном файле',
+    facts:[['Строк','970'],['Размер','18 КБ'],['Нумерованных блоков','14'],['Токенов в :root','13']],
+    body:[
+      'Плоский, но дисциплинированный файл: четырнадцать пронумерованных блоков от ресета до адаптива, каждый отвечает за одну секцию страницы. Ни препроцессора, ни сборки — правки идут прямо в прод.',
+      'Единственная ветвь логики за пределами вёрстки — класс .scrolled на шапке, который навешивает скрипт. Всё остальное статично.'
+    ],
+    cites:[
+      {f:'css/styles.css', l:'14-27',  n:':root — HEX-токены, шрифты, transition'},
+      {f:'css/styles.css', l:'73-163', n:'шапка, в том числе состояние .scrolled'},
+      {f:'css/styles.css', l:'174',    n:'background-image: assets/hero-right-portrait-bg.jpg'},
+      {f:'css/styles.css', l:'944-970',n:'адаптивные брейкпоинты'}
+    ],
+    flags:[{t:'Токены разошлись с дизайн-системой', d:'docs/DESIGN_SYSTEM.md обещает палитру в OKLCH (--color-accent-amber: oklch(0.815 0.150 76)) и шрифт Unbounded. В коде — HEX #f96f00 и Barlow Condensed. Документ и реализация описывают два разных бренда.'}]
+  },
+  {
+    id:'vendor', rank:1, label:'Вендорный CSS', sub:'4 файла · ни одной ссылки', layer:'dead', shape:'ruin',
+    gx:5, gy:17, w:3.4, d:1.5, h:16,
+    role:'Мёртвый груз в деплое',
+    facts:[['Файлов','5'],['Суммарно','≈ 247 КБ'],['Входящих ссылок','0']],
+    body:[
+      'bootstrap.min.css (157 КБ), animate.css (70 КБ), themify-icons.css (16 КБ), owl.carousel.min.css и owl.theme.default.min.css лежат в репозитории и уезжают в деплой, но index.html не подключает ни один из них.',
+      'В четырнадцать раз больше собственных стилей проекта — и ноль эффекта. Это самый дешёвый пункт в списке уборки.'
+    ],
+    cites:[
+      {f:'css/bootstrap.min.css', l:'—', n:'160 302 байта, не подключён'},
+      {f:'css/animate.css',       l:'—', n:'71 750 байт, не подключён'},
+      {f:'css/themify-icons.css', l:'—', n:'16 403 байта, не подключён'},
+      {f:'css/owl.carousel.min.css', l:'—', n:'3 351 байт, не подключён'},
+      {f:'index.html', l:'25', n:'единственный <link rel="stylesheet"> — только styles.css'}
+    ],
+    flags:[{t:'Наследие чужого шаблона', d:'Набор bootstrap + owl carousel + themify — характерный след готовой темы, поверх которой писали свой styles.css. Ни один селектор из них в разметке не встречается.'}]
+  },
+
+  /* ---------- рантайм ---------- */
+  {
+    id:'data', rank:1, label:'data.js', sub:'js/data.js · 265 строк', layer:'run', shape:'tower',
+    gx:9.5, gy:4, w:1.9, d:1.9, h:94,
+    role:'Единый источник контента: шесть коллекций в одном глобальном объекте',
+    facts:[['Строк','265'],['Коллекций','6'],['Записей','32'],['Формат','window.GANIMAR_DATA']],
+    body:[
+      'Вся редактируемая часть сайта — здесь. Четыре ветки экосистемы, четыре витрины-поддомена, восемь метрик, три кейса, шесть AI-продуктов и три статьи блога.',
+      'Файл не экспортирует ничего: он просто присваивает объект в window. Никакого модульного контракта нет, поэтому связь с app.js держится исключительно на порядке тегов <script> в разметке.'
+    ],
+    facts2:null,
+    cites:[
+      {f:'js/data.js', l:'6',       n:'window.GANIMAR_DATA = { … } — глобальное присваивание'},
+      {f:'js/data.js', l:'8-50',    n:'branches — 4 ветки (ganimarketing, school, gvidera, aimusican)'},
+      {f:'js/data.js', l:'52-90',   n:'subdomains — 4 витрины (me, cases, portfolio, cv)'},
+      {f:'js/data.js', l:'92-142',  n:'statsGrid — 8 метрик'},
+      {f:'js/data.js', l:'144-176', n:'cases — 3 кейса'},
+      {f:'js/data.js', l:'178-234', n:'products — 6 AI-продуктов'},
+      {f:'js/data.js', l:'236-263', n:'blogPosts — 3 статьи'}
+    ]
+  },
+  {
+    id:'app', rank:1, label:'app.js', sub:'js/app.js · 193 строки', layer:'run', shape:'tower',
+    gx:11, gy:6.5, w:1.9, d:1.9, h:76,
+    role:'Единственный движок страницы: шесть рендереров и один слушатель прокрутки',
+    facts:[['Строк','193'],['Рендереров','6'],['Слушателей','2'],['Зависимостей','0']],
+    body:[
+      'После DOMContentLoaded скрипт забирает window.GANIMAR_DATA, подставляет год в подвал и по очереди вызывает шесть функций рендера. Каждая находит свой контейнер по id, чистит его и собирает карточки строковыми шаблонами.',
+      'Идемпотентности нет и не требуется: рендер происходит ровно один раз за загрузку, повторных вызовов и реактивности не предусмотрено.'
+    ],
+    cites:[
+      {f:'js/app.js', l:'6-8',    n:'DOMContentLoaded, чтение window.GANIMAR_DATA, тихий return при отсутствии'},
+      {f:'js/app.js', l:'11-14',  n:'#year ← new Date().getFullYear() через textContent'},
+      {f:'js/app.js', l:'17-22',  n:'последовательный вызов шести рендереров'},
+      {f:'js/app.js', l:'28-58',  n:'renderBranches → #branches-grid'},
+      {f:'js/app.js', l:'103-126',n:'renderCases → #cases-grid'},
+      {f:'js/app.js', l:'184-192',n:'initNavScroll — scroll → класс .scrolled'}
+    ],
+    flags:[
+      {t:'innerHTML вместо обещанного textContent', d:'README.md:38 заявляет «XSS-защиту через безопасный textContent». Фактически безопасно подставляется только год (js/app.js:13); все шесть рендереров собирают разметку через innerHTML (js/app.js:34, 68, 90, 108, 133, 161) без экранирования.'},
+      {t:'Обработчик клика склеивается строкой', d:'card.setAttribute(\'onclick\', `window.open(\'${b.url}\', \'_blank\')`) — js/app.js:32. Любой апостроф в url ломает атрибут и открывает инъекцию. Тот же приём в строках 65, 105, 130, 158.'},
+      {t:'window.open без noopener', d:'Статические ссылки в разметке аккуратно снабжены rel="noopener noreferrer", но программные переходы из карточек — нет. Открытая вкладка получает доступ к window.opener.'},
+      {t:'Слушатель прокрутки без ограничения частоты', d:'js/app.js:186 навешивает scroll-обработчик, который на каждый кадр дёргает classList. При единственном сравнении scrollY > 40 это дёшево, но requestAnimationFrame здесь напрашивается.'}
+    ]
+  },
+
+  /* ---------- точки монтирования ---------- */
+  { id:'m-branches', label:'#branches-grid', sub:'4 карточки', layer:'mount', shape:'pod',
+    gx:3, gy:12, w:1.5, d:1.5, h:34,
+    role:'Ветки экосистемы: маркетинг, школа, платформа, медиа',
+    facts:[['Источник','data.branches'],['Карточек','4'],['Тегов на карточку','4']],
+    body:['Каждая карточка получает превью, домен-пилюлю, описание, четыре тега-фичи и клик на внешний домен.'],
+    cites:[{f:'index.html', l:'172', n:'пустой контейнер в разметке'},{f:'js/app.js', l:'28-58', n:'renderBranches'},{f:'js/data.js', l:'8-50', n:'исходные данные'}] },
+
+  { id:'m-subdomains', label:'#subdomains-grid', sub:'4 карточки', layer:'mount', shape:'pod',
+    gx:5.5, gy:9.5, w:1.5, d:1.5, h:32,
+    role:'Личные витрины на поддоменах ganimar.ru',
+    facts:[['Источник','data.subdomains'],['Карточек','4']],
+    body:['Единственный блок без превью-картинок: карточки собраны из бейджа поддомена, заголовка, аудитории и описания.'],
+    cites:[{f:'index.html', l:'189', n:'контейнер'},{f:'js/app.js', l:'60-83', n:'renderSubdomains'},{f:'js/data.js', l:'52-90', n:'данные'}] },
+
+  { id:'m-stats', label:'#stats-grid', sub:'8 плиток', layer:'mount', shape:'pod',
+    gx:8, gy:7, w:1.5, d:1.5, h:30,
+    role:'Доказательная сетка метрик',
+    facts:[['Источник','data.statsGrid'],['Плиток','8'],['Исходящих связей','0']],
+    body:['Единственная секция-тупик: плитки ничего не открывают и никуда не ведут. Чистая витрина цифр.'],
+    cites:[{f:'index.html', l:'206', n:'контейнер'},{f:'js/app.js', l:'85-101', n:'renderStats'},{f:'js/data.js', l:'92-142', n:'8 метрик'}] },
+
+  { id:'m-cases', label:'#cases-grid', sub:'3 карточки', layer:'mount', shape:'pod',
+    gx:3.25, gy:14.75, w:1.5, d:1.5, h:33,
+    role:'Избранные кейсы с метриками',
+    facts:[['Источник','data.cases'],['Карточек','3'],['Цель клика','cases.ganimar.ru']],
+    body:['Все три кейса ведут на один и тот же внешний адрес — витрину проектов. Отдельных страниц кейсов в репозитории нет.'],
+    cites:[{f:'index.html', l:'223', n:'контейнер'},{f:'js/app.js', l:'103-126', n:'renderCases'},{f:'js/data.js', l:'144-176', n:'данные'}] },
+
+  { id:'m-products', label:'#products-grid', sub:'6 карточек', layer:'mount', shape:'pod',
+    gx:5.75, gy:12.25, w:1.5, d:1.5, h:36,
+    role:'Лаборатория AI-продуктов',
+    facts:[['Источник','data.products'],['Карточек','6'],['Статус','все «В проде»']],
+    body:['MARQLY, VOICEIQ, MVP-FACTORY, AIMAGENARIUM, ЯСНО и EdVista. Как и кейсы, все ссылаются на общую витрину.'],
+    cites:[{f:'index.html', l:'240', n:'контейнер'},{f:'js/app.js', l:'128-154', n:'renderProducts'},{f:'js/data.js', l:'178-234', n:'данные'}] },
+
+  { id:'m-blog', label:'#blog-grid', sub:'3 статьи', layer:'mount', shape:'pod',
+    gx:8.25, gy:9.75, w:1.5, d:1.5, h:31,
+    role:'Блог и архитектура решений',
+    facts:[['Источник','data.blogPosts'],['Карточек','3'],['Цель клика','t.me/clients_inForbes']],
+    body:['Единственный рендерер с защитой от отсутствия коллекции: проверяет !data.blogPosts перед работой (js/app.js:158). Остальные пять этого не делают.'],
+    cites:[{f:'index.html', l:'257', n:'контейнер'},{f:'js/app.js', l:'156-182', n:'renderBlog'},{f:'js/data.js', l:'236-263', n:'данные'}] },
+
+  /* ---------- ассеты ---------- */
+  {
+    id:'previews', rank:1, label:'Превью экранов', sub:'assets/previews/', layer:'asset', shape:'slab',
+    gx:13, gy:11, w:2.5, d:2.5, h:40,
+    role:'Единственная папка ассетов, которая реально используется',
+    facts:[['Файлов','16'],['Все подключены','да'],['Кэш','1 год, immutable']],
+    body:['Шестнадцать JPEG-скриншотов реальных экранов. Пути прописаны в data.js и подставляются рендерерами в атрибут src.'],
+    cites:[
+      {f:'js/data.js', l:'21', n:"preview: 'assets/previews/branch-marketing.jpg'"},
+      {f:'js/app.js', l:'36', n:'<img src="${b.preview}"> внутри карточки'},
+      {f:'vercel.json', l:'32-40', n:'immutable-кэш на assets/*'}
+    ],
+    flags:[{t:'Immutable-кэш без хэшей в именах', d:'Файлы отдаются на год как immutable, но имена не содержат хэша содержимого. Замена branch-marketing.jpg не долетит до вернувшегося посетителя — нужен либо хэш в имени, либо другой срок.'}]
+  },
+  {
+    id:'orphans', rank:1, label:'Осиротевшие изображения', sub:'assets/*.png · *.jpg', layer:'dead', shape:'ruin',
+    gx:18, gy:8, w:2.3, d:2.3, h:56,
+    role:'Портреты и фоны, на которые никто не ссылается',
+    facts:[['Файлов в assets/','12'],['Используются','2'],['Мёртвый вес','≈ 4,3 МБ'],['Точных дублей','2 пары']],
+    body:[
+      'Из двенадцати корневых изображений в дело идут ровно два: hero-right-portrait-bg.jpg как фон hero (css/styles.css:174) и me-dark-portrait.jpg как og:image (index.html:15). Оставшиеся десять весят 4,3 МБ и не встречаются нигде.',
+      'Две пары — побайтовые дубли: me-cutout.png и me-suit-cutout.png (по 1 145 544 байта), me-original.jpg и me-suit-original.jpg (по 67 407 байт).'
+    ],
+    cites:[
+      {f:'css/styles.css', l:'174', n:'единственная ссылка из CSS'},
+      {f:'index.html', l:'15', n:'единственная ссылка из разметки'},
+      {f:'assets/me-suit-cutout.png', l:'—', n:'1,1 МБ, точный дубль me-cutout.png'},
+      {f:'assets/me-portrait-about.png', l:'—', n:'628 КБ, входящих ссылок нет'}
+    ],
+    flags:[{t:'История правок hero осталась в деплое', d:'Имена файлов (me-dark-hero, me-hero-cinematic, me-dark-studio) читаются как последовательные итерации первого экрана. Каждая уехала в прод и осталась там.'}]
+  },
+  {
+    id:'shots', rank:1, label:'Скриншоты в корне', sub:'25 PNG · 28 МБ', layer:'dead', shape:'ruin',
+    gx:16, gy:13.5, w:2.7, d:2.7, h:30,
+    role:'Артефакты визуальной проверки, закоммиченные в репозиторий',
+    facts:[['Файлов','25'],['Вес','28 МБ'],['Доля репозитория','82 %'],['Ссылок','0']],
+    body:[
+      'hero-verify-final.png, shot-contact.png, full-page-verify.png и ещё двадцать два скриншота лежат в корне. Они не подключены ни к чему, но занимают 28 МБ из 34 МБ репозитория и уезжают в каждый деплой.',
+      '.gitignore уже содержит правило dan-*.png — механика отсечения промежуточных снимков придумана, но на остальные имена не распространена.'
+    ],
+    cites:[
+      {f:'.gitignore', l:'5-7', n:'dan-*.png, dan-*.html, dan-*.css — правило есть, но узкое'},
+      {f:'screenshot-desktop-1440.png', l:'—', n:'один из 25 снимков в корне'}
+    ],
+    flags:[{t:'Восемьдесят два процента веса — мусор проверки', d:'Перенос снимков в игнорируемую папку (например .shots/) и расширение правила .gitignore сжимает репозиторий с 34 МБ до примерно 6 МБ.'}]
+  },
+
+  /* ---------- документация ---------- */
+  { id:'readme', label:'README.md', sub:'42 строки', layer:'spec', shape:'slab',
+    gx:-2.5, gy:1.5, w:1.9, d:1.5, h:22,
+    role:'Витрина репозитория: карта доменов, дизайн-система, стек',
+    facts:[['Строк','42'],['Таблиц','1'],['Доменов в карте','9']],
+    body:['Заявляет Canvas-фон с реакцией на курсор, OKLCH-токены, шрифт Unbounded и XSS-защиту через textContent. Ни одно из четырёх утверждений код не подтверждает.'],
+    cites:[{f:'README.md', l:'12-22', n:'таблица доменов экосистемы'},{f:'README.md', l:'25-29', n:'дизайн-система «Warm Obsidian & Amber Luxury»'},{f:'README.md', l:'32-38', n:'стек и обещание XSS-защиты'}],
+    flags:[{t:'Четыре расхождения с кодом', d:'Canvas-фона в js/app.js нет; токены в css/styles.css:14-27 записаны в HEX, а не OKLCH; подключены Barlow Condensed и Onest (index.html:22), а не Unbounded; вместо textContent используется innerHTML.'}] },
+
+  { id:'spec', label:'SPEC.md', sub:'docs/ · 140 строк', layer:'spec', shape:'slab',
+    gx:-4.2, gy:3.5, w:1.9, d:1.5, h:30,
+    role:'Согласованная спецификация портала, версия 1.1',
+    facts:[['Строк','140'],['Описано блоков','11'],['Реализовано','9']],
+    body:['Расписывает одиннадцать блоков главной страницы, карту доменов с os.ganimar.ru и стандарты качества. Блок 3 (бегущая строка компетенций) и блок 9 (интерактивный навигатор «С чем вы пришли?») в разметке отсутствуют.'],
+    cites:[{f:'docs/SPEC.md', l:'17-30', n:'карта доменов, включая нереализованный os.ganimar.ru'},{f:'docs/SPEC.md', l:'119-121', n:'блок 9 — интерактивный навигатор потребностей'},{f:'docs/SPEC.md', l:'131-140', n:'обязательные стандарты качества'}] },
+
+  { id:'design', label:'DESIGN_SYSTEM.md', sub:'docs/ · 125 строк', layer:'spec', shape:'slab',
+    gx:-5.9, gy:5.5, w:1.9, d:1.5, h:26,
+    role:'Палитра, типографика и принципы «Warm Obsidian & Amber Luxury»',
+    facts:[['Строк','125'],['Токенов описано','20+'],['Совпадает с кодом','частично']],
+    body:['Наиболее подробный из документов и наиболее разошедшийся с реализацией: описывает OKLCH-пространство, фиолетовый и изумрудный акценты, стекломорфизм. В css/styles.css живут тринадцать HEX-токенов и ни одного oklch().'],
+    cites:[{f:'docs/DESIGN_SYSTEM.md', l:'24-40', n:'OKLCH-фоны и поверхности'},{f:'docs/DESIGN_SYSTEM.md', l:'43-60', n:'акценты: янтарь, фиолет, изумруд'},{f:'css/styles.css', l:'14-27', n:'фактические токены — HEX'}] },
+
+  { id:'sales', label:'SALES_STRUCTURE.md', sub:'docs/ · 80 строк', layer:'spec', shape:'slab',
+    gx:-7.6, gy:7.5, w:1.9, d:1.5, h:20,
+    role:'Продающая логика и порядок блоков',
+    facts:[['Строк','80'],['Шагов воронки','11']],
+    body:['Задаёт последовательность конверсии от шапки до подвала и объясняет, почему портал устроен как хаб-витрина, а не как продуктовый лендинг. Порядок секций в index.html этому следует.'],
+    cites:[{f:'docs/SALES_STRUCTURE.md', l:'11-21', n:'четыре задачи зонтичной структуры'},{f:'docs/SALES_STRUCTURE.md', l:'25-40', n:'цепочка блоков конверсии'}] },
+
+  /* ---------- внешняя экосистема ---------- */
+  { id:'x-marketing', label:'ganimarketing.ru', sub:'ветка «Маркетинг»', layer:'ext', shape:'pad', gx:13.5, gy:1.5, w:1.6, d:1.6, h:20, z:96,
+    role:'Услуги системного маркетинга и нейросотрудников',
+    facts:[['Источник','data.branches[0]'],['Переход','window.open']],
+    body:['Первая из четырёх веток. Ссылка дублируется в подвале статической разметкой с rel="noopener noreferrer".'],
+    cites:[{f:'js/data.js', l:'11-20', n:'запись ветки'},{f:'index.html', l:'371', n:'дубль ссылки в подвале'}] },
+
+  { id:'x-school', label:'ganimarschool.ru', sub:'ветка «Школа»', layer:'ext', shape:'pad', gx:16.5, gy:1.5, w:1.6, d:1.6, h:20, z:96,
+    role:'Обучение маркетингу и вайб-кодингу',
+    facts:[['Источник','data.branches[1]']], body:['Вторая ветка зонтика.'],
+    cites:[{f:'js/data.js', l:'22-31', n:'запись ветки'}] },
+
+  { id:'x-gvidera', label:'gvidera.ru', sub:'платформа', layer:'ext', shape:'pad', gx:19.5, gy:1.5, w:1.6, d:1.6, h:20, z:96,
+    role:'Платформа онлайн-практикумов',
+    facts:[['Источник','data.branches[2]'],['Статус','запущена в проде']], body:['Единственная ветка, помеченная в данных как работающий продукт.'],
+    cites:[{f:'js/data.js', l:'33-42', n:'запись ветки'}] },
+
+  { id:'x-media', label:'aimusican.ru', sub:'ветка «Медиа»', layer:'ext', shape:'pad', gx:22.5, gy:1.5, w:1.6, d:1.6, h:20, z:96,
+    role:'Музыкальный лейбл и саунд-дизайн',
+    facts:[['Источник','data.branches[3]']], body:['Творческая грань бренда.'],
+    cites:[{f:'js/data.js', l:'44-53', n:'запись ветки'}] },
+
+  { id:'x-me', label:'me.ganimar.ru', sub:'ganimar-vizitka', layer:'ext', shape:'pad', gx:15, gy:-3, w:1.6, d:1.6, h:18, z:96,
+    role:'Визитка Mini App',
+    facts:[['Реальный адрес','ganimar-vizitka.vercel.app']],
+    body:['В данных и в подвале указан адрес на vercel.app, а не поддомен me.ganimar.ru из README. Витрина названа поддоменом, но им ещё не стала.'],
+    cites:[{f:'js/data.js', l:'60', n:"url: 'https://ganimar-vizitka.vercel.app'"},{f:'README.md', l:'15', n:'обещанный адрес me.ganimar.ru'}],
+    flags:[{t:'Поддомены объявлены, но не подключены', d:'Все четыре витрины (me, cases, portfolio, cv) ведут на *.vercel.app. Карта доменов из README.md:12-22 описывает целевое состояние, а не текущее.'}] },
+
+  { id:'x-cases', rank:1, label:'cases.ganimar.ru', sub:'ganimar-cases', layer:'ext', shape:'pad', gx:17.5, gy:-3.5, w:1.6, d:1.6, h:24, z:96,
+    role:'Витрина 51 проекта — самый нагруженный внешний узел',
+    facts:[['Входящих связей','4'],['Реальный адрес','ganimar-cases.vercel.app']],
+    body:['Сюда сходятся клики из витрин, всех трёх кейсов, всех шести продуктов и кнопки «Открыть дашборд». Единственный внешний адрес, на который ссылаются четыре разных блока.'],
+    cites:[{f:'js/data.js', l:'70', n:'витрина'},{f:'js/data.js', l:'152', n:'все кейсы ведут сюда'},{f:'js/data.js', l:'186', n:'все продукты ведут сюда'},{f:'index.html', l:'270', n:'кнопка «Открыть дашборд» (Ganimar OS)'}] },
+
+  { id:'x-portfolio', label:'portfolio.ganimar.ru', sub:'portfolio-ganimar', layer:'ext', shape:'pad', gx:20.5, gy:-3.5, w:1.6, d:1.6, h:18, z:96,
+    role:'Презентация-портфолио',
+    facts:[['Реальный адрес','portfolio-ganimar.vercel.app']], body:['Дек для питчей и выступлений.'],
+    cites:[{f:'js/data.js', l:'78', n:'запись витрины'},{f:'index.html', l:'318', n:'карточка канала связи'}] },
+
+  { id:'x-cv', label:'cv.ganimar.ru', sub:'resume-ganimar', layer:'ext', shape:'pad', gx:23.5, gy:-3.5, w:1.6, d:1.6, h:18, z:96,
+    role:'Профессиональное резюме',
+    facts:[['Реальный адрес','resume-ganimar.vercel.app']], body:['Профиль для HR и партнёров.'],
+    cites:[{f:'js/data.js', l:'86', n:'запись витрины'}] },
+
+  { id:'x-tg', rank:1, label:'Telegram', sub:'@ganimarketing · канал', layer:'ext', shape:'pad', gx:13, gy:-2, w:1.7, d:1.7, h:26, z:96,
+    role:'Прямой контакт и единственная точка конверсии',
+    facts:[['Входящих связей','6'],['Из разметки','5'],['Из данных','1']],
+    body:[
+      'Финальная цель всей воронки. Ссылки на @ganimarketing стоят в шапке, hero, контактах и подвале статически; все три статьи блога уводят в канал clients_inForbes из данных.',
+      'Формы обратной связи на сайте нет вообще — Telegram заменяет её целиком.'
+    ],
+    cites:[
+      {f:'index.html', l:'68', n:'кнопка в шапке'},
+      {f:'index.html', l:'104', n:'вторичный CTA в hero'},
+      {f:'index.html', l:'290-306', n:'карточки каналов связи'},
+      {f:'js/data.js', l:'244', n:"blogPosts[].url — t.me/clients_inForbes"}
+    ] }
+];
+
+const EDGES = [
+  { id:'e-get',    from:'visitor', to:'vercel', kind:'control', label:'GET /', note:'Холодный запрос. Никаких кук, сессий и редиректов — статика уходит с edge-узла.', cite:'vercel.json:3' },
+  { id:'e-html',   from:'vercel',  to:'index',  kind:'control', label:'200 text/html + 4 заголовка', note:'Vercel отдаёт index.html и навешивает nosniff, X-Frame-Options: DENY, XSS-Protection и Referrer-Policy.', cite:'vercel.json:6-30' },
+  { id:'e-fonts',  from:'index',   to:'fonts',  kind:'asset',   label:'2 семейства, блокирует отрисовку', note:'Единственный внешний запрос до первой отрисовки: Barlow Condensed и Onest одним CSS.', cite:'index.html:20-23' },
+  { id:'e-css',    from:'index',   to:'styles', kind:'asset',   label:'link rel=stylesheet', note:'Единственный подключённый CSS проекта. Четыре вендорных файла остаются в стороне.', cite:'index.html:25' },
+  { id:'e-data',   from:'index',   to:'data',   kind:'control', label:'script src, синхронно', note:'Первый скрипт. Определяет window.GANIMAR_DATA до того, как что-либо его прочитает.', cite:'index.html:424' },
+  { id:'e-app',    from:'index',   to:'app',    kind:'control', label:'script src, синхронно', note:'Второй скрипт. Порядок этих двух строк — единственный контракт между модулями.', cite:'index.html:425' },
+  { id:'e-global', from:'data',    to:'app',    kind:'data',    label:'window.GANIMAR_DATA · 32 записи', note:'Связь через глобальную переменную. Поменяйте строки местами — app.js:8 молча вернётся, и шесть секций останутся пустыми без единой ошибки в консоли.', cite:'js/data.js:6 → js/app.js:7' },
+  { id:'e-m1', from:'app', to:'m-branches',   kind:'data', label:'innerHTML ← branches[4]',   note:'Четыре карточки веток экосистемы.', cite:'js/app.js:28-58' },
+  { id:'e-m2', from:'app', to:'m-subdomains', kind:'data', label:'innerHTML ← subdomains[4]', note:'Четыре карточки личных витрин.', cite:'js/app.js:60-83' },
+  { id:'e-m3', from:'app', to:'m-stats',      kind:'data', label:'innerHTML ← statsGrid[8]',  note:'Восемь плиток метрик.', cite:'js/app.js:85-101' },
+  { id:'e-m4', from:'app', to:'m-cases',      kind:'data', label:'innerHTML ← cases[3]',      note:'Три кейса с превью и тегами.', cite:'js/app.js:103-126' },
+  { id:'e-m5', from:'app', to:'m-products',   kind:'data', label:'innerHTML ← products[6]',   note:'Шесть AI-продуктов.', cite:'js/app.js:128-154' },
+  { id:'e-m6', from:'app', to:'m-blog',       kind:'data', label:'innerHTML ← blogPosts[3]',  note:'Три статьи. Единственный рендерер с проверкой наличия коллекции.', cite:'js/app.js:156-182' },
+  { id:'e-year',   from:'app', to:'index',  kind:'data',  label:'#year ← 2026', note:'Единственное безопасное присваивание в файле: textContent, а не innerHTML.', cite:'js/app.js:11-14 → index.html:391' },
+  { id:'e-scroll', from:'app', to:'styles', kind:'control',label:'scrollY > 40 → .scrolled', note:'Единственная динамика в оформлении: шапка меняет вид при прокрутке.', cite:'js/app.js:184-192 → css/styles.css:73' },
+  { id:'e-img1', from:'m-branches', to:'previews', kind:'asset', label:'img src ← branch-*.jpg', note:'Четыре превью веток.', cite:'js/app.js:36' },
+  { id:'e-img2', from:'m-cases',    to:'previews', kind:'asset', label:'img src ← case-*.jpg',   note:'Три превью кейсов.', cite:'js/app.js:111' },
+  { id:'e-img3', from:'m-products', to:'previews', kind:'asset', label:'img src ← продукты',     note:'Шесть превью продуктов.', cite:'js/app.js:136' },
+  { id:'e-img4', from:'m-blog',     to:'previews', kind:'asset', label:'img src ← blog-*.jpg',   note:'Три превью статей.', cite:'js/app.js:164' },
+  { id:'e-hero', from:'styles', to:'orphans', kind:'asset', label:'background-image', note:'Единственная живая ссылка на корневые изображения — фон первого экрана.', cite:'css/styles.css:174' },
+  { id:'e-b1', from:'m-branches', to:'x-marketing', kind:'control', label:'window.open(b.url)', note:'Клик по всей карточке, обработчик собран строкой.', cite:'js/app.js:32' },
+  { id:'e-b2', from:'m-branches', to:'x-school',    kind:'control', label:'window.open(b.url)', note:'Та же механика.', cite:'js/app.js:32' },
+  { id:'e-b3', from:'m-branches', to:'x-gvidera',   kind:'control', label:'window.open(b.url)', note:'Та же механика.', cite:'js/app.js:32' },
+  { id:'e-b4', from:'m-branches', to:'x-media',     kind:'control', label:'window.open(b.url)', note:'Та же механика.', cite:'js/app.js:32' },
+  { id:'e-s1', from:'m-subdomains', to:'x-me',        kind:'control', label:'window.open(s.url)', note:'Ведёт на ganimar-vizitka.vercel.app.', cite:'js/app.js:65' },
+  { id:'e-s2', from:'m-subdomains', to:'x-cases',     kind:'control', label:'window.open(s.url)', note:'Ведёт на ganimar-cases.vercel.app.', cite:'js/app.js:65' },
+  { id:'e-s3', from:'m-subdomains', to:'x-portfolio', kind:'control', label:'window.open(s.url)', note:'Ведёт на portfolio-ganimar.vercel.app.', cite:'js/app.js:65' },
+  { id:'e-s4', from:'m-subdomains', to:'x-cv',        kind:'control', label:'window.open(s.url)', note:'Ведёт на resume-ganimar.vercel.app.', cite:'js/app.js:65' },
+  { id:'e-c1', from:'m-cases',    to:'x-cases', kind:'control', label:'все 3 кейса → одна витрина', note:'Отдельных страниц кейсов нет, весь трафик уходит на общий каталог.', cite:'js/data.js:152' },
+  { id:'e-c2', from:'m-products', to:'x-cases', kind:'control', label:'все 6 продуктов → одна витрина', note:'То же самое: у продуктов нет собственных адресов.', cite:'js/data.js:186' },
+  { id:'e-c3', from:'m-blog',     to:'x-tg',    kind:'control', label:'все 3 статьи → канал', note:'Блога как такового нет — карточки уводят в Telegram-канал.', cite:'js/data.js:244' },
+  { id:'e-tg', from:'index', to:'x-tg', kind:'control', label:'5 статических ссылок, rel=noopener', note:'В отличие от программных переходов, разметка защищена корректно.', cite:'index.html:68, 104, 290-306' },
+  { id:'e-dash', from:'index', to:'x-cases', kind:'control', label:'кнопка «Открыть дашборд»', note:'Ganimar OS из спецификации на практике ведёт на витрину кейсов.', cite:'index.html:270' },
+  { id:'d-1', from:'readme', to:'app',    kind:'drift', label:'обещан textContent', note:'README.md:38 заявляет XSS-защиту через textContent. Реализация — innerHTML в шести местах.', cite:'README.md:38 vs js/app.js:34' },
+  { id:'d-2', from:'design', to:'styles', kind:'drift', label:'обещан OKLCH и Unbounded', note:'Дизайн-система описывает цветовое пространство и шрифт, которых в коде нет.', cite:'docs/DESIGN_SYSTEM.md:24-60 vs css/styles.css:14-27' },
+  { id:'d-3', from:'spec',   to:'index',  kind:'drift', label:'11 блоков описано, 9 собрано', note:'Бегущая строка компетенций и интерактивный навигатор потребностей в разметке отсутствуют.', cite:'docs/SPEC.md:119-121' },
+  { id:'d-4', from:'sales',  to:'index',  kind:'drift', label:'порядок конверсии соблюдён', note:'Единственная линия документации, которую код подтверждает полностью.', cite:'docs/SALES_STRUCTURE.md:25-40' },
+  { id:'d-5', from:'readme', to:'x-me',   kind:'drift', label:'обещаны поддомены', note:'Карта доменов описывает me/cases/portfolio/cv.ganimar.ru; в данных — четыре адреса на vercel.app.', cite:'README.md:12-22 vs js/data.js:60' }
+];
+
+const TRACES = [
+  {
+    id:'cold', kicker:'Трассировка 01', title:'Холодная загрузка',
+    lede:'Что происходит между вводом адреса и первым пикселем. Шесть шагов, ни одного обращения к серверу приложений — весь путь проходит по статике.',
+    steps:['e-get','e-html','e-css','e-fonts','e-data','e-app']
+  },
+  {
+    id:'render', kicker:'Трассировка 02', title:'Проход рендера',
+    lede:'Как пустая разметка превращается в девять заполненных секций. Всё делает один слушатель DOMContentLoaded в js/app.js:6.',
+    steps:['e-global','e-year','e-m1','e-m2','e-m3','e-m4','e-m5','e-m6','e-img1','e-img4','e-scroll']
+  },
+  {
+    id:'exit', kicker:'Трассировка 03', title:'Выход в экосистему',
+    lede:'Куда уводит каждый клик. Собственных внутренних страниц у портала нет: любое действие глубже якоря выбрасывает во внешний домен.',
+    steps:['e-b1','e-b2','e-b3','e-b4','e-s1','e-s2','e-s3','e-s4','e-c1','e-c2','e-c3','e-tg']
+  },
+  {
+    id:'drift', kicker:'Трассировка 04', title:'Расхождение с документами',
+    lede:'Пять линий между тем, что обещано в docs/ и README, и тем, что действительно собрано в коде. Четыре обещания не подтверждаются, одно — подтверждается.',
+    steps:['d-1','d-2','d-3','d-5','d-4']
+  }
+];
+
+/* ==========================================================================
+   ПРОЕКЦИЯ И ОТРИСОВКА
+   ========================================================================== */
+
+const TW = 54, TH = 32;                       // половина ширины / высоты плитки
+const iso = (X, Y, Z = 0) => ({ x: (X - Y) * TW, y: (X + Y) * TH - Z });
+const P = (X, Y, Z) => { const p = iso(X, Y, Z); return p.x.toFixed(1) + ',' + p.y.toFixed(1); };
+
+const NS = 'http://www.w3.org/2000/svg';
+const el = (tag, attrs = {}) => {
+  const n = document.createElementNS(NS, tag);
+  for (const k in attrs) n.setAttribute(k, attrs[k]);
+  return n;
+};
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
+
+const hex2rgb = (h) => [1,3,5].map(i => parseInt(h.slice(i, i + 2), 16));
+const mix = (a, b, t) => {
+  const A = hex2rgb(a), B = hex2rgb(b);
+  return '#' + A.map((v, i) => Math.round(v + (B[i] - v) * t).toString(16).padStart(2, '0')).join('');
+};
+
+const LAYER = Object.fromEntries(LAYERS.map(l => [l.id, l]));
+const NODE  = Object.fromEntries(NODES.map(n => [n.id, n]));
+const EDGE  = Object.fromEntries(EDGES.map(e => [e.id, e]));
+
+const WIRE_COLOR = { control:'#f96f00', data:'#8b7cff', asset:'#4fd6d2', drift:'#7e7a73' };
+const WIRE_MARK  = { control:'ah-control', data:'ah-data', asset:'ah-asset', drift:'ah-drift' };
+
+const svg    = document.getElementById('map');
+const camera = document.getElementById('camera');
+const gGrid  = document.getElementById('l-grid');
+const gPlots = document.getElementById('l-plots');
+const gBuild = document.getElementById('l-build');
+const gWires = document.getElementById('l-wires');
+const gParts = document.getElementById('l-parts');
+const gLabel = document.getElementById('l-labels');
+
+const state = {
+  hidden: new Set(),
+  selected: null,
+  trace: null,
+  step: 0,
+  flowOn: !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+};
+
+/* --- чертёжная сетка ---------------------------------------------------- */
+(function drawGrid() {
+  const x0 = -11, x1 = 27, y0 = -5, y1 = 20;
+  for (let x = x0; x <= x1; x++)
+    gGrid.appendChild(el('line', { x1: iso(x, y0).x, y1: iso(x, y0).y, x2: iso(x, y1).x, y2: iso(x, y1).y,
+      stroke: x % 5 === 0 ? 'rgba(232,161,60,.10)' : 'rgba(150,175,200,.045)', 'stroke-width': 1 }));
+  for (let y = y0; y <= y1; y++)
+    gGrid.appendChild(el('line', { x1: iso(x0, y).x, y1: iso(x0, y).y, x2: iso(x1, y).x, y2: iso(x1, y).y,
+      stroke: y % 5 === 0 ? 'rgba(232,161,60,.10)' : 'rgba(150,175,200,.045)', 'stroke-width': 1 }));
+})();
+
+/* --- постройки ---------------------------------------------------------- */
+const anchors = {};   // id → верхняя точка для стрелок
+const nodeEls = {};
+const labelEls = {};
+
+function palette(n) {
+  const base = n.layer === 'dead' ? '#5a4340' : LAYER[n.layer].color;
+  return {
+    accent: LAYER[n.layer].color,
+    top:   mix(base, '#0b0d0f', n.layer === 'dead' ? 0.72 : 0.50),
+    right: mix(base, '#0b0d0f', n.layer === 'dead' ? 0.82 : 0.68),
+    front: mix(base, '#06070a', n.layer === 'dead' ? 0.88 : 0.80),
+    line:  mix(base, '#0b0d0f', n.layer === 'dead' ? 0.55 : 0.28)
+  };
+}
+
+function drawNode(n) {
+  const c = palette(n);
+  const { gx, gy, w, d, h } = n;
+  const z = n.z || 0;
+  const g = el('g', { class: 'node', 'data-id': n.id, tabindex: '0', role: 'button' });
+  g.setAttribute('aria-label', n.label + '. ' + n.role);
+  const floating = n.shape === 'pad';
+
+  // световое пятно на земле
+  if (!floating) {
+    const b = iso(gx + w / 2, gy + d / 2, 0);
+    gPlots.appendChild(el('ellipse', { cx: b.x, cy: b.y, rx: (w + d) * TW * 0.36, ry: (w + d) * TH * 0.36,
+      fill: 'url(#pool)', opacity: n.layer === 'dead' ? .25 : 1 }));
+  }
+
+  // участок
+  gPlots.appendChild(el('polygon', {
+    points: [P(gx - .12, gy - .12, z), P(gx + w + .12, gy - .12, z), P(gx + w + .12, gy + d + .12, z), P(gx - .12, gy + d + .12, z)].join(' '),
+    fill: floating ? 'rgba(139,124,255,.05)' : 'rgba(0,0,0,.35)',
+    stroke: floating ? 'rgba(139,124,255,.45)' : c.line,
+    'stroke-width': floating ? 1 : 1,
+    'stroke-dasharray': floating ? '4 3' : '2 4',
+    'data-plot': n.id
+  }));
+
+  // опора парящей площадки
+  if (floating && z) {
+    const a = iso(gx + w / 2, gy + d / 2, 0), b = iso(gx + w / 2, gy + d / 2, z);
+    g.appendChild(el('line', { x1: a.x, y1: a.y, x2: b.x, y2: b.y, stroke: 'rgba(139,124,255,.35)', 'stroke-width': 1, 'stroke-dasharray': '3 4' }));
+    g.appendChild(el('ellipse', { cx: a.x, cy: a.y, rx: 10, ry: 5, fill: 'none', stroke: 'rgba(139,124,255,.3)', 'stroke-width': 1 }));
+  }
+
+  // три грани коробки
+  g.appendChild(el('polygon', { points: [P(gx, gy + d, z + h), P(gx + w, gy + d, z + h), P(gx + w, gy + d, z), P(gx, gy + d, z)].join(' '), fill: c.front, stroke: c.line, 'stroke-width': .8 }));
+  g.appendChild(el('polygon', { points: [P(gx + w, gy, z + h), P(gx + w, gy + d, z + h), P(gx + w, gy + d, z), P(gx + w, gy, z)].join(' '), fill: c.right, stroke: c.line, 'stroke-width': .8 }));
+  g.appendChild(el('polygon', { points: [P(gx, gy, z + h), P(gx + w, gy, z + h), P(gx + w, gy + d, z + h), P(gx, gy + d, z + h)].join(' '), fill: c.top, stroke: c.line, 'stroke-width': .8 }));
+
+  // фактура граней зависит от типа постройки
+  if (n.shape === 'tower' || n.shape === 'slab') {
+    const cols = Math.max(2, Math.round(w * 2.4)), rows = Math.max(2, Math.floor(h / 17));
+    for (let r = 0; r < rows; r++) for (let k = 0; k < cols; k++) {
+      const u = 0.16 + k * (w - 0.32) / cols, uw = (w - 0.32) / cols * 0.52;
+      const v = z + 7 + r * (h - 12) / rows, vh = Math.min(6, (h - 12) / rows * 0.45);
+      const lit = ((r * 7 + k * 3 + n.id.length) % 5) > 1;
+      g.appendChild(el('polygon', { points: [P(gx + u, gy + d, v + vh), P(gx + u + uw, gy + d, v + vh), P(gx + u + uw, gy + d, v), P(gx + u, gy + d, v)].join(' '),
+        fill: lit ? c.accent : '#0c0e10', opacity: lit ? .32 : .55 }));
+      g.appendChild(el('polygon', { points: [P(gx + w, gy + u, v + vh), P(gx + w, gy + u + uw, v + vh), P(gx + w, gy + u + uw, v), P(gx + w, gy + u, v)].join(' '),
+        fill: lit ? c.accent : '#0c0e10', opacity: lit ? .22 : .5 }));
+    }
+  }
+  if (n.shape === 'gate') {
+    for (let r = 1; r <= 3; r++) {
+      const v = z + h * r / 4;
+      g.appendChild(el('line', { x1: iso(gx, gy + d, v).x, y1: iso(gx, gy + d, v).y, x2: iso(gx + w, gy + d, v).x, y2: iso(gx + w, gy + d, v).y, stroke: c.accent, opacity: .3, 'stroke-width': 1 }));
+      g.appendChild(el('line', { x1: iso(gx + w, gy, v).x, y1: iso(gx + w, gy, v).y, x2: iso(gx + w, gy + d, v).x, y2: iso(gx + w, gy + d, v).y, stroke: c.accent, opacity: .22, 'stroke-width': 1 }));
+    }
+    const bc = iso(gx + w / 2, gy + d / 2, z + h + 14);
+    g.appendChild(el('line', { x1: iso(gx + w / 2, gy + d / 2, z + h).x, y1: iso(gx + w / 2, gy + d / 2, z + h).y, x2: bc.x, y2: bc.y, stroke: c.accent, 'stroke-width': 1.2 }));
+    const beacon = el('circle', { cx: bc.x, cy: bc.y, r: 3.4, fill: c.accent });
+    beacon.appendChild(el('animate', { attributeName: 'opacity', values: '1;.25;1', dur: '2.4s', repeatCount: 'indefinite' }));
+    g.appendChild(beacon);
+  }
+  if (n.shape === 'pod') {
+    g.appendChild(el('polygon', { points: [P(gx + .2, gy + .2, z + h + .6), P(gx + w - .2, gy + .2, z + h + .6), P(gx + w - .2, gy + d - .2, z + h + .6), P(gx + .2, gy + d - .2, z + h + .6)].join(' '),
+      fill: c.accent, opacity: .38 }));
+  }
+  if (n.shape === 'ruin') {
+    for (let k = 0; k < 3; k++) {
+      const u = .3 + k * (w - .6) / 3;
+      g.appendChild(el('line', { x1: iso(gx + u, gy + d, z + h).x, y1: iso(gx + u, gy + d, z + h).y, x2: iso(gx + u + .35, gy + d, z).x, y2: iso(gx + u + .35, gy + d, z).y, stroke: '#ff6a5c', opacity: .35, 'stroke-width': 1 }));
+    }
+  }
+  if (n.shape === 'pad') {
+    g.appendChild(el('polygon', { points: [P(gx + .25, gy + .25, z + h + .6), P(gx + w - .25, gy + .25, z + h + .6), P(gx + w - .25, gy + d - .25, z + h + .6), P(gx + .25, gy + d - .25, z + h + .6)].join(' '),
+      fill: 'none', stroke: c.accent, 'stroke-width': 1, opacity: .6 }));
+  }
+
+  // красный флаг
+  if (n.flags && n.flags.length) {
+    const t = iso(gx + w - .28, gy + .28, z + h + 26);
+    const s = iso(gx + w - .28, gy + .28, z + h);
+    g.appendChild(el('line', { x1: s.x, y1: s.y, x2: t.x, y2: t.y, stroke: '#ff6a5c', 'stroke-width': 1.1, opacity: .8 }));
+    g.appendChild(el('polygon', { points: `${t.x},${t.y} ${t.x + 15},${t.y + 4.5} ${t.x},${t.y + 9}`, fill: '#ff6a5c', opacity: .9 }));
+    if (n.flags.length > 1) {
+      const badge = el('text', { x: t.x + 5.2, y: t.y + 7.2, fill: '#1a0d0b', 'font-family': 'var(--f-mono)', 'font-size': '7', 'font-weight': '700' });
+      badge.textContent = n.flags.length;
+      g.appendChild(badge);
+    }
+  }
+
+  anchors[n.id] = iso(gx + w / 2, gy + d / 2, z + h);
+  nodeEls[n.id] = g;
+  gBuild.appendChild(g);
+
+  // подпись
+  const a = anchors[n.id];
+  const lg = el('g', { class: 'lab', 'data-id': n.id });
+  lg.appendChild(el('line', { x1: a.x, y1: a.y - 4, x2: a.x, y2: a.y - 17, stroke: c.accent, 'stroke-width': 1, opacity: .45 }));
+  const halo = { stroke: '#08090b', 'stroke-width': '3.2', 'stroke-linejoin': 'round', 'paint-order': 'stroke fill' };
+  const t1 = el('text', Object.assign({ x: a.x, y: a.y - 22, fill: '#f4f1ec', 'text-anchor': 'middle', 'font-family': "'Barlow Condensed', sans-serif", 'font-size': '13', 'font-weight': '600', 'letter-spacing': '1.1' }, halo));
+  t1.textContent = n.label.toUpperCase();
+  const t2 = el('text', Object.assign({ x: a.x, y: a.y - 11.5, fill: c.accent, 'text-anchor': 'middle', 'font-family': "'JetBrains Mono', monospace", 'font-size': '8.2', opacity: '.85' }, halo, { 'stroke-width': '2.6' }));
+  t2.textContent = n.sub;
+  lg.appendChild(t1); lg.appendChild(t2);
+  labelEls[n.id] = lg;
+  gLabel.appendChild(lg);
+}
+
+NODES.slice().sort((a, b) => (a.gx + a.w / 2 + a.gy + a.d / 2) - (b.gx + b.w / 2 + b.gy + b.d / 2)).forEach(drawNode);
+
+/* --- связи -------------------------------------------------------------- */
+const wireEls = {}, wirePaths = {}, partEls = {};
+
+EDGES.forEach((e, i) => {
+  const A = anchors[e.from], B = anchors[e.to];
+  if (!A || !B) return;
+  const dx = B.x - A.x, dy = B.y - A.y;
+  const dist = Math.hypot(dx, dy);
+  const lift = Math.min(150, 34 + dist * 0.20);
+  const cx = (A.x + B.x) / 2, cy = (A.y + B.y) / 2 - lift;
+  const dAttr = `M ${A.x.toFixed(1)} ${(A.y - 4).toFixed(1)} Q ${cx.toFixed(1)} ${cy.toFixed(1)} ${B.x.toFixed(1)} ${(B.y - 4).toFixed(1)}`;
+  const col = WIRE_COLOR[e.kind];
+
+  const g = el('g', { class: 'wire-g', 'data-id': e.id });
+  const glow = el('path', { d: dAttr, fill: 'none', stroke: col, 'stroke-width': 5, opacity: 0, 'stroke-linecap': 'round' });
+  const p = el('path', {
+    d: dAttr, fill: 'none', stroke: col,
+    'stroke-width': e.kind === 'drift' ? 1.4 : 2,
+    'stroke-dasharray': e.kind === 'drift' ? '5 6' : 'none',
+    opacity: e.kind === 'drift' ? .38 : .62,
+    'marker-end': `url(#${WIRE_MARK[e.kind]})`,
+    'stroke-linecap': 'round'
+  });
+  g.appendChild(glow); g.appendChild(p);
+  gWires.appendChild(g);
+  wireEls[e.id] = { g, p, glow };
+  wirePaths[e.id] = p;
+
+  const pt = el('circle', { r: 3.1, fill: col, opacity: 0 });
+  gParts.appendChild(pt);
+  partEls[e.id] = { dot: pt, phase: (i * 0.137) % 1 };
+});
+
+/* --- камера ------------------------------------------------------------- */
+const stage = document.getElementById('stage');
+let cam = { x: 0, y: 0, k: 1 };
+const LOD_K = 0.42;   // ниже этого масштаба видны только подписи первого ранга
+
+function applyCam() {
+  camera.setAttribute('transform', `translate(${cam.x} ${cam.y}) scale(${cam.k})`);
+  // подписи контрмасштабируются, чтобы держать постоянный экранный кегль,
+  // а второстепенные прячутся, пока карта не приближена
+  const s = Math.max(1, Math.min(3.0, 0.92 / cam.k));
+  const dense = cam.k >= LOD_K;
+  for (const id in labelEls) {
+    const a = anchors[id];
+    labelEls[id].setAttribute('transform', `translate(${a.x} ${a.y}) scale(${s}) translate(${-a.x} ${-a.y})`);
+    const keep = dense || NODE[id].rank === 1 || id === state.selected || traceHas(id);
+    labelEls[id].classList.toggle('lod', !keep);
+  }
+  const badge = document.getElementById('lod-note');
+  if (badge) badge.textContent = dense ? 'показаны все подписи' : 'подписи ключевых узлов · приблизьте, чтобы увидеть остальные';
+}
+
+function traceHas(id) {
+  if (!state.trace) return false;
+  const tr = TRACES.find(t => t.id === state.trace);
+  const e = EDGE[tr.steps[state.step]];
+  return e.from === id || e.to === id;
+}
+
+function contentBox() {
+  // сетка нарочно шире содержимого, поэтому она в расчёт не идёт
+  const parts = [gBuild, gWires].map(g => g.getBBox()).filter(b => b.width > 0);
+  const x0 = Math.min(...parts.map(b => b.x)), y0 = Math.min(...parts.map(b => b.y));
+  const x1 = Math.max(...parts.map(b => b.x + b.width)), y1 = Math.max(...parts.map(b => b.y + b.height));
+  return { x: x0, y: y0, width: x1 - x0, height: y1 - y0 };
+}
+
+function fit() {
+  const b = contentBox();
+  const r = stage.getBoundingClientRect();
+  const k = Math.min(r.width / (b.width + 190), r.height / (b.height + 190));
+  cam.k = Math.max(0.16, Math.min(1.5, k));
+  cam.x = r.width / 2 - (b.x + b.width / 2) * cam.k;
+  cam.y = r.height / 2 - (b.y + b.height / 2) * cam.k;
+  applyCam();
+}
+
+let drag = null;
+stage.addEventListener('pointerdown', (ev) => {
+  if (ev.target.closest('.tool')) return;
+  drag = { x: ev.clientX, y: ev.clientY, cx: cam.x, cy: cam.y, moved: false };
+  stage.classList.add('dragging');
+  stage.setPointerCapture(ev.pointerId);
+});
+stage.addEventListener('pointermove', (ev) => {
+  if (!drag) return;
+  cam.x = drag.cx + (ev.clientX - drag.x);
+  cam.y = drag.cy + (ev.clientY - drag.y);
+  if (Math.abs(ev.clientX - drag.x) + Math.abs(ev.clientY - drag.y) > 4) drag.moved = true;
+  applyCam();
+});
+stage.addEventListener('pointerup', () => { drag = null; stage.classList.remove('dragging'); });
+stage.addEventListener('pointercancel', () => { drag = null; stage.classList.remove('dragging'); });
+
+stage.addEventListener('wheel', (ev) => {
+  ev.preventDefault();
+  const r = stage.getBoundingClientRect();
+  const mx = ev.clientX - r.left, my = ev.clientY - r.top;
+  const f = Math.exp(-ev.deltaY * 0.0016);
+  const nk = Math.max(0.12, Math.min(3.2, cam.k * f));
+  cam.x = mx - (mx - cam.x) * (nk / cam.k);
+  cam.y = my - (my - cam.y) * (nk / cam.k);
+  cam.k = nk;
+  applyCam();
+}, { passive: false });
+
+function zoomBy(f) {
+  const r = stage.getBoundingClientRect();
+  const mx = r.width / 2, my = r.height / 2;
+  const nk = Math.max(0.12, Math.min(3.2, cam.k * f));
+  cam.x = mx - (mx - cam.x) * (nk / cam.k);
+  cam.y = my - (my - cam.y) * (nk / cam.k);
+  cam.k = nk; applyCam();
+}
+document.getElementById('zoom-in').onclick  = () => zoomBy(1.25);
+document.getElementById('zoom-out').onclick = () => zoomBy(0.8);
+document.getElementById('zoom-fit').onclick = fit;
+
+/* ==========================================================================
+   ВЗАИМОДЕЙСТВИЕ
+   ========================================================================== */
+
+const sheet = document.createElement('style');
+sheet.textContent = `
+  .node { cursor: pointer; transition: opacity .22s ease; }
+  .node:focus-visible { outline: 2px solid #e8a13c; outline-offset: 2px; }
+  .lab, .wire-g { pointer-events: none; }
+  .lab { transition: opacity .22s ease; }
+  .wire-g { transition: opacity .22s ease; }
+  .faded { opacity: .12; }
+  .lod { opacity: 0; }
+  .gone { display: none; }
+`;
+document.head.appendChild(sheet);
+
+const tip = document.getElementById('tip');
+const exp = document.getElementById('exp');
+
+/* --- слои ---------------------------------------------------------------- */
+const layerBox = document.getElementById('layers');
+LAYERS.forEach(l => {
+  const count = NODES.filter(n => n.layer === l.id).length;
+  const b = document.createElement('button');
+  b.className = 'lay'; b.type = 'button'; b.setAttribute('aria-pressed', 'true'); b.dataset.layer = l.id;
+  b.innerHTML = `<span class="sw" style="background:${l.color}"></span><span>${esc(l.name)}</span><span class="ct">${count}</span>`;
+  b.onclick = () => {
+    const on = b.getAttribute('aria-pressed') === 'true';
+    b.setAttribute('aria-pressed', String(!on));
+    if (on) state.hidden.add(l.id); else state.hidden.delete(l.id);
+    applyVisibility();
+  };
+  layerBox.appendChild(b);
+});
+
+const nodeVisible = (n) => !state.hidden.has(n.layer);
+const edgeVisible = (e) => nodeVisible(NODE[e.from]) && nodeVisible(NODE[e.to]);
+
+function applyVisibility() {
+  NODES.forEach(n => {
+    const v = nodeVisible(n);
+    nodeEls[n.id].classList.toggle('gone', !v);
+    gLabel.querySelector(`.lab[data-id="${n.id}"]`).classList.toggle('gone', !v);
+    const plot = gPlots.querySelector(`[data-plot="${n.id}"]`);
+    if (plot) plot.classList.toggle('gone', !v);
+  });
+  EDGES.forEach(e => {
+    if (!wireEls[e.id]) return;
+    const v = edgeVisible(e);
+    wireEls[e.id].g.classList.toggle('gone', !v);
+    partEls[e.id].dot.classList.toggle('gone', !v);
+  });
+  applyFocus();
+}
+
+/* --- подсветка ----------------------------------------------------------- */
+function applyFocus() {
+  const trace = state.trace ? TRACES.find(t => t.id === state.trace) : null;
+  const traceEdges = trace ? new Set(trace.steps) : null;
+  const traceNodes = trace ? new Set(trace.steps.flatMap(id => [EDGE[id].from, EDGE[id].to])) : null;
+  const sel = state.selected;
+  const selEdges = sel ? new Set(EDGES.filter(e => e.from === sel || e.to === sel).map(e => e.id)) : null;
+  const selNodes = sel ? new Set([sel, ...EDGES.filter(e => e.from === sel || e.to === sel).flatMap(e => [e.from, e.to])]) : null;
+
+  NODES.forEach(n => {
+    let faded = false;
+    if (traceNodes) faded = !traceNodes.has(n.id);
+    else if (selNodes) faded = !selNodes.has(n.id);
+    nodeEls[n.id].classList.toggle('faded', faded);
+    gLabel.querySelector(`.lab[data-id="${n.id}"]`).classList.toggle('faded', faded);
+  });
+  EDGES.forEach(e => {
+    if (!wireEls[e.id]) return;
+    let faded = false;
+    if (traceEdges) faded = !traceEdges.has(e.id);
+    else if (selEdges) faded = !selEdges.has(e.id);
+    wireEls[e.id].g.classList.toggle('faded', faded);
+    wireEls[e.id].p.setAttribute('opacity', faded ? (e.kind === 'drift' ? .38 : .62) : (traceEdges || selEdges ? 1 : (e.kind === 'drift' ? .38 : .62)));
+    wireEls[e.id].p.setAttribute('stroke-width', (!faded && (traceEdges || selEdges)) ? 3 : (e.kind === 'drift' ? 1.4 : 2));
+  });
+}
+
+/* --- подсказка ----------------------------------------------------------- */
+function showTip(n, ev) {
+  const inb = EDGES.filter(e => e.to === n.id).length, out = EDGES.filter(e => e.from === n.id).length;
+  tip.innerHTML = `<b>${esc(n.label)}</b><code>${esc(n.sub)}</code><p>${esc(n.role)}</p>
+    <p style="color:var(--ink-4);font-family:var(--f-mono);font-size:10.5px">входящих ${inb} · исходящих ${out}${n.flags ? ' · флагов ' + n.flags.length : ''}</p>`;
+  tip.classList.add('on');
+  moveTip(ev);
+}
+function moveTip(ev) {
+  const r = stage.getBoundingClientRect();
+  let x = ev.clientX - r.left + 16, y = ev.clientY - r.top + 16;
+  if (x + 270 > r.width) x = ev.clientX - r.left - 276;
+  if (y + 130 > r.height) y = ev.clientY - r.top - 130;
+  tip.style.left = x + 'px'; tip.style.top = y + 'px';
+}
+const hideTip = () => tip.classList.remove('on');
+
+NODES.forEach(n => {
+  const g = nodeEls[n.id];
+  g.addEventListener('pointerenter', (ev) => showTip(n, ev));
+  g.addEventListener('pointermove', moveTip);
+  g.addEventListener('pointerleave', hideTip);
+  g.addEventListener('click', () => { if (drag && drag.moved) return; select(n.id); });
+  g.addEventListener('keydown', (ev) => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); select(n.id); } });
+});
+
+/* --- панель -------------------------------------------------------------- */
+function citeHtml(list) {
+  return list.map(c => `<span class="cite">${esc(c.f)}${c.l !== '—' ? ':' + esc(c.l) : ''}<br><span>${esc(c.n)}</span></span>`).join('');
+}
+
+function select(id) {
+  state.trace = null;
+  document.querySelectorAll('.trace').forEach(b => b.setAttribute('aria-pressed', 'false'));
+  state.selected = id;
+  const n = NODE[id];
+  const inb = EDGES.filter(e => e.to === id), out = EDGES.filter(e => e.from === id);
+
+  exp.innerHTML = `
+    <div class="eyebrow">${esc(LAYER[n.layer].name)}</div>
+    <h2>${esc(n.label)}</h2>
+    <p class="role">${esc(n.role)}</p>
+    ${n.facts ? `<dl class="kv">${n.facts.map(f => `<dt>${esc(f[0])}</dt><dd>${esc(f[1])}</dd>`).join('')}</dl>` : ''}
+    <h4>Что это</h4>
+    ${n.body.map(p => `<p>${esc(p)}</p>`).join('')}
+    ${n.cites && n.cites.length ? `<h4>Файлы и строки</h4>${citeHtml(n.cites)}` : ''}
+    ${n.flags && n.flags.length ? `<h4>Флаги — ${n.flags.length}</h4>${n.flags.map(f => `<div class="flag"><b>${esc(f.t)}</b><p>${esc(f.d)}</p></div>`).join('')}` : ''}
+    ${inb.length ? `<h4>Входящие — ${inb.length}</h4><div class="link-row">${inb.map(e => `<button class="chip" data-go="${e.from}"><s>←</s>${esc(NODE[e.from].label)}</button>`).join('')}</div>` : ''}
+    ${out.length ? `<h4>Исходящие — ${out.length}</h4><div class="link-row">${out.map(e => `<button class="chip" data-go="${e.to}">${esc(NODE[e.to].label)}<s>→</s></button>`).join('')}</div>` : ''}
+    <h4>Связи подробно</h4>
+    ${[...inb, ...out].map(e => `<span class="cite">${esc(e.label)}<br><span>${esc(e.cite)} — ${esc(e.note)}</span></span>`).join('')}
+    <div style="margin-top:22px"><button class="chip" data-home="1">Вернуться к обзору</button></div>
+  `;
+  exp.scrollTop = 0;
+  exp.querySelectorAll('[data-go]').forEach(b => b.onclick = () => select(b.dataset.go));
+  applyCam();
+  const home = exp.querySelector('[data-home]');
+  if (home) home.onclick = overview;
+  applyFocus();
+}
+
+function overview() {
+  state.selected = null; state.trace = null;
+  document.querySelectorAll('.trace').forEach(b => b.setAttribute('aria-pressed', 'false'));
+  const flagged = NODES.filter(n => n.flags && n.flags.length);
+  const flagCount = flagged.reduce((s, n) => s + n.flags.length, 0);
+  exp.innerHTML = `
+    <div class="eyebrow">Обзор</div>
+    <h2>Один документ и два скрипта</h2>
+    <p class="role">Весь портал ganimar.ru держится на одной странице, двух скриптах и девяти внешних доменах. Модель снята с ветки master построчным чтением файлов</p>
+
+    <h4>Как читать карту</h4>
+    <p>Поток идёт из дальнего угла к ближнему: посетитель, ворота Vercel, документ, дальше — стили налево и скрипты направо. Впереди стоят шесть точек монтирования, ещё дальше — склад ассетов и парящие площадки внешних доменов.</p>
+    <p>Высота постройки — объём файла, цвет — слой, тёмные корпуса с красной трещиной — то, на что нет ни одной входящей ссылки. Нажмите любое здание, чтобы открыть досье с точными строками.</p>
+
+    <h4>Ядро системы</h4>
+    <ul>
+      <li><b>Сборки нет.</b> Ни package.json, ни бандлера, ни зависимостей. Правка файла — это и есть деплой.</li>
+      <li><b>Единственный контракт между модулями</b> — порядок двух тегов script в index.html:424-425. data.js кладёт объект в window, app.js его оттуда забирает.</li>
+      <li><b>Девять секций страницы, шесть из них пустые</b> до момента, пока не отработает app.js. Без JavaScript экосистема, витрины, метрики, кейсы, продукты и блог не существуют.</li>
+      <li><b>Внутренних страниц нет.</b> Любой клик глубже якоря ведёт на внешний домен через window.open.</li>
+    </ul>
+
+    <h4>Что показала карта</h4>
+    <dl class="kv">
+      <dt>Строк исходников</dt><dd>2 297</dd>
+      <dt>Вес репозитория</dt><dd>34 МБ</dd>
+      <dt>Из них полезных</dt><dd>≈ 6 МБ</dd>
+      <dt>Флагов</dt><dd>${flagCount}</dd>
+      <dt>Расхождений с docs</dt><dd>4 из 5</dd>
+    </dl>
+
+    <h4>Три самых дорогих находки</h4>
+    <div class="flag"><b>28 МБ скриншотов в корне</b><p>Двадцать пять PNG-снимков визуальной проверки закоммичены и уезжают в каждый деплой. Это 82 % веса репозитория при нуле входящих ссылок.</p></div>
+    <div class="flag"><b>≈ 247 КБ вендорного CSS без единой ссылки</b><p>bootstrap, animate.css, themify-icons и owl-carousel лежат в css/ и раздаются, но index.html:25 подключает только styles.css.</p></div>
+    <div class="flag"><b>innerHTML там, где README обещает textContent</b><p>Шесть рендереров собирают карточки строковыми шаблонами, а обработчик клика склеивается через setAttribute('onclick', ...) в js/app.js:32. CSP в vercel.json отсутствует.</p></div>
+
+    <h4>С чего начать чтение кода</h4>
+    ${citeHtml([
+      { f: 'index.html', l: '424-425', n: 'порядок скриптов — отсюда понятна вся механика страницы' },
+      { f: 'js/app.js', l: '6-25', n: 'точка входа: чтение данных и шесть вызовов рендера' },
+      { f: 'js/data.js', l: '6-50', n: 'форма контента: одна коллекция объясняет остальные пять' },
+      { f: 'css/styles.css', l: '14-27', n: 'токены дизайна, от которых зависит весь вид' },
+      { f: 'vercel.json', l: '32-54', n: 'три яруса кэша — почему правки доезжают с задержкой' }
+    ])}
+
+    <div style="margin-top:20px" class="link-row">
+      <button class="chip" data-go="index">Начать с index.html</button>
+      <button class="chip" data-go="app">Открыть app.js</button>
+    </div>
+  `;
+  exp.scrollTop = 0;
+  exp.querySelectorAll('[data-go]').forEach(b => b.onclick = () => select(b.dataset.go));
+  applyFocus();
+}
+
+/* --- трассировки --------------------------------------------------------- */
+const traceBox = document.getElementById('traces');
+TRACES.forEach(tr => {
+  const b = document.createElement('button');
+  b.className = 'trace'; b.type = 'button'; b.setAttribute('aria-pressed', 'false'); b.dataset.trace = tr.id;
+  b.innerHTML = `<i>${esc(tr.kicker)}</i>${esc(tr.title)}`;
+  b.onclick = () => (state.trace === tr.id ? overview() : startTrace(tr.id));
+  traceBox.appendChild(b);
+});
+
+let stepT0 = 0;
+const STEP_MS = 1750;
+
+function startTrace(id) {
+  state.selected = null;
+  state.trace = id; state.step = 0; stepT0 = performance.now();
+  document.querySelectorAll('.trace').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.trace === id)));
+  renderTrace();
+  applyFocus();
+}
+
+function renderTrace() {
+  const tr = TRACES.find(t => t.id === state.trace);
+  exp.innerHTML = `
+    <div class="eyebrow">${esc(tr.kicker)}</div>
+    <h2>${esc(tr.title)}</h2>
+    <p class="role">${esc(tr.lede)}</p>
+    <h4>Шаги — ${tr.steps.length}</h4>
+    <ol class="steps" id="steps">
+      ${tr.steps.map(id => {
+        const e = EDGE[id];
+        return `<li><b>${esc(NODE[e.from].label)} → ${esc(NODE[e.to].label)}</b>${esc(e.label)}<code>${esc(e.cite)}</code></li>`;
+      }).join('')}
+    </ol>
+    <h4>Комментарий к шагу</h4>
+    <p id="step-note">—</p>
+    <div class="link-row" style="margin-top:18px">
+      <button class="chip" data-prev="1"><s>←</s>Назад</button>
+      <button class="chip" data-next="1">Вперёд<s>→</s></button>
+      <button class="chip" data-home="1">Обзор</button>
+    </div>
+  `;
+  exp.scrollTop = 0;
+  exp.querySelector('[data-next]').onclick = () => jump(1);
+  exp.querySelector('[data-prev]').onclick = () => jump(-1);
+  exp.querySelector('[data-home]').onclick = overview;
+  paintStep();
+}
+
+function jump(d) {
+  const tr = TRACES.find(t => t.id === state.trace);
+  state.step = (state.step + d + tr.steps.length) % tr.steps.length;
+  stepT0 = performance.now();
+  paintStep();
+}
+
+function paintStep() {
+  const tr = TRACES.find(t => t.id === state.trace);
+  const items = exp.querySelectorAll('#steps li');
+  items.forEach((li, i) => {
+    li.classList.toggle('now', i === state.step);
+    li.classList.toggle('done', i < state.step);
+  });
+  const e = EDGE[tr.steps[state.step]];
+  const note = exp.querySelector('#step-note');
+  if (note) note.textContent = e.note;
+  const cur = items[state.step];
+  if (cur) cur.scrollIntoView({ block: 'nearest' });
+  applyCam();
+}
+
+/* --- анимация потоков ---------------------------------------------------- */
+document.getElementById('toggle-flow').onclick = function () {
+  state.flowOn = !state.flowOn;
+  this.setAttribute('aria-pressed', String(state.flowOn));
+  if (!state.flowOn) Object.values(partEls).forEach(p => p.dot.setAttribute('opacity', 0));
+};
+document.getElementById('toggle-flow').setAttribute('aria-pressed', String(state.flowOn));
+
+const lenCache = {};
+const lengthOf = (id) => (lenCache[id] ??= wirePaths[id].getTotalLength());
+
+function place(id, u, op) {
+  const p = partEls[id]; if (!p) return;
+  const pt = wirePaths[id].getPointAtLength(u * lengthOf(id));
+  p.dot.setAttribute('cx', pt.x); p.dot.setAttribute('cy', pt.y); p.dot.setAttribute('opacity', op);
+}
+
+let t0 = performance.now();
+function loop(now) {
+  const t = (now - t0) / 1000;
+
+  if (state.trace) {
+    const tr = TRACES.find(x => x.id === state.trace);
+    Object.keys(partEls).forEach(id => partEls[id].dot.setAttribute('opacity', 0));
+    const u = Math.min(1, (now - stepT0) / STEP_MS);
+    const cur = tr.steps[state.step];
+    if (edgeVisible(EDGE[cur])) place(cur, u, 1);
+    partEls[cur].dot.setAttribute('r', 4.4);
+    if (now - stepT0 > STEP_MS + 260) {
+      state.step = (state.step + 1) % tr.steps.length;
+      stepT0 = now;
+      paintStep();
+    }
+  } else if (state.flowOn) {
+    EDGES.forEach(e => {
+      if (!partEls[e.id]) return;
+      if (!edgeVisible(e) || e.kind === 'drift') { partEls[e.id].dot.setAttribute('opacity', 0); return; }
+      const faded = wireEls[e.id].g.classList.contains('faded');
+      const u = (t * 0.15 + partEls[e.id].phase) % 1;
+      partEls[e.id].dot.setAttribute('r', 3.1);
+      place(e.id, u, (faded ? 0.08 : 0.85) * Math.sin(Math.PI * Math.min(1, u * 3)) * Math.sin(Math.PI * Math.min(1, (1 - u) * 3)));
+    });
+  }
+  requestAnimationFrame(loop);
+}
+
+/* --- старт --------------------------------------------------------------- */
+overview();
+applyVisibility();
+requestAnimationFrame(() => { fit(); requestAnimationFrame(loop); });
+window.addEventListener('resize', () => { clearTimeout(window.__rt); window.__rt = setTimeout(fit, 180); });
+document.addEventListener('keydown', (ev) => {
+  if (ev.key === 'Escape') overview();
+  if (ev.key === 'ArrowRight' && state.trace) jump(1);
+  if (ev.key === 'ArrowLeft'  && state.trace) jump(-1);
+});
+</script>
+</body>
+</html>
