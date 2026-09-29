@@ -8,6 +8,13 @@
     <lastBuildDate>Thu, 27 Aug 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://ganimar.ru/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Как я считаю конверсию сайта: без красивых цифр в отчёте</title>
+      <link>https://ganimar.ru/blog/konversiya-sayta-zamer-bez-krasivyh-cifr</link>
+      <guid isPermaLink="true">https://ganimar.ru/blog/konversiya-sayta-zamer-bez-krasivyh-cifr</guid>
+      <description>Как я меряю конверсию сайта на своём продукте: рабочая пометка из воронки, ошибка в определении события и то, что стыдно показывать в отчёте.</description>
+      <pubDate>Tue, 29 Sep 2026 09:00:00 +0000</pubDate>
+    </item>
+    <item>
       <title>Как понять, что ИИ-агент работает самостоятельно: проверка на цифрах</title>
       <link>https://ganimar.ru/blog/ii-agenty-samostoyatelno-cifry-a-ne-oshuscheniya</link>
       <guid isPermaLink="true">https://ganimar.ru/blog/ii-agenty-samostoyatelno-cifry-a-ne-oshuscheniya</guid>
