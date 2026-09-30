@@ -8,6 +8,13 @@
     <lastBuildDate>Thu, 27 Aug 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://ganimar.ru/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Использовать нейросети в бизнесе: сравнил три способа, а не выбрал на глаз</title>
+      <link>https://ganimar.ru/blog/ispolzovat-neiroseti-v-biznese-sravnenie</link>
+      <guid isPermaLink="true">https://ganimar.ru/blog/ispolzovat-neiroseti-v-biznese-sravnenie</guid>
+      <description>Сравнил три способа использовать нейросети в бизнесе на своём проекте Клуббо: ручной разбор, один вызов модели и связку код плюс модель. Метод замера и таблица.</description>
+      <pubDate>Wed, 30 Sep 2026 09:00:00 +0000</pubDate>
+    </item>
+    <item>
       <title>Как я считаю конверсию сайта: без красивых цифр в отчёте</title>
       <link>https://ganimar.ru/blog/konversiya-sayta-zamer-bez-krasivyh-cifr</link>
       <guid isPermaLink="true">https://ganimar.ru/blog/konversiya-sayta-zamer-bez-krasivyh-cifr</guid>
