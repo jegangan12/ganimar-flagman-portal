@@ -8,6 +8,13 @@
     <lastBuildDate>Thu, 27 Aug 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://ganimar.ru/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Как проверить текст нейросети на выдуманные факты: отдельно от стиля</title>
+      <link>https://ganimar.ru/blog/kak-proverit-tekst-neiroseti-na-vydumannye-fakty</link>
+      <guid isPermaLink="true">https://ganimar.ru/blog/kak-proverit-tekst-neiroseti-na-vydumannye-fakty</guid>
+      <description>Оценка стиля в 100 баллов не значит, что текст правдив. Разбираю на своём кейсе, почему проверка формы и проверка фактов - это два разных механизма.</description>
+      <pubDate>Fri, 02 Oct 2026 09:00:00 +0000</pubDate>
+    </item>
+    <item>
       <title>Использовать нейросети в бизнесе: сравнил три способа, а не выбрал на глаз</title>
       <link>https://ganimar.ru/blog/ispolzovat-neiroseti-v-biznese-sravnenie</link>
       <guid isPermaLink="true">https://ganimar.ru/blog/ispolzovat-neiroseti-v-biznese-sravnenie</guid>
