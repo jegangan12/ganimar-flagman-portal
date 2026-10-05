@@ -8,6 +8,13 @@
     <lastBuildDate>Thu, 27 Aug 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://ganimar.ru/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Как создавать ИИ-агентов: сколько времени они экономят на деле</title>
+      <link>https://ganimar.ru/blog/skolko-ekonomit-ii-agent</link>
+      <guid isPermaLink="true">https://ganimar.ru/blog/skolko-ekonomit-ii-agent</guid>
+      <description>Формула экономии времени от ИИ-агента, три замера до запуска и случаи, когда агент не окупается. На примере моих систем</description>
+      <pubDate>Mon, 05 Oct 2026 09:00:00 +0000</pubDate>
+    </item>
+    <item>
       <title>Топ-50 лучших курсов маркетинга: что подтвердилось замером</title>
       <link>https://ganimar.ru/blog/top-50-kursov-marketinga-zamer</link>
       <guid isPermaLink="true">https://ganimar.ru/blog/top-50-kursov-marketinga-zamer</guid>
