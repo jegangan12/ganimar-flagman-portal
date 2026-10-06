@@ -8,6 +8,13 @@
     <lastBuildDate>Thu, 27 Aug 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://ganimar.ru/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Как создать ИИ-агентов, работающих за вас: что вышло, что нет</title>
+      <link>https://ganimar.ru/blog/sozdat-armiyu-ii-agentov-dnevnik</link>
+      <guid isPermaLink="true">https://ganimar.ru/blog/sozdat-armiyu-ii-agentov-dnevnik</guid>
+      <description>Дневник эксперимента: как я собрал ИИ-агентов, которые берут задачи из Telegram, что они делают за меня, а что нет. Чек-лист и шаги.</description>
+      <pubDate>Tue, 06 Oct 2026 09:00:00 +0000</pubDate>
+    </item>
+    <item>
       <title>Как создавать ИИ-агентов: сколько времени они экономят на деле</title>
       <link>https://ganimar.ru/blog/skolko-ekonomit-ii-agent</link>
       <guid isPermaLink="true">https://ganimar.ru/blog/skolko-ekonomit-ii-agent</guid>
