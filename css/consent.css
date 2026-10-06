@@ -1,0 +1,64 @@
+/* Плашка согласия на cookies Метрики. Свои значения цвета на случай страниц без styles.css */
+.consent {
+  --c-bg: #141312;
+  --c-text: #ffffff;
+  --c-muted: #a4a4a4;
+  --c-line: rgba(255, 255, 255, 0.12);
+  --c-accent: #f96f00;
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 1000;
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 16px 20px;
+  background: var(--c-bg);
+  color: var(--c-text);
+  border: 1px solid var(--c-line);
+  border-radius: 14px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  font: 15px/1.5 'Onest', -apple-system, sans-serif;
+}
+.consent__text {
+  flex: 1 1 320px;
+  margin: 0;
+  color: var(--c-muted);
+}
+.consent__text a {
+  color: var(--c-text);
+  text-decoration: underline;
+}
+.consent__actions {
+  display: flex;
+  gap: 10px;
+  flex: 0 0 auto;
+}
+.consent__btn {
+  font: inherit;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: 1px solid var(--c-line);
+  background: transparent;
+  color: var(--c-text);
+  cursor: pointer;
+}
+.consent__btn:hover,
+.consent__btn:focus-visible {
+  border-color: var(--c-accent);
+}
+.consent__btn--yes {
+  background: var(--c-accent);
+  border-color: var(--c-accent);
+  color: #120a03;
+}
+@media (max-width: 520px) {
+  .consent { padding: 14px 16px; }
+  .consent__actions { width: 100%; }
+  .consent__btn { flex: 1 1 0; }
+}
