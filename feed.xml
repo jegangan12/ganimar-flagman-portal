@@ -8,6 +8,13 @@
     <lastBuildDate>Thu, 27 Aug 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://ganimar.ru/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Как проверить локальные нейросети до доступа к вашим данным</title>
+      <link>https://ganimar.ru/blog/proverit-lokalnye-neyroseti-do-vnedreniya</link>
+      <guid isPermaLink="true">https://ganimar.ru/blog/proverit-lokalnye-neyroseti-do-vnedreniya</guid>
+      <description>Разбираю, почему локальная нейросеть не равна безопасной и что проверить до выдачи ей доступа к файлам, сети и программам</description>
+      <pubDate>Thu, 08 Oct 2026 09:00:00 +0000</pubDate>
+    </item>
+    <item>
       <title>Как создать ИИ-агентов, работающих за вас: что вышло, что нет</title>
       <link>https://ganimar.ru/blog/sozdat-armiyu-ii-agentov-dnevnik</link>
       <guid isPermaLink="true">https://ganimar.ru/blog/sozdat-armiyu-ii-agentov-dnevnik</guid>
